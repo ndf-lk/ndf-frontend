@@ -1,0 +1,85 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Urbanist&display=swap");
+
+:root {
+  --primary-main: #d8532e;
+}
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
+    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  scroll-behavior: smooth;
+}
+* {
+  box-sizing: border-box;
+}
+
+.MuiTooltip-tooltip {
+  background: #fff;
+  color: #333333;
+  box-shadow: 0px 8px 34px #0000000a;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 11px 16px;
+}
+
+.rbc-event,
+.rbc-day-slot .rbc-background-event {
+  background: var(--primary-main);
+}
+
+::-ms-reveal {
+  display: none;
+}
+
+.ce-block__content,
+.ce-toolbar__content {
+  min-width: calc(100% - 80px) !important;
+  font-size: 20px;
+}
+.cdx-block {
+  min-width: calc(100% - 80px) !important;
+}
+
+#article-title-input {
+  min-width: calc(100% - 80px) !important;
+}
+
+.gh-editor-title {
+  min-width: calc(100% - 80px) !important;
+  border: none;
+  font-size: 30px;
+  line-height: 1.1em;
+  font-weight: 700;
+  overflow: hidden;
+  box-shadow: none;
+  font-size: 3em;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  font-family: "Urbanist", sans-serif;
+  background: transparent;
+}
+
+.gh-editor-title:focus {
+  outline: none;
+}
+
+.gh-editor .gh-editor-title,
+.gh-markdown-editor .CodeMirror-wrap {
+  margin-right: auto;
+  margin-left: auto;
+  border: none;
+}
+
+div.sticky {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 0;
+  padding: 5px;
+  background-color: #cae8ca;
+  border: 2px solid #4caf50;
+}
