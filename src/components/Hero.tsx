@@ -6,14 +6,9 @@ export const HeroPage = () => {
 
   return (
     <>
-      <Box
-        pt={{ xs: 11.5, md: 0 }}
-        sx={{ position: "relative" }}
-        mt={{ xs: 0, md: -20 }}
-      >
+      <Box pt={{ xs: 11.5 }}>
         <Container>
           <Grid
-            container
             spacing={{
               xs: 0,
               md: 0,
@@ -22,7 +17,7 @@ export const HeroPage = () => {
             sx={{
               mb: {
                 xs: 14,
-                md: 14,
+                md: 0,
               },
               height: {
                 md: headerTemplateTwoImageHeight,
@@ -44,46 +39,36 @@ export const HeroPage = () => {
               }}
             >
               <Box
-                display="flex"
-                alignItems={{
-                  xs: "flex-start",
-                  md: "flex-start",
+                sx={{
+                  width: "100%",
+                  p: 5,
+                  borderRadius: 1,
+                  background: "#EFEFEF;",
                 }}
-                justifyContent="center"
-                flexDirection="column"
+                mb={{ xs: 4, md: 4 }}
               >
-                <Box
+                <Typography
+                  variant={"h2"}
+                  component="h1"
+                  textAlign={"center"}
                   sx={{
-                    width: { md: 1000 },
-                    p: 5,
-                    borderRadius: 1,
-                    background: "#EFEFEF;",
+                    flexWrap: "wrap",
+                    fontWeight: 900,
+                    gap: 2,
+                    ".primary-title": {
+                      color: (t) => t.palette.secondary.main,
+                    },
                   }}
-                  mb={{ xs: 4, md: 4 }}
                 >
-                  <Typography
-                    variant={"h2"}
-                    component="h1"
-                    textAlign={"center"}
-                    sx={{
-                      flexWrap: "wrap",
-                      fontWeight: 900,
-                      gap: 2,
-                      ".primary-title": {
-                        color: (t) => t.palette.secondary.main,
-                      },
-                    }}
-                  >
-                    A New Political Party
-                  </Typography>
-                  <Typography sx={{ mt: 5 }}>
-                    Yes, a new political party. A topic that everyone is talking
-                    about these days. This is a new political movement in which
-                    we can all stand. We are committed to introduce a new
-                    political approach to the country that goes beyond
-                    tradition. This is one aspect of its deviation.
-                  </Typography>
-                </Box>
+                  A New Political Party
+                </Typography>
+                <Typography sx={{ mt: 5 }}>
+                  Yes, a new political party. A topic that everyone is talking
+                  about these days. This is a new political movement in which we
+                  can all stand. We are committed to introduce a new political
+                  approach to the country that goes beyond tradition. This is
+                  one aspect of its deviation.
+                </Typography>
               </Box>
             </Grid>
           </Grid>
