@@ -78,7 +78,7 @@ export const Header = () => {
     <>
       <AppBar
         sx={{
-          borderBottom: (t) => `1px solid ${t.palette.primary.A200}`,
+          borderBottom: (t) => `1px solid ${t.palette.primary}`,
           height: {
             xs: "100px",
             md: "120px",

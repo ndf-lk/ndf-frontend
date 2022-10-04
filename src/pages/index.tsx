@@ -56,7 +56,7 @@ const HomePage = () => {
       <HeroPage />
 
       <Container>
-        <Box mb={{ xs: 5, md: 8 }} mt={{ xs: 0, md: -70 }}>
+        <Box mb={{ xs: 5, md: 8 }} mt={{ xs: 0, md: -80 }}>
           <Grid container rowSpacing={10} justifyContent="space-between">
             <Grid item xs={12} md={8}>
               <Box display="flex" alignItems="flex-start" gap={4} mb={5}>
@@ -66,6 +66,9 @@ const HomePage = () => {
                     alt="test"
                     src="/header.png"
                     maxWidth="100%"
+                    sx={{
+                      borderRadius: 1,
+                    }}
                   />
                   <Typography variant={"h2"} textAlign="left" sx={{ mt: 5 }}>
                     National Democratic Front
@@ -90,6 +93,7 @@ const HomePage = () => {
                     sx={{
                       background: "#821824",
                       p: 5,
+                      borderRadius: 1,
                     }}
                   >
                     <center>
@@ -146,7 +150,7 @@ const HomePage = () => {
       <HomeSectionWrapper sx={{ background: "#EFEFEF" }}>
         <Container>
           <Box mb={{ xs: 9.25, md: 14 }}>
-            <Typography variant={"h2"} textAlign="center" sx={{ mb: 10 }}>
+            <Typography variant={"h2"} textAlign="center" sx={{ mb: 20 }}>
               Latest Trending News
             </Typography>
 

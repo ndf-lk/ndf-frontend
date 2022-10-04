@@ -7,8 +7,8 @@ import Values from "values.js";
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   let primaryColor = "#D8532E";
   let secondaryColor = "#821824";
-  let selectedHeaderFont = "Poppins";
-  let selectedBodyFont = "Poppins";
+  let selectedHeaderFont = "Open Sans";
+  let selectedBodyFont = "Open Sans";
   const primary = new Values(primaryColor);
   const secondary = new Values(secondaryColor);
 
