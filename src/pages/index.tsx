@@ -8,8 +8,10 @@ import {
   Button,
   Grid,
   Typography,
+  Stack,
 } from "@mui/material";
 import { HeroPage } from "../components/Hero";
+import HomeSectionWrapper from "../components/HomeSectionWrapper";
 
 declare global {
   namespace JSX {
@@ -139,9 +141,31 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Box>
-
-        <Grid item xs={12} md={9}></Grid>
       </Container>
+
+      <HomeSectionWrapper sx={{ background: "#EFEFEF" }}>
+        <Container>
+          <Box mb={{ xs: 9.25, md: 14 }}>
+            <Typography variant={"h2"} textAlign="center" sx={{ mb: 10 }}>
+              Latest Trending News
+            </Typography>
+
+            <Grid
+              container
+              spacing={{ xs: 1, md: 3 }}
+              columns={{ xs: 1, sm: 8, md: 12 }}
+            >
+              {Array.from(Array(6)).map((_, index) => (
+                <Grid item xs={1} sm={4} md={4} key={index}>
+                  <Box sx={{ p: 20, border: "1px solid black" }}>
+                    <Typography> Test Title </Typography>
+                  </Box>
+                </Grid>
+              ))}
+            </Grid>
+          </Box>
+        </Container>
+      </HomeSectionWrapper>
     </>
   );
 };

@@ -10,7 +10,7 @@ export const HomeSectionWrapper = React.forwardRef(
     return (
       <Box
         component="section"
-        pt={{ xs: 10, md: 36 }}
+        pt={{ xs: 10, md: 10 }}
         pb={{ xs: 10, md: 36 }}
         sx={props.sx}
         {...props}
