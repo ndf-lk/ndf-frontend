@@ -1,7 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala&display=swap');
+
 .center {
   height: 100vh;
   position: relative;
   font-family: "Noto Sans Sinhala";
+  line-height: 52px;
   font-style: normal;
   font-weight: 800 !important;
   line-height: 52px;
@@ -11,19 +14,23 @@
 
 .center-text {
   display: flex;
+  font-family: 'Noto Sans Sinhala', sans-serif;
   justify-content: center;
   align-items: center;
+  line-height: 52px;
   height: 100vh;
 }
 
 .headerText {
   margin: "auto";
+  font-family: 'Noto Sans Sinhala', sans-serif  !important;
   width: "100%";
 }
 
 .subtext {
   margin: "auto";
   width: "100%";
+  font-family: 'Noto Sans Sinhala', sans-serif !important;
   margin-top: 0 !important;
 }
 
@@ -44,6 +51,5 @@
   bottom: 0;
   left: 0;
   right: 0;
-
   margin: 0% auto; /* Will not center vertically and won't work in IE6/7. */
 }

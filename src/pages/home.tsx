@@ -1,5 +1,4 @@
-import { useTheme } from "@emotion/react";
-import { alpha, styled } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import {
   Container,
   TextField,
@@ -8,7 +7,6 @@ import {
   Button,
   Grid,
   Typography,
-  Stack,
 } from "@mui/material";
 import { HeroPage } from "../components/Hero";
 import HomeSectionWrapper from "../components/HomeSectionWrapper";

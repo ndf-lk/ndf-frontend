@@ -84,8 +84,6 @@ export const Header = () => {
             md: "120px",
           },
           // @ts-ignore
-          background: "rgb(130,24,36);",
-          // @ts-ignore
           background:
             "linear-gradient(90deg, rgba(130,24,36,1) 35%, rgba(216,83,46,1) 100%);",
           borderRadius: 0,
