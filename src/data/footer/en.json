@@ -1,0 +1,44 @@
+{
+  "main": {
+    "title": "Come and join us",
+    "secondary": "For the future of our motherland"
+  },
+  "description": "Lets get together. Lets work together. We are committed to building a prosporous country by overcoming challenges. This invitation is for that",
+  "party_membership_btn": "Get Party membership",
+  "links": [
+    {
+      "title": "About",
+      "links": [
+        {
+          "label": "News",
+          "link": "/news"
+        },
+        {
+          "label": "About",
+          "link": "/home"
+        },
+        {
+          "label": "Gallery",
+          "link": "/gallery"
+        }
+      ]
+    },
+    {
+      "title": "Community",
+      "links": [
+        {
+          "label": "Contact Us",
+          "link": "/contact"
+        },
+        {
+          "label": "Facebook",
+          "link": "https://www.facebook.com/NationalDemocraticFront.lk"
+        },
+        {
+          "label": "Instagram",
+          "link": "https://www.instagram.com/nationaldemocraticfront.lk/"
+        }
+      ]
+    }
+  ]
+}

@@ -15,8 +15,9 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
 import { useContext } from "react";
 import { LanguageContext } from "../context/userLangctx";
-import HomeSectionWrapper from "../components/HomeSectionWrapper";
 import { getData } from "../data/content";
+import { NewsCard } from "../components/NewsCard";
+import HomeSectionWrapper from "../components/HomeSectionWrapper";
 
 declare global {
   namespace JSX {
@@ -184,7 +185,7 @@ const HomePage = () => {
         </Box>
       </Container>
 
-      <HomeSectionWrapper sx={{ background: "#EFEFEF" }}>
+      <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
         <Container>
           <Box mb={{ xs: 9.25, md: 14 }}>
             <Typography variant={"h2"} textAlign="center" sx={{ mb: 10 }}>
@@ -198,9 +199,7 @@ const HomePage = () => {
             >
               {Array.from(Array(6)).map((_, index) => (
                 <Grid item xs={1} sm={4} md={4} key={index}>
-                  <Box sx={{ p: 20, border: "1px solid black" }}>
-                    <Typography> Test Title </Typography>
-                  </Box>
+                  <NewsCard />
                 </Grid>
               ))}
             </Grid>

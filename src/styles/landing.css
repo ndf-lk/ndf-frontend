@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Sinhala&display=swap");
 
 .center {
   height: 100vh;
@@ -14,7 +14,7 @@
 
 .center-text {
   display: flex;
-  font-family: 'Noto Sans Sinhala', sans-serif;
+  font-family: "Noto Sans Sinhala", sans-serif;
   justify-content: center;
   align-items: center;
   line-height: 52px;
@@ -24,7 +24,7 @@
 
 .headerText {
   margin: "auto";
-  font-family: 'Noto Sans Sinhala', sans-serif  !important;
+  font-family: "Noto Sans Sinhala", sans-serif !important;
   font-size: calc(30px + 1vw) !important;
   width: "50%";
 }
@@ -32,7 +32,7 @@
 .subtext {
   margin: "auto";
   width: "100%";
-  font-family: 'Noto Sans Sinhala', sans-serif !important;
+  font-family: "Noto Sans Sinhala", sans-serif !important;
   margin-top: 0 !important;
   font-size: calc(12px + 1vw) !important;
 }

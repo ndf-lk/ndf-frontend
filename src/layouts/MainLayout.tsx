@@ -3,6 +3,7 @@ import { Header } from "../components/Header";
 import { ThemeProvider } from "@mui/material";
 import themeFactory from "../config/theme";
 import Values from "values.js";
+import Footer from "../components/footer";
 
 const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   let primaryColor = "#D8532E";
@@ -38,6 +39,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
       <ThemeProvider theme={theme}>
         <Header />
         <div>{children}</div>
+        <Footer />
       </ThemeProvider>
     </>
   );
