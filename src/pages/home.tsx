@@ -7,9 +7,16 @@ import {
   Button,
   Grid,
   Typography,
+  Accordion,
+  AccordionSummary,
+  AccordionDetails,
 } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
+import { useContext } from "react";
+import { LanguageContext } from "../context/userLangctx";
 import HomeSectionWrapper from "../components/HomeSectionWrapper";
+import { getData } from "../data/content";
 
 declare global {
   namespace JSX {
@@ -49,12 +56,16 @@ const CssTextField = styled(TextField)({
 });
 
 const HomePage = () => {
+  const { language } = useContext(LanguageContext);
+  const content = getData(language);
+  console.log(content);
+
   return (
     <>
       <HeroPage />
 
       <Container>
-        <Box mb={{ xs: 5, md: 8 }} mt={{ xs: 0, md: -80 }}>
+        <Box mt={{ xs: 0, md: -80 }}>
           <Grid container rowSpacing={10} justifyContent="space-between">
             <Grid item xs={12} md={8}>
               <Box display="flex" alignItems="flex-start" gap={4} mb={5}>
@@ -69,16 +80,10 @@ const HomePage = () => {
                     }}
                   />
                   <Typography variant={"h2"} textAlign="left" sx={{ mt: 5 }}>
-                    National Democratic Front
+                    {content.seconary.title}
                   </Typography>
                   <Typography sx={{ mt: 5 }}>
-                    The primary objective of the National Democratic Front,
-                    which extends beyond traditional political parties, is to
-                    create a prosperous Sri Lanka. For that, we are committed to
-                    the public service by denying all privileges on behalf of
-                    the people. We call back to the motherland the 'gentlemanly
-                    politics (Mahatma Politics)' that has faded from this
-                    country after the national leaders of the past.
+                    {content.seconary.body}
                   </Typography>
                 </Box>
               </Box>
@@ -143,13 +148,47 @@ const HomePage = () => {
             </Grid>
           </Grid>
         </Box>
+
+        <Box mb={{ xs: 7, md: 10 }}>
+          <Typography variant={"h3"} textAlign="left" sx={{ mt: 10, mb: 10 }}>
+            {content.promises.title}
+          </Typography>
+
+          {content.promises.points.map((promise) => {
+            return (
+              <>
+                <Accordion square={true}>
+                  <AccordionSummary
+                    expandIcon={<ExpandMoreIcon />}
+                    aria-controls="panel1a-content"
+                    id="panel1a-header"
+                  >
+                    <Typography
+                      variant="body1"
+                      style={{
+                        fontWeight: "bold",
+                      }}
+                    >
+                      {promise.point}
+                    </Typography>
+                  </AccordionSummary>
+                  <AccordionDetails>
+                    <Typography>{promise.desecription}</Typography>
+                  </AccordionDetails>
+                </Accordion>
+              </>
+            );
+          })}
+
+          <Typography sx={{ mt: 5 }}>{content.promises.body_end}</Typography>
+        </Box>
       </Container>
 
       <HomeSectionWrapper sx={{ background: "#EFEFEF" }}>
         <Container>
           <Box mb={{ xs: 9.25, md: 14 }}>
-            <Typography variant={"h2"} textAlign="center" sx={{ mb: 20 }}>
-              Latest Trending News
+            <Typography variant={"h2"} textAlign="center" sx={{ mb: 10 }}>
+              {content.news_page.trending}
             </Typography>
 
             <Grid

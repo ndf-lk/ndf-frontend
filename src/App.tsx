@@ -1,10 +1,10 @@
 import { RouterProvider } from "react-router-dom";
 import { router } from "./Router";
-import { useState } from "react";
 import { LanguageContext } from "./context/userLangctx";
+import useLocalStorage from "./hooks/useLocalStorage";
 
 function App() {
-  const [language, setLanguage] = useState<string>("en");
+  const [language, setLanguage] = useLocalStorage("lang", "en");
 
   return (
     <div className="App">

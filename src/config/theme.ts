@@ -297,36 +297,6 @@ const themeFactory = ({
       MuiOutlinedInput: {},
       MuiCheckbox: {},
       MuiFormLabel: {},
-      MuiAccordion: {
-        defaultProps: {
-          elevation: 0,
-        },
-        styleOverrides: {
-          root: {
-            margin: 0,
-            padding: 0,
-            transition: "Mui-expanded 1.5s ease",
-            backgroundColor: "#050314",
-            "&:(:last-child)": {
-              borderBottom: 0,
-            },
-            "&:not(:last-child)": {
-              borderBottom: `1px solid rgba(187, 186, 194, 0.3)`,
-            },
-            "&:before": {
-              display: "none",
-            },
-          },
-        },
-      },
-      MuiAccordionDetails: {
-        styleOverrides: {
-          root: {
-            margin: 0,
-            padding: 0,
-          },
-        },
-      },
       MuiFormHelperText: {
         styleOverrides: {
           root: {

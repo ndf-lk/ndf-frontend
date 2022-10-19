@@ -4,7 +4,16 @@
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans&family=Noto+Sans+Sinhala&display=swap');
 
 :root {
-  --primary-main: #d8532e;
+  --primary-main: #d8532e
+}
+
+::selection {
+  background: #e85e30; /* WebKit/Blink Browsers */
+  color: white !important;
+}
+::-moz-selection {
+  background: #e85e30; /* Gecko Browsers */
+  color: white !important;
 }
 
 html,

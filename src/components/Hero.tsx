@@ -1,8 +1,13 @@
 import { Stack, Button, Box, Container, Grid, Typography } from "@mui/material";
+import { useContext } from "react";
+import { getData } from "../data/content";
+import { LanguageContext } from "../context/userLangctx";
 
 export const HeroPage = () => {
   const headerTemplateTwoImageHeight = 500;
-  const isSmDown = true;
+
+  const { language } = useContext(LanguageContext);
+  const content = getData(language);
 
   return (
     <>
@@ -60,15 +65,9 @@ export const HeroPage = () => {
                     },
                   }}
                 >
-                  A New Political Party
+                  {content.main.title}
                 </Typography>
-                <Typography sx={{ mt: 5 }}>
-                  Yes, a new political party. A topic that everyone is talking
-                  about these days. This is a new political movement in which we
-                  can all stand. We are committed to introduce a new political
-                  approach to the country that goes beyond tradition. This is
-                  one aspect of its deviation.
-                </Typography>
+                <Typography sx={{ mt: 5 }}>{content.main.body}</Typography>
               </Box>
             </Grid>
           </Grid>
