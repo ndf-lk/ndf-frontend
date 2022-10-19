@@ -1,6 +1,9 @@
 import { Button, Stack, Box, Typography, ButtonProps } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import "../styles/landing.css";
+import { useContext } from "react";
+import { LanguageContext } from "../context/userLangctx";
+import { useNavigate } from "react-router-dom";
 
 const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText("#FFFFFF"),
@@ -20,6 +23,14 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 
 const IndexPage = () => {
+  const { setLanguage } = useContext(LanguageContext);
+  let navigate = useNavigate();
+
+  const updateLanguage = (lang: string) => {
+    setLanguage(lang);
+    return navigate("/home");
+  };
+
   return (
     <>
       <div
@@ -40,7 +51,7 @@ const IndexPage = () => {
           variant={"h3"}
           textAlign="center"
           className="headerText"
-          sx={{ mt: 5 }}
+          sx={{ mt: 5, mb: 2 }}
           style={{
             fontWeight: 900,
           }}
@@ -52,7 +63,6 @@ const IndexPage = () => {
           variant={"h5"}
           textAlign="center"
           className="subtext"
-          sx={{ mt: 2 }}
           style={{
             fontWeight: 500,
           }}
@@ -65,11 +75,17 @@ const IndexPage = () => {
           spacing={2}
           justifyContent="center"
           alignItems="center"
-          sx={{ mt: 3 }}
+          sx={{ mt: 5 }}
         >
-          <ColorButton size="large">English</ColorButton>
-          <ColorButton size="large"> Tamil</ColorButton>
-          <ColorButton size="large"> Sinhala</ColorButton>
+          <ColorButton size="large" onClick={() => updateLanguage("en")}>
+            English
+          </ColorButton>
+          <ColorButton size="large" onClick={() => updateLanguage("tm")}>
+            Tamil
+          </ColorButton>
+          <ColorButton size="large" onClick={() => updateLanguage("si")}>
+            Sinhala
+          </ColorButton>
         </Stack>
 
         <Box

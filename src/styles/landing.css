@@ -24,6 +24,7 @@
 .headerText {
   margin: "auto";
   font-family: 'Noto Sans Sinhala', sans-serif  !important;
+  font-size: calc(30px + 1vw) !important;
   width: "100%";
 }
 
@@ -32,6 +33,7 @@
   width: "100%";
   font-family: 'Noto Sans Sinhala', sans-serif !important;
   margin-top: 0 !important;
+  font-size: calc(12px + 1vw) !important;
 }
 
 @media only screen and (max-width: 950px) {
