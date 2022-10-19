@@ -1,0 +1,49 @@
+.center {
+  height: 100vh;
+  position: relative;
+  font-family: "Noto Sans Sinhala";
+  font-style: normal;
+  font-weight: 800 !important;
+  line-height: 52px;
+  color: #ffffff;
+  padding-top: 10%;
+}
+
+.center-text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.headerText {
+  margin: "auto";
+  width: "100%";
+}
+
+.subtext {
+  margin: "auto";
+  width: "100%";
+  margin-top: 0 !important;
+}
+
+@media only screen and (max-width: 950px) {
+  .center {
+    padding-top: 10%;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .center {
+    padding-top: 30%;
+  }
+}
+
+.image_block {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+
+  margin: 0% auto; /* Will not center vertically and won't work in IE6/7. */
+}
