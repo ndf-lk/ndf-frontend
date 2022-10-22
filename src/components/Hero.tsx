@@ -1,13 +1,25 @@
-import { Stack, Button, Box, Container, Grid, Typography } from "@mui/material";
+import {
+  useMediaQuery,
+  Stack,
+  Button,
+  Box,
+  Container,
+  Grid,
+  Typography,
+} from "@mui/material";
 import { useContext } from "react";
 import { getData } from "../data/content";
 import { LanguageContext } from "../context/userLangctx";
+import { useTheme } from "@emotion/react";
 
 export const HeroPage = () => {
   const headerTemplateTwoImageHeight = 500;
 
   const { language } = useContext(LanguageContext);
   const content = getData(language);
+
+  const theme = useTheme();
+  const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   return (
     <>
@@ -47,7 +59,12 @@ export const HeroPage = () => {
                 sx={{
                   width: "100%",
                   p: 5,
-                  borderRadius: 1,
+
+                  borderRadius: 4,
+                  paddingLeft: isSmall ? 5 : 20,
+                  paddingRight: isSmall ? 5 : 20,
+                  marginLeft: isSmall ? 2 : 20,
+                  marginRight: isSmall ? 2 : 20,
                   background: "#EFEFEF;",
                 }}
                 mb={{ xs: 4, md: 4 }}

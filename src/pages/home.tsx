@@ -97,6 +97,7 @@ const HomePage = () => {
                     sx={{
                       background: "#821824",
                       p: 5,
+
                       borderRadius: 1,
                     }}
                   >

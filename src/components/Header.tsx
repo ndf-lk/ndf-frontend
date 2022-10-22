@@ -139,8 +139,12 @@ export const Header = () => {
           color="inherit"
           sx={{ fontSize: 30, display: { xs: "none", md: "flex" } }}
         >
-          <Button variant="text">Home</Button>
-          <Button>News</Button>
+          <Button variant="text" component={Link} to="/home">
+            Home
+          </Button>
+          <Button component={Link} to="/news">
+            News
+          </Button>
           <Button>Contact</Button>
           <Button>Join Us</Button>
         </ButtonGroup>
