@@ -4,6 +4,8 @@ import RegisterPage from "./pages/register";
 import HomePage from "./pages/home";
 import IndexPage from "./pages";
 import NewsPage from "./pages/news";
+import PostPage from "./pages/post";
+import GalleryPage from "./pages/gallery";
 
 export const router = createBrowserRouter([
   {
@@ -24,6 +26,24 @@ export const router = createBrowserRouter([
     element: (
       <MainLayout>
         <NewsPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/post/:id",
+    element: (
+      <MainLayout>
+        <PostPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/gallery",
+    element: (
+      <MainLayout>
+        <GalleryPage />
       </MainLayout>
     ),
   },
