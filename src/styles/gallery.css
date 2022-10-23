@@ -1,5 +1,4 @@
 .gallery-image {
-  flex-wrap: wrap;
   margin-bottom: 50px;
 }
 
@@ -10,7 +9,6 @@
 
 .img-box {
   box-sizing: content-box;
-  margin: 10px;
   overflow: hidden;
   display: inline-block;
   color: white;

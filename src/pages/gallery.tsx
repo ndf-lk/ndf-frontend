@@ -51,9 +51,7 @@ const GalleryPage = () => {
         </Container>
       </SwipeableDrawer>
 
-      <Container>
-        <h1> gallery </h1>
-
+      <Container sx={{ mt: 20 }}>
         <Box mb={{ xs: 9.25, md: 14 }} className="gallery-image">
           <Grid
             container
