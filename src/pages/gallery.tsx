@@ -1,5 +1,10 @@
 import {
   Container,
+  Typography,
+  Card,
+  CardMedia,
+  CardContent,
+  Skeleton,
   Box,
   ImageList,
   ImageListItem,
@@ -9,6 +14,9 @@ import {
 } from "@mui/material";
 import { useTheme } from "@mui/system";
 import { useState } from "react";
+import HomeSectionWrapper from "../components/HomeSectionWrapper";
+import { useGallery } from "../hooks/gallery/useGallery";
+import useGalleryCollection from "../hooks/gallery/useGalleryCollection";
 import "../styles/gallery.css";
 
 const GalleryPage = () => {
@@ -16,14 +24,21 @@ const GalleryPage = () => {
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
+  const [collectionId, setCollectionId] = useState<string>("1");
+  const handleOpen = (id: string) => {
+    setCollectionId(id);
+    setOpen(true);
+  };
   const handleClose = () => setOpen(false);
+
+  const gallery = useGallery();
+  const galleryCollection = useGalleryCollection(collectionId);
 
   return (
     <>
       <SwipeableDrawer
         onClose={handleClose}
-        onOpen={handleOpen}
+        onOpen={() => setOpen(true)}
         open={open}
         anchor={isSmall ? "bottom" : "left"}
       >
@@ -32,100 +47,109 @@ const GalleryPage = () => {
             variant="woven"
             cols={3}
             gap={8}
-            sx={{
-              // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
-              transform: "translateZ(0)",
-            }}
+            sx={
+              {
+                // Promote the list into its own layer in Chrome. This costs memory, but helps keeping high FPS.
+                //  transform: "translateZ(0)",
+              }
+            }
           >
-            {itemData.map((item) => (
-              <ImageListItem key={item.img}>
-                <img
-                  src={`${item.img}?w=161&fit=crop&auto=format`}
-                  srcSet={`${item.img}?w=161&fit=crop&auto=format&dpr=2 2x`}
-                  alt={item.title}
-                  loading="lazy"
-                />
-              </ImageListItem>
-            ))}
+            {galleryCollection.isLoading ? (
+              <>
+                <Box sx={{ height: isSmall ? 700 : 900 }}>
+                  {Array.from(Array(6)).map((_, index) => (
+                    <Skeleton variant="rectangular" />
+                  ))}
+                </Box>
+              </>
+            ) : null}
+
+            {galleryCollection.isSuccess && (
+              <>
+                {galleryCollection.data.data.content && (
+                  <>
+                    {galleryCollection.data?.data?.content.map(
+                      (content: { img: string; title: string }) => (
+                        <>
+                          <ImageListItem>
+                            <img
+                              src={content.img}
+                              srcSet={content.img}
+                              alt={content.title}
+                              loading="lazy"
+                            />
+                          </ImageListItem>
+                        </>
+                      )
+                    )}
+                  </>
+                )}
+              </>
+            )}
           </ImageList>
         </Container>
       </SwipeableDrawer>
 
-      <Container sx={{ mt: 20 }}>
-        <Box mb={{ xs: 9.25, md: 14 }} className="gallery-image">
-          <Grid
-            container
-            spacing={{ xs: 1, md: 3 }}
-            columns={{ xs: 1, sm: 8, md: 12 }}
-          >
-            {Array.from(Array(6)).map((_, index) => (
-              <Grid item xs={1} sm={4} md={4} key={index}>
-                <div className="img-box" onClick={handleOpen}>
-                  <img src="https://picsum.photos/350/250?image=444" alt="" />
-                  <div className="transparent-box">
-                    <div className="caption">
-                      <p>Library</p>
-                      <p className="opacity-low">Architect Design</p>
-                    </div>
-                  </div>
-                </div>
-              </Grid>
-            ))}
-          </Grid>
-        </Box>
-      </Container>
+      <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
+        <Container sx={{ mt: 10 }}>
+          <Box mb={{ xs: 9.25, md: 14 }} className="gallery-image">
+            <Grid
+              container
+              spacing={{ xs: 1, md: 3 }}
+              columns={{ xs: 1, sm: 8, md: 12 }}
+            >
+              {gallery.isLoading ? (
+                <>
+                  {Array.from(Array(6)).map((_, index) => (
+                    <Grid item xs={1} sm={4} md={4} key={index}>
+                      <Skeleton variant="rectangular" height={200} />
+                      <Box sx={{ pt: 0.5 }}>
+                        <Skeleton />
+                        <Skeleton width="60%" />
+                      </Box>
+                    </Grid>
+                  ))}
+                </>
+              ) : null}
+
+              {gallery.isSuccess && (
+                <>
+                  {gallery.data.data.map((gallery) => (
+                    <>
+                      <Grid item xs={1} sm={4} md={4}>
+                        <Card
+                          sx={{
+                            mb: 5,
+                            cursor: "pointer",
+                            textDecoration: "none",
+                          }}
+                          onClick={() => handleOpen(gallery._id)}
+                        >
+                          <CardMedia
+                            component="img"
+                            height="200"
+                            image={gallery.bannerImg}
+                            alt={gallery.title}
+                          />
+                          <CardContent>
+                            <Typography gutterBottom variant="h5">
+                              {gallery.title}
+                            </Typography>
+                            <Typography variant="body2" sx={{ mt: 3 }}>
+                              {gallery.description}
+                            </Typography>
+                          </CardContent>
+                        </Card>
+                      </Grid>
+                    </>
+                  ))}
+                </>
+              )}
+            </Grid>
+          </Box>
+        </Container>
+      </HomeSectionWrapper>
     </>
   );
 };
 export default GalleryPage;
-
-const itemData = [
-  {
-    img: "https://images.unsplash.com/photo-1549388604-817d15aa0110",
-    title: "Bed",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1563298723-dcfebaa392e3",
-    title: "Kitchen",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1523413651479-597eb2da0ad6",
-    title: "Sink",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1525097487452-6278ff080c31",
-    title: "Books",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1574180045827-681f8a1a9622",
-    title: "Chairs",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1597262975002-c5c3b14bbd62",
-    title: "Candle",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1530731141654-5993c3016c77",
-    title: "Laptop",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1481277542470-605612bd2d61",
-    title: "Doors",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1517487881594-2787fef5ebf7",
-    title: "Coffee",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1516455207990-7a41ce80f7ee",
-    title: "Storage",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1519710164239-da123dc03ef4",
-    title: "Coffee table",
-  },
-  {
-    img: "https://images.unsplash.com/photo-1588436706487-9d55d73a39e3",
-    title: "Blinds",
-  },
-];
