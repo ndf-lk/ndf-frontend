@@ -3,9 +3,7 @@ import {
   Container,
   Skeleton,
   TextField,
-  Paper,
   Box,
-  Button,
   Grid,
   Typography,
   Accordion,
@@ -21,6 +19,7 @@ import { NewsCard } from "../components/NewsCard";
 import HomeSectionWrapper from "../components/HomeSectionWrapper";
 import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
+import { JoinNDF } from "../components/Join";
 
 declare global {
   namespace JSX {
@@ -32,32 +31,6 @@ declare global {
     }
   }
 }
-
-const CssTextField = styled(TextField)({
-  label: {
-    color: "white",
-  },
-  ".MuiInput": {
-    color: "white",
-  },
-  "& label.Mui-focused": {
-    color: "white",
-  },
-  "& .MuiInput-underline:after": {
-    borderBottomColor: "#D8532E",
-  },
-  "& .MuiOutlinedInput-root": {
-    "& fieldset": {
-      borderColor: "white",
-    },
-    "&:hover fieldset": {
-      borderColor: "white",
-    },
-    "&.Mui-focused fieldset": {
-      borderColor: "#D8532E",
-    },
-  },
-});
 
 const HomePage = () => {
   const { language } = useContext(LanguageContext);
@@ -97,58 +70,7 @@ const HomePage = () => {
             <Grid item xs={12} md={4}>
               <Grid container spacing={{ xs: 4, md: 6 }}>
                 <Grid item xs={12} sm={6} md={12}>
-                  <Paper
-                    sx={{
-                      background: "#821824",
-                      p: 5,
-
-                      borderRadius: 1,
-                    }}
-                  >
-                    <center>
-                      <Box
-                        component="img"
-                        alt="test"
-                        src="/logo.png"
-                        height={{ xs: 45, md: 55, display: "block" }}
-                        width="auto"
-                      />
-                    </center>
-                    <Typography
-                      variant={"h5"}
-                      textAlign="center"
-                      sx={{ color: "white", mt: 5 }}
-                    >
-                      Join NDF now
-                    </Typography>
-                    <Typography
-                      variant={"body1"}
-                      textAlign="center"
-                      sx={{ color: "white" }}
-                    >
-                      Get latest campaign updates
-                    </Typography>
-
-                    <Box>
-                      <CssTextField
-                        label="Your name"
-                        sx={{ mt: 5 }}
-                        fullWidth
-                        id="custom-css-outlined-input"
-                      />
-
-                      <CssTextField
-                        label="Email"
-                        fullWidth
-                        sx={{ mt: 5 }}
-                        id="custom-css-outlined-input"
-                      />
-
-                      <Button fullWidth sx={{ mt: 5 }} variant="contained">
-                        Join Now
-                      </Button>
-                    </Box>
-                  </Paper>
+                  <JoinNDF />
                 </Grid>
               </Grid>
             </Grid>

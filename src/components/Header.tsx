@@ -2,6 +2,7 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import {
+  Avatar,
   ButtonGroup,
   Box,
   Stack,
@@ -22,8 +23,8 @@ import {
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import { useState } from "react";
-import Menubar from "./Menu";
 import { Link } from "react-router-dom";
+import { AccountMenu } from "./AccountButton";
 
 const drawerWidth = 240;
 
@@ -125,8 +126,14 @@ export const Header = () => {
           <>
             <MenuIcon
               onClick={handleDrawerOpen}
-              sx={{ fontSize: 30, display: { xs: "flex", md: "none" } }}
+              sx={{
+                fontSize: 30,
+                cursor: "pointer",
+                display: { xs: "flex", md: "none" },
+              }}
             />
+
+            <AccountMenu />
           </>
         </Container>
       </AppBar>
@@ -169,15 +176,17 @@ export const Header = () => {
         <DrawerHeader>
           <Box display={"flex"} justifyContent={"space-between"}>
             <Box mr={28}>
-              <Box component="a" display="block">
-                <Box
-                  component="img"
-                  alt="test"
-                  src="/logo.png"
-                  height={{ xs: 45, md: 55, display: "block" }}
-                  width="auto"
-                />
-              </Box>
+              <Stack direction="row" spacing={2}>
+                <Box component="a" display="block">
+                  <Box
+                    component="img"
+                    alt="test"
+                    src="/logo.png"
+                    height={{ xs: 45, md: 55, display: "block" }}
+                    width="auto"
+                  />
+                </Box>
+              </Stack>
             </Box>
             <IconButton onClick={handleDrawerClose}>
               {theme.direction === "ltr" ? (

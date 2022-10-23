@@ -95,3 +95,7 @@ div.sticky {
   background-color: #cae8ca;
   border: 2px solid #4caf50;
 }
+
+#custom-css-outlined-input {
+  color: "white" !important;
+}
