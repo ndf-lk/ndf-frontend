@@ -145,6 +145,9 @@ export const Header = () => {
           <Button component={Link} to="/news">
             News
           </Button>
+          <Button component={Link} to="/gallery">
+            Gallery
+          </Button>
           <Button>Contact</Button>
           <Button>Join Us</Button>
         </ButtonGroup>
