@@ -10,9 +10,9 @@ export const isValidToken = () => {
   let values = getAuthStorage();
 
   if (!values) return false;
-  if (!values.auth_token) return false;
+  if (!values.idToken.jwtToken) return false;
 
-  const decoded_token: JwtPayload = jwt_decode(values?.auth_token);
+  const decoded_token: JwtPayload = jwt_decode(values?.idToken.jwtToken);
 
   // token expred - refresh
   if (decoded_token.exp * 1000 < Date.now()) return false;
