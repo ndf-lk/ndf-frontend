@@ -26,7 +26,7 @@ export const NewsCard = ({ data }: { data: INews }) => {
             style={{
               textDecoration: "none",
             }}
-            to="/post/test"
+            to={`/post/${data._id}`}
           >
             {data.title}
           </Typography>

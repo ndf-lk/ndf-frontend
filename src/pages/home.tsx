@@ -1,6 +1,7 @@
 import { styled } from "@mui/material/styles";
 import {
   Container,
+  Skeleton,
   TextField,
   Paper,
   Box,
@@ -18,6 +19,8 @@ import { LanguageContext } from "../context/userLangctx";
 import { getData } from "../data/content";
 import { NewsCard } from "../components/NewsCard";
 import HomeSectionWrapper from "../components/HomeSectionWrapper";
+import { useNews } from "../hooks/news/useNews";
+import { INews } from "../types/news";
 
 declare global {
   namespace JSX {
@@ -59,6 +62,7 @@ const CssTextField = styled(TextField)({
 const HomePage = () => {
   const { language } = useContext(LanguageContext);
   const content = getData(language);
+  const news = useNews();
   console.log(content);
 
   return (
@@ -198,11 +202,29 @@ const HomePage = () => {
               spacing={{ xs: 1, md: 3 }}
               columns={{ xs: 1, sm: 8, md: 12 }}
             >
-              {Array.from(Array(6)).map((_, index) => (
-                <Grid item xs={1} sm={4} md={4} key={index}>
-                  <NewsCard />
-                </Grid>
-              ))}
+              {news.isLoading ? (
+                <>
+                  {Array.from(Array(6)).map((_, index) => (
+                    <Grid item xs={1} sm={4} md={4} key={index}>
+                      <Skeleton variant="rectangular" height={200} />
+                      <Box sx={{ pt: 0.5 }}>
+                        <Skeleton />
+                        <Skeleton width="60%" />
+                      </Box>
+                    </Grid>
+                  ))}
+                </>
+              ) : null}
+
+              {news.isSuccess && (
+                <>
+                  {news.data.data.map((news: INews) => (
+                    <Grid item xs={1} sm={4} md={4} key={news._id}>
+                      <NewsCard data={news} />
+                    </Grid>
+                  ))}
+                </>
+              )}
             </Grid>
           </Box>
         </Container>
