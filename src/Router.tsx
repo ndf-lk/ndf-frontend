@@ -6,6 +6,7 @@ import IndexPage from "./pages";
 import NewsPage from "./pages/news";
 import PostPage from "./pages/post";
 import GalleryPage from "./pages/gallery";
+import ScrollToTop from "./utils/scrollTop";
 
 export const router = createBrowserRouter([
   {
@@ -16,6 +17,7 @@ export const router = createBrowserRouter([
     path: "/home",
     element: (
       <MainLayout>
+        <ScrollToTop />
         <HomePage />
       </MainLayout>
     ),
@@ -25,6 +27,7 @@ export const router = createBrowserRouter([
     path: "/news",
     element: (
       <MainLayout>
+        <ScrollToTop />
         <NewsPage />
       </MainLayout>
     ),
@@ -34,6 +37,7 @@ export const router = createBrowserRouter([
     path: "/post/:id",
     element: (
       <MainLayout>
+        <ScrollToTop />
         <PostPage />
       </MainLayout>
     ),
