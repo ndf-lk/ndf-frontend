@@ -6,11 +6,11 @@ import {
   Container,
   Grid,
   Typography,
+  useTheme,
 } from "@mui/material";
 import { useContext } from "react";
 import { getData } from "../data/content";
 import { LanguageContext } from "../context/userLangctx";
-import { useTheme } from "@emotion/react";
 
 export const HeroPage = () => {
   const headerTemplateTwoImageHeight = 500;
