@@ -114,7 +114,7 @@ const GalleryPage = () => {
 
               {gallery.isSuccess && (
                 <>
-                  {gallery.data.data.map((gallery) => (
+                  {gallery.data.data.map((gallery: any) => (
                     <>
                       <Grid item xs={1} sm={4} md={4}>
                         <Card
