@@ -8,11 +8,13 @@ import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import PersonAdd from "@mui/icons-material/PersonAdd";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
 import { AuthTokenContext } from "../context/AuthTokenContext";
 import { IAuthResponse } from "../types/AuthToken";
 import { useMe } from "../hooks/me/useMe";
+import { Link } from "react-router-dom";
 
 export function AccountMenu() {
   const { token }: { token: IAuthResponse } =
@@ -107,6 +109,13 @@ export function AccountMenu() {
               </ListItemIcon>
               Add another account
             </MenuItem>
+            <MenuItem component={Link} to="/dashboard">
+              <ListItemIcon>
+                <DashboardIcon fontSize="small" />
+              </ListItemIcon>
+              Dashboard
+            </MenuItem>
+
             <MenuItem>
               <ListItemIcon>
                 <Settings fontSize="small" />

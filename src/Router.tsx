@@ -8,6 +8,7 @@ import PostPage from "./pages/post";
 import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
 import { LoginPage } from "./pages/login";
+import { DashboardPage } from "./pages/dashboard";
 
 export const router = createBrowserRouter([
   {
@@ -54,11 +55,21 @@ export const router = createBrowserRouter([
   },
 
   {
-    path: "/register",
+    path: "/dashboard",
     element: (
       <MainLayout>
-        <LoginPage />
+        <DashboardPage />
       </MainLayout>
     ),
+  },
+
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+
+  {
+    path: "/register",
+    element: <LoginPage />,
   },
 ]);
