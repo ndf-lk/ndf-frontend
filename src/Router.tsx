@@ -7,6 +7,7 @@ import NewsPage from "./pages/news";
 import PostPage from "./pages/post";
 import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
+import { LoginPage } from "./pages/login";
 
 export const router = createBrowserRouter([
   {
@@ -56,7 +57,7 @@ export const router = createBrowserRouter([
     path: "/register",
     element: (
       <MainLayout>
-        <RegisterPage />
+        <LoginPage />
       </MainLayout>
     ),
   },

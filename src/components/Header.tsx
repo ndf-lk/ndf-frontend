@@ -2,7 +2,6 @@ import KeyboardBackspaceIcon from "@mui/icons-material/KeyboardBackspace";
 import MenuIcon from "@mui/icons-material/Menu";
 import CloseIcon from "@mui/icons-material/Close";
 import {
-  Avatar,
   ButtonGroup,
   Box,
   Stack,
@@ -156,7 +155,10 @@ export const Header = () => {
             Gallery
           </Button>
           <Button>Contact</Button>
-          <Button>Join Us</Button>
+
+          <Button component={Link} to="/register">
+            Join Us
+          </Button>
         </ButtonGroup>
       </Box>
 
@@ -199,27 +201,33 @@ export const Header = () => {
         </DrawerHeader>
         <Divider />
         <List>
-          <ListItem key={"hello"} disablePadding>
-            <ListItemButton component={Link} to="/">
+          <ListItem key={"home"} disablePadding>
+            <ListItemButton component={Link} to="/home">
               <ListItemText primary={"Home"} />
             </ListItemButton>
           </ListItem>
 
-          <ListItem key={"about"} disablePadding>
-            <ListItemButton component={Link} to="/about">
-              <ListItemText primary={"About"} />
+          <ListItem key={"news"} disablePadding>
+            <ListItemButton component={Link} to="/news">
+              <ListItemText primary={"News"} />
             </ListItemButton>
           </ListItem>
 
-          <ListItem key={"events"} disablePadding>
-            <ListItemButton component={Link} to="/events">
-              <ListItemText primary={"Events"} />
+          <ListItem key={"gallery"} disablePadding>
+            <ListItemButton component={Link} to="/gallery">
+              <ListItemText primary={"Gallery"} />
             </ListItemButton>
           </ListItem>
 
-          <ListItem key={"blog"} disablePadding>
-            <ListItemButton component={Link} to="/blog">
-              <ListItemText primary={"Blogs"} />
+          <ListItem key={"contact"} disablePadding>
+            <ListItemButton component={Link} to="/contact">
+              <ListItemText primary={"Contact"} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={"join"} disablePadding>
+            <ListItemButton component={Link} to="/register">
+              <ListItemText primary={"Join Us"} />
             </ListItemButton>
           </ListItem>
         </List>

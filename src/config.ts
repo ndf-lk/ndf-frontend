@@ -5,6 +5,6 @@ interface ENV {
 }
 
 const ENVIRONMENT: ENV = {
-  BACKEND_API: "http://10.10.1.169:3000/",
+  BACKEND_API: "http://localhost:4000/",
 };
 export default ENVIRONMENT;
