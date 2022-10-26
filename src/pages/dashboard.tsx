@@ -10,6 +10,8 @@ import {
   ButtonProps,
 } from "@mui/material";
 import "../styles/dashboard.css";
+import { InputLabel } from "../components/InuptLabel";
+import { useMe } from "../hooks/me/useMe";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -23,6 +25,8 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
 }));
 
 export const DashboardPage = () => {
+  const currentUser = useMe();
+
   return (
     <>
       <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
@@ -70,33 +74,33 @@ export const DashboardPage = () => {
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
               <Grid item xs={4} sm={4} md={4}>
-                <InputLabel text={"Your Profile"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <InputLabel text={"First name"} />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
               <Grid item xs={4} sm={4} md={8}>
                 <InputLabel text={"Address"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
               <Grid item xs={4} sm={4} md={5}>
                 <InputLabel text={"Position"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
               <Grid item xs={4} sm={4} md={5}>
                 <InputLabel text={"District"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
               <Grid item xs={4} sm={4} md={3}>
                 <InputLabel text={"Date"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
               <Grid item xs={4} sm={4} md={3}>
                 <InputLabel text={"Seat"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="filled" />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
             </Grid>
 
@@ -104,25 +108,6 @@ export const DashboardPage = () => {
           </Box>
         </Container>
       </HomeSectionWrapper>
-    </>
-  );
-};
-
-const InputLabel = ({ text }: { text: string }) => {
-  return (
-    <>
-      <Typography
-        style={{
-          fontSize: "16px",
-          fontFamily: "Open Sans",
-          fontStyle: "normal",
-          fontWeight: 400,
-          color: "#7D7D7D",
-        }}
-        sx={{ mb: 1, mt: 1 }}
-      >
-        {text}
-      </Typography>
     </>
   );
 };

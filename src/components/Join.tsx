@@ -1,11 +1,13 @@
 import styled from "@emotion/styled";
-import { Paper, Typography, Button, Box, TextField, Link } from "@mui/material";
+import { Paper, Typography, Button, Box, TextField } from "@mui/material";
 import { useContext, useState } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { Link } from "react-router-dom";
 import AppConfig from "../config";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import { AuthTokenContext } from "../context/AuthTokenContext";
+import { useMe } from "../hooks/me/useMe";
 
 const CssTextField = styled(TextField)({
   color: "white",
@@ -51,6 +53,8 @@ export const JoinNDF = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const currentUser = useMe();
 
   const signIn = async () => {
     setIsLoading(true);
@@ -103,7 +107,58 @@ export const JoinNDF = () => {
             width="auto"
           />
         </center>
-        {isLogin ? (
+        {token && Object.keys(token).length > 0 ? (
+          <>
+            {currentUser.isLoading ? (
+              <>Loading...</>
+            ) : (
+              <>
+                {currentUser.isSuccess && currentUser.data && (
+                  <>
+                    <Typography
+                      variant={"h5"}
+                      textAlign="center"
+                      sx={{ color: "white", mt: 5 }}
+                    >
+                      Welcome Back {currentUser.data?.data?.firstName}
+                    </Typography>
+
+                    <CssTextField
+                      label="first Name"
+                      value={currentUser.data?.firstName}
+                      fullWidth
+                      sx={{ mt: 5 }}
+                    />
+
+                    <CssTextField
+                      label="last Name"
+                      value={currentUser.data?.lastName}
+                      fullWidth
+                      sx={{ mt: 5 }}
+                    />
+
+                    <CssTextField
+                      label="Address"
+                      value={currentUser.data?.lastName}
+                      fullWidth
+                      sx={{ mt: 5 }}
+                    />
+
+                    <LoadingButton
+                      fullWidth
+                      sx={{ mt: 8, mb: 2 }}
+                      variant="contained"
+                      onClick={() => signIn()}
+                      loading={isLoading}
+                    >
+                      Edit details
+                    </LoadingButton>
+                  </>
+                )}
+              </>
+            )}
+          </>
+        ) : (
           <>
             <Typography
               variant={"h5"}
@@ -119,7 +174,6 @@ export const JoinNDF = () => {
             >
               Get latest campaign updates
             </Typography>
-
             <Box>
               <CssTextField
                 label="Email"
@@ -150,7 +204,8 @@ export const JoinNDF = () => {
 
               <Button
                 variant="text"
-                onClick={() => setIsLogin(false)}
+                component={Link}
+                to="/register"
                 size="small"
                 style={{
                   padding: 0,
@@ -162,66 +217,9 @@ export const JoinNDF = () => {
                 Do not have a account ?
               </Button>
             </Box>
-          </>
-        ) : (
-          <>
-            <Typography
-              variant={"h5"}
-              textAlign="center"
-              sx={{ color: "white", mt: 5 }}
-            >
-              Join NDF now
-            </Typography>
-            <Typography
-              variant={"body1"}
-              textAlign="center"
-              sx={{ color: "white" }}
-            >
-              Get latest campaign updates
-            </Typography>
-
-            <Box>
-              <CssTextField
-                label="Your name"
-                sx={{ mt: 5 }}
-                fullWidth
-                id="custom-css-outlined-input"
-              />
-
-              <CssTextField
-                label="Email"
-                fullWidth
-                sx={{ mt: 5 }}
-                id="custom-css-outlined-input"
-              />
-
-              <LoadingButton
-                fullWidth
-                sx={{ mt: 8, mb: 2 }}
-                variant="contained"
-                onClick={() => signIn()}
-                loading={isLoading}
-              >
-                Sign-Up
-              </LoadingButton>
-
-              <Button
-                variant="text"
-                size="small"
-                onClick={() => setIsLogin(true)}
-                style={{
-                  padding: 0,
-                  marginBottom: "-10%",
-                  color: "#F5F5F5",
-                  fontSize: 15,
-                }}
-              >
-                Already have a account ?
-              </Button>
-            </Box>
+            :
           </>
         )}
-        :
       </Paper>
     </>
   );
