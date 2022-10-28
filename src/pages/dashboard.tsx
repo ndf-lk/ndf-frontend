@@ -27,7 +27,7 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
 }));
 
 export const DashboardPage = () => {
-  const currentUser = useMe();
+  const currentUser: any = useMe();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {

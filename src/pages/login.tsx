@@ -30,7 +30,6 @@ const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
 export const LoginPage = () => {
   const { token, setToken } = useContext(AuthTokenContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-  login;
 
   const message = "Your notification here";
 

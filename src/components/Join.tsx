@@ -54,7 +54,7 @@ export const JoinNDF = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const currentUser = useMe();
+  const currentUser: any = useMe();
 
   useEffect(() => {
     if (currentUser.isError) {
