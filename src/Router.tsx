@@ -9,6 +9,7 @@ import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
 import { LoginPage } from "./pages/login";
 import { DashboardPage } from "./pages/dashboard";
+import { LibraryPage } from "./pages/library";
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +72,15 @@ export const router = createBrowserRouter([
   {
     path: "/register",
     element: <RegisterPage />,
+  },
+
+  {
+    path: "/library",
+    element: (
+      <MainLayout>
+        <LibraryPage />
+      </MainLayout>
+    ),
   },
 
   {

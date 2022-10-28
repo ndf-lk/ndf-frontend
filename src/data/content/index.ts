@@ -1,6 +1,6 @@
 import english from "./en.json";
-import sinhala from "./en.json";
-import tamil from "./en.json";
+import sinhala from "./si.json";
+import tamil from "./tm.json";
 import { IHomeContent } from "../../types/home";
 
 export const getData = (lang: string): IHomeContent => {
