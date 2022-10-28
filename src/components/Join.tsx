@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { Paper, Typography, Button, Box, TextField } from "@mui/material";
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Link } from "react-router-dom";
 import AppConfig from "../config";
@@ -55,6 +55,18 @@ export const JoinNDF = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   const currentUser = useMe();
+
+  useEffect(() => {
+    if (currentUser.isError) {
+      if (currentUser.error.response.data.message) {
+        enqueueSnackbar(currentUser.error.response.data.message, {
+          variant: "error",
+        });
+      } else {
+        enqueueSnackbar(currentUser.error.message, { variant: "error" });
+      }
+    }
+  }, [currentUser]);
 
   const signIn = async () => {
     setIsLoading(true);

@@ -4,8 +4,6 @@ import {
   Grid,
   Divider,
   TextField,
-  Button,
-  ButtonProps,
   styled,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
@@ -32,6 +30,7 @@ const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
 export const LoginPage = () => {
   const { token, setToken } = useContext(AuthTokenContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  login;
 
   const message = "Your notification here";
 

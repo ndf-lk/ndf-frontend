@@ -12,6 +12,8 @@ import {
 import "../styles/dashboard.css";
 import { InputLabel } from "../components/InuptLabel";
 import { useMe } from "../hooks/me/useMe";
+import { useEffect } from "react";
+import { useSnackbar } from "notistack";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -26,6 +28,19 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
 
 export const DashboardPage = () => {
   const currentUser = useMe();
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  useEffect(() => {
+    if (currentUser.isError) {
+      if (currentUser.error.response.data.message) {
+        enqueueSnackbar(currentUser.error.response.data.message, {
+          variant: "error",
+        });
+      } else {
+        enqueueSnackbar(currentUser.error.message, { variant: "error" });
+      }
+    }
+  }, [currentUser]);
 
   return (
     <>
@@ -73,18 +88,28 @@ export const DashboardPage = () => {
               spacing={{ xs: 2, md: 3 }}
               columns={{ xs: 4, sm: 8, md: 12 }}
             >
-              <Grid item xs={4} sm={4} md={4}>
+              <Grid item xs={4} sm={4} md={6}>
                 <InputLabel text={"First name"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={currentUser.data?.data.firstName}
+                />
               </Grid>
 
-              <Grid item xs={4} sm={4} md={8}>
+              <Grid item xs={4} sm={4} md={6}>
+                <InputLabel text={"Last name"} />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={currentUser.data?.data?.lastName}
+                />
+              </Grid>
+
+              <Grid item xs={4} sm={4} md={7}>
                 <InputLabel text={"Address"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={5}>
-                <InputLabel text={"Position"} />
                 <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
@@ -93,9 +118,19 @@ export const DashboardPage = () => {
                 <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
               </Grid>
 
+              <Grid item xs={4} sm={4} md={6}>
+                <InputLabel text={"Position"} />
+                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+              </Grid>
+
               <Grid item xs={4} sm={4} md={3}>
                 <InputLabel text={"Date"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  type="date"
+                />
               </Grid>
 
               <Grid item xs={4} sm={4} md={3}>
