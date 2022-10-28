@@ -156,6 +156,10 @@ export const Header = () => {
           </Button>
           <Button>Contact</Button>
 
+          <Button variant="text" component={Link} to="/library">
+            Library
+          </Button>
+
           <Button component={Link} to="/register">
             Join Us
           </Button>
@@ -216,6 +220,12 @@ export const Header = () => {
           <ListItem key={"gallery"} disablePadding>
             <ListItemButton component={Link} to="/gallery">
               <ListItemText primary={"Gallery"} />
+            </ListItemButton>
+          </ListItem>
+
+          <ListItem key={"gallery"} disablePadding>
+            <ListItemButton component={Link} to="/library">
+              <ListItemText primary={"Library"} />
             </ListItemButton>
           </ListItem>
 

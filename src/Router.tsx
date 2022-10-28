@@ -76,7 +76,11 @@ export const router = createBrowserRouter([
 
   {
     path: "/library",
-    element: <LibraryPage />,
+    element: (
+      <MainLayout>
+        <LibraryPage />
+      </MainLayout>
+    ),
   },
 
   {
