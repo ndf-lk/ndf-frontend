@@ -31,8 +31,6 @@ export const LoginPage = () => {
   const { token, setToken } = useContext(AuthTokenContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const message = "Your notification here";
-
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -56,14 +54,14 @@ export const LoginPage = () => {
 
     await axios(config)
       .then(function (response) {
-        setToken(response.data.data);
-        console.log(response.data.data);
+        setToken(response?.data?.data);
+        console.log(response?.data?.data);
         enqueueSnackbar("Login success", { variant: "success" });
         return navigate("/home");
       })
       .catch(function (error) {
-        if (error.response.data.message) {
-          enqueueSnackbar(error.response.data.message, { variant: "error" });
+        if (error.response?.data?.message) {
+          enqueueSnackbar(error.response?.data?.message, { variant: "error" });
         } else {
           enqueueSnackbar(error.message, { variant: "error" });
         }

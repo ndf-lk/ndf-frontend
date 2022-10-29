@@ -13,36 +13,57 @@ import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
 
 import "../styles/news.css";
+import { LanguageContext } from "../context/userLangctx";
+import { useContext } from "react";
+import { useLatestNews } from "../hooks/news/useLatestNews";
+
 const NewsPage = () => {
   const theme = useTheme();
+  const { language } = useContext(LanguageContext);
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const news = useNews();
+  const news = useNews(language);
+  const latestNews = useLatestNews(language);
 
   return (
     <>
-      <section
-        style={{
-          background:
-            "url('https://cdn.suwalls.com/wallpapers/anime/school-days-33347-1920x1080.jpg')",
-        }}
-        className="header overlay"
-      >
-        <Container>
-          {isSmall ? (
+      {latestNews.isSuccess && (
+        <>
+          {latestNews.data && (
             <>
-              <NewsCardMessage isSmall={isSmall} />
-            </>
-          ) : (
-            <>
-              <Grid container rowSpacing={1} columnSpacing={3}>
-                <Grid item xs={6}>
-                  <NewsCardMessage isSmall={isSmall} />
-                </Grid>
-              </Grid>
+              <section
+                style={{
+                  background: `url(${latestNews?.data?.data?.[0]?.bannerImage})`,
+                  padding: "20px 10px",
+                  height: "400px",
+                }}
+                className="header overlay"
+              >
+                <Container>
+                  {isSmall ? (
+                    <>
+                      <NewsCardMessage
+                        isSmall={isSmall}
+                        latestNews={latestNews}
+                      />
+                    </>
+                  ) : (
+                    <>
+                      <Grid container rowSpacing={1} columnSpacing={3}>
+                        <Grid item xs={6}>
+                          <NewsCardMessage
+                            isSmall={isSmall}
+                            latestNews={latestNews}
+                          />
+                        </Grid>
+                      </Grid>
+                    </>
+                  )}
+                </Container>
+              </section>
             </>
           )}
-        </Container>
-      </section>
+        </>
+      )}
 
       <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
         <Container>
@@ -68,11 +89,15 @@ const NewsPage = () => {
 
               {news.isSuccess && (
                 <>
-                  {news.data.data.map((news: INews) => (
-                    <Grid item xs={1} sm={4} md={4} key={news._id}>
-                      <NewsCard data={news} />
-                    </Grid>
-                  ))}
+                  {news.data && (
+                    <>
+                      {news?.data?.data?.map((news: INews) => (
+                        <Grid item xs={1} sm={4} md={4} key={news._id}>
+                          <NewsCard data={news} />
+                        </Grid>
+                      ))}
+                    </>
+                  )}
                 </>
               )}
             </Grid>
@@ -83,26 +108,44 @@ const NewsPage = () => {
   );
 };
 
-const NewsCardMessage = ({ isSmall }: { isSmall: boolean }) => {
+const NewsCardMessage = ({
+  isSmall,
+  latestNews,
+}: {
+  isSmall: boolean;
+  latestNews: any;
+}) => {
+  console.log("---------------------");
+  console.log(latestNews.data);
+
   return (
     <>
-      <Typography
-        variant={isSmall ? "h3" : "h2"}
-        component="h2"
-        mt={isSmall ? 0 : 20}
-        style={{ color: "white" }}
-      >
-        Ukrane-Russia war intensifies
-      </Typography>
-      <Typography
-        variant={isSmall ? "body2" : "body1"}
-        component="p"
-        mt={2}
-        style={{ color: "white" }}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam ac
-        molestie nisl. Morbi pretium sit amet nibh vitae tincidunt. Etiam vel
-      </Typography>
+      {latestNews.isLoading && (
+        <>
+          <p> Loading...</p>
+        </>
+      )}
+
+      {latestNews.isSuccess && (
+        <>
+          <Typography
+            variant={isSmall ? "h3" : "h2"}
+            component="h2"
+            mt={isSmall ? 0 : 20}
+            style={{ color: "white" }}
+          >
+            {latestNews?.data?.data[0]?.title}
+          </Typography>
+          <Typography
+            variant={isSmall ? "body2" : "body1"}
+            component="p"
+            mt={2}
+            style={{ color: "white" }}
+          >
+            {latestNews?.data?.data[0]?.title}
+          </Typography>
+        </>
+      )}
     </>
   );
 };

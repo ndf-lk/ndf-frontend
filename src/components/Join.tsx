@@ -47,8 +47,6 @@ export const JoinNDF = () => {
   const { token, setToken } = useContext(AuthTokenContext);
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
-  const message = "Your notification here";
-
   const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -58,8 +56,8 @@ export const JoinNDF = () => {
 
   useEffect(() => {
     if (currentUser.isError) {
-      if (currentUser.error.response.data.message) {
-        enqueueSnackbar(currentUser.error.response.data.message, {
+      if (currentUser.error?.response?.data?.message) {
+        enqueueSnackbar(currentUser.error?.response?.data?.message, {
           variant: "error",
         });
       } else {

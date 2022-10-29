@@ -138,7 +138,7 @@ const HomePage = () => {
                 </>
               ) : null}
 
-              {news.isSuccess && (
+              {news.isSuccess && news.data && (
                 <>
                   {news.data.data.map((news: INews) => (
                     <Grid item xs={1} sm={4} md={4} key={news._id}>

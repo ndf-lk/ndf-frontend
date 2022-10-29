@@ -57,7 +57,7 @@ export const LibraryPage = () => {
                 alignItems="center"
                 spacing={2}
               >
-                <FormControl sx={{ m: 1, minWidth: 120 }} size="small">
+                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
                   <InputLabel id="demo-simple-select-label">
                     Category
                   </InputLabel>
@@ -66,9 +66,7 @@ export const LibraryPage = () => {
                     id="demo-simple-select"
                     label="Age"
                   >
-                    <MenuItem value={10}>Ten</MenuItem>
-                    <MenuItem value={20}>Twenty</MenuItem>
-                    <MenuItem value={30}>Thirty</MenuItem>
+                    <MenuItem value={"Novel"}>Novel</MenuItem>
                   </Select>
                 </FormControl>
               </Stack>
