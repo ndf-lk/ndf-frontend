@@ -35,8 +35,7 @@ declare global {
 const HomePage = () => {
   const { language } = useContext(LanguageContext);
   const content = getData(language);
-  const news = useNews();
-  console.log(content);
+  const news = useNews(language);
 
   return (
     <>
