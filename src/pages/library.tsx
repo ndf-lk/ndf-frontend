@@ -23,20 +23,22 @@ import "../styles/library.css";
 
 function createData(
   name: string,
-  calories: number,
-  fat: number,
-  carbs: number,
-  protein: number
+  author: string,
+  catogery: string,
+
 ) {
-  return { name, calories, fat, carbs, protein };
+  return { name, author, catogery};
 }
 
 const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
+  createData("වානේ පන්නරය ලැබූ හැටි - 01", "නිකොලායි ඔස්ත්‍රොව්ස්කි", "Novel"),
+  createData("වානේ පන්නරය ලැබූ හැටි - 02", "නිකොලායි ඔස්ත්‍රොව්ස්කි", "Novel"),
+  createData("The Prince and the Pauper", "Mark Twain", "Novel"),
+  createData("ප්‍රේමානිසංස", "චන්ද්‍රරත්න බණ්ඩාර", "Novel"),
+  createData("HADASSAH - One Night with the King", "Tommy Tenney", "Novel"),
+  createData("The Wrong Boy", "Willy Russell", "Novel"),
+  createData("මානික්කාවත", "මහින්ද ප්‍රසාද් මස්ඉඹුල", "Novel")
+
 ];
 
 export const LibraryPage = () => {
@@ -105,7 +107,7 @@ export const LibraryPage = () => {
                         <TableCell component="th" scope="row">
                           <Chip label="Novel" />
                         </TableCell>
-                        <TableCell align="right">{row.calories}</TableCell>
+                        <TableCell align="right">{row.catogery}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
