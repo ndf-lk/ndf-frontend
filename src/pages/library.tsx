@@ -16,104 +16,198 @@ import {
   InputLabel,
   Select,
   MenuItem,
+  Typography,
 } from "@mui/material";
 import HomeSectionWrapper from "../components/HomeSectionWrapper";
-import { NewsCard } from "../components/NewsCard";
+import { useState, useEffect } from "react";
 import "../styles/library.css";
-
-function createData(
-  name: string,
-  author: string,
-  catogery: string,
-
-) {
-  return { name, author, catogery};
-}
-
-const rows = [
-  createData("වානේ පන්නරය ලැබූ හැටි - 01", "නිකොලායි ඔස්ත්‍රොව්ස්කි", "Novel"),
-  createData("වානේ පන්නරය ලැබූ හැටි - 02", "නිකොලායි ඔස්ත්‍රොව්ස්කි", "Novel"),
-  createData("The Prince and the Pauper", "Mark Twain", "Novel"),
-  createData("ප්‍රේමානිසංස", "චන්ද්‍රරත්න බණ්ඩාර", "Novel"),
-  createData("HADASSAH - One Night with the King", "Tommy Tenney", "Novel"),
-  createData("The Wrong Boy", "Willy Russell", "Novel"),
-  createData("මානික්කාවත", "මහින්ද ප්‍රසාද් මස්ඉඹුල", "Novel")
-
-];
+import { useBooks } from "../hooks/library/useBooks";
 
 export const LibraryPage = () => {
+  const [category, setCategory] = useState("Novels");
+
+  const books = useBooks(category);
+
+  useEffect(() => {
+    books.refetch();
+  }, [category]);
+
   return (
     <>
-      <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
+      <HomeSectionWrapper sx={{ pb: 1 }}>
         <Container>
           <Box mb={{ xs: 9.25, md: 14 }}>
-            <Grid
-              container
-              spacing={{ xs: 1, md: 3 }}
-              columns={{ xs: 1, sm: 8, md: 12 }}
+            <Stack
+              sx={{ width: "100%", mb: 10, mt: 5 }}
+              direction="row"
+              justifyContent="space-between"
+              alignItems="center"
+              spacing={2}
             >
-              <Stack
-                direction="row"
-                sx={{ width: "100%" }}
-                justifyContent="flex-end"
-                alignItems="center"
-                spacing={2}
-              >
-                <FormControl sx={{ m: 1, minWidth: 150 }} size="small">
-                  <InputLabel id="demo-simple-select-label">
-                    Category
-                  </InputLabel>
-                  <Select
-                    labelId="demo-simple-select-label"
-                    id="demo-simple-select"
-                    label="Age"
-                  >
-                    <MenuItem value={"Novel"}>Novel</MenuItem>
-                  </Select>
-                </FormControl>
-              </Stack>
-              <TableContainer
-                component={Box}
+              <Typography
+                variant="h5"
                 style={{
-                  borderRadius: 5,
+                  fontWeight: 700,
+                  fontSize: "24px",
+                  color: "#494949",
+                  fontFamily: "Open Sans",
                 }}
-                sx={{ background: "white", mt: 2 }}
-                className="main_table"
               >
-                <Table
-                  sx={{ minWidth: 650 }}
-                  aria-label="simple table"
-                  style={{ padding: 20 }}
+                Our Library
+              </Typography>
+
+              <FormControl sx={{ m: 1, minWidth: 200 }} size="medium">
+                <InputLabel id="demo-simple-select-label">Category</InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Category"
+                  value={category}
+                  onChange={(e) => setCategory(e.target.value)}
                 >
-                  <TableHead>
-                    <TableRow>
-                      <TableCell>Book Name</TableCell>
-                      <TableCell>Category</TableCell>
-                      <TableCell align="right">Author</TableCell>
-                    </TableRow>
-                  </TableHead>
-                  <TableBody>
-                    {rows.map((row) => (
-                      <TableRow
-                        key={row.name}
-                        sx={{
-                          "&:last-child td, &:last-child th": { border: 0 },
+                  <MenuItem value={"Law"}>Law</MenuItem>
+                  <MenuItem value={"Biography"}>Biography</MenuItem>
+                  <MenuItem value={"Transactions"}>Transactions</MenuItem>
+                  <MenuItem value={"Political"}>Political</MenuItem>
+                  <MenuItem value={"Other"}>Other</MenuItem>
+                  <MenuItem value={"Novels"}>Novels</MenuItem>
+                  <MenuItem value={"Languages"}>Languages</MenuItem>
+                  <MenuItem value={"BillsActsRegulations"}>
+                    Bills, Acts, Regulations
+                  </MenuItem>
+                  <MenuItem value={"Educational"}>Educational</MenuItem>
+                  <MenuItem value={"SinhalaLiterature"}>
+                    Sinhala Literature
+                  </MenuItem>
+                  <MenuItem value={"SLHistory"}>SL History</MenuItem>
+                  <MenuItem value={"Sociology"}>Sociology</MenuItem>
+                </Select>
+              </FormControl>
+            </Stack>
+            <TableContainer
+              component={Box}
+              style={{
+                borderRadius: 5,
+              }}
+              sx={{ mt: 2, maxHeight: 800 }}
+              className="main_table"
+            >
+              <Table
+                stickyHeader
+                sx={{ minWidth: 650 }}
+                aria-label="simple table"
+              >
+                <TableHead>
+                  <TableRow>
+                    <TableCell>
+                      <Typography
+                        sx={{ mt: 1 }}
+                        style={{
+                          fontWeight: 600,
+                          color: "#868585",
+                          fontSize: "16px",
+                          fontFamily: "Open Sans",
                         }}
                       >
-                        <TableCell component="th" scope="row">
-                          {row.name}
-                        </TableCell>
+                        Book Name
+                      </Typography>
+                    </TableCell>
+                    <TableCell>
+                      <Typography
+                        sx={{ mt: 1 }}
+                        style={{
+                          fontWeight: 600,
+                          color: "#868585",
+                          fontSize: "16px",
+                          fontFamily: "Open Sans",
+                        }}
+                      >
+                        Category
+                      </Typography>
+                    </TableCell>
+                    <TableCell align="right">
+                      <Typography
+                        sx={{ mt: 1 }}
+                        style={{
+                          fontWeight: 600,
+                          color: "#868585",
+                          fontSize: "16px",
+                          fontFamily: "Open Sans",
+                        }}
+                      >
+                        Author
+                      </Typography>
+                    </TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {books.isSuccess && (
+                    <>
+                      {books.data && (
+                        <>
+                          {books?.data?.data?.map((book: any) => {
+                            return (
+                              <>
+                                <TableRow
+                                  key={book?._id}
+                                  className="table_row"
+                                  sx={{
+                                    "&:last-child td, &:last-child th": {
+                                      border: 0,
+                                    },
+                                  }}
+                                >
+                                  <TableCell
+                                    component="th"
+                                    scope="row"
+                                    className="table-cell text"
+                                    style={{
+                                      fontWeight: 600,
+                                      color: "#333333",
+                                      fontSize: "16px",
+                                      fontFamily: "Open Sans",
+                                    }}
+                                  >
+                                    {book?.book_name}
+                                  </TableCell>
 
-                        <TableCell component="th" scope="row">
-                          <Chip label="Novel" />
-                        </TableCell>
-                        <TableCell align="right">{row.catogery}</TableCell>
-                      </TableRow>
-                    ))}
-                  </TableBody>
-                </Table>
-              </TableContainer>
-            </Grid>
+                                  <TableCell
+                                    component="th"
+                                    scope="row"
+                                    className="table-cell text"
+                                  >
+                                    <Chip
+                                      label={book?.category}
+                                      style={{
+                                        fontWeight: 600,
+                                        color: "#333333",
+                                        fontSize: "14px",
+                                        fontFamily: "Open Sans",
+                                      }}
+                                    />
+                                  </TableCell>
+                                  <TableCell
+                                    align="right"
+                                    className="table-cell text"
+                                    style={{
+                                      color: "#333333",
+                                      fontSize: "16px",
+                                      fontFamily: "Open Sans",
+                                    }}
+                                  >
+                                    {book?.author}
+                                  </TableCell>
+                                </TableRow>
+                              </>
+                            );
+                          })}
+                        </>
+                      )}
+                    </>
+                  )}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Box>
         </Container>
       </HomeSectionWrapper>

@@ -151,10 +151,14 @@ export const Header = () => {
           <Button component={Link} to="/news">
             News
           </Button>
+
           <Button component={Link} to="/gallery">
             Gallery
           </Button>
-          <Button>Contact</Button>
+
+          <Button component={Link} to="#">
+            Contact
+          </Button>
 
           <Button variant="text" component={Link} to="/library">
             Library

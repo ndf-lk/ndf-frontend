@@ -9,38 +9,6 @@ import { useParams } from "react-router-dom";
 import Output from "editorjs-react-renderer";
 import useNewsDetails from "../hooks/news/useNewsDetails";
 
-const data = {
-  time: 1564767102436,
-  blocks: [
-    {
-      type: "header",
-      data: {
-        level: 1,
-        text: "Editor.js React Renderer",
-      },
-    },
-    {
-      type: "image",
-      data: {
-        file: {
-          url: "https://mui.com/static/images/cards/contemplative-reptile.jpg",
-        },
-        caption: "Test Caption",
-        withBorder: false,
-        stretched: false,
-        withBackground: false,
-      },
-    },
-    {
-      type: "paragraph",
-      data: {
-        text: "Lorem ipsum dolor sit amet consectetur adipisicing elit. Doloremque accusantium veritatis dolorum cum amet! Ipsa ullam nisi, dolor explicabo ut nobis repudiandae saepe illo error facilis consectetur, quisquam assumenda dolorum.",
-      },
-    },
-  ],
-  version: "2.14.0",
-};
-
 const PostPage = () => {
   const { id } = useParams();
   const newsDetails = useNewsDetails(id!);
@@ -55,7 +23,7 @@ const PostPage = () => {
             <TextLoading />
           </>
         ) : null}
-        <section>
+        <section style={{ marginBottom: 50 }}>
           {newsDetails.isSuccess && (
             <>
               <Typography variant="h2" sx={{ mt: 10, mb: 5 }}>
