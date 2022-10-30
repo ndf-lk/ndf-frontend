@@ -11,7 +11,10 @@ import {
 } from "@mui/material";
 import { Link } from "react-router-dom";
 import AuthSectionWrapper from "../components/AuthenticationWrapper";
-//import { InputLabel } from "../components/InuptLabel";
+import { useState } from "react";
+import { useSnackbar } from "notistack";
+import axios, { AxiosResponse } from "axios";
+import AppConfig from "../config";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -25,6 +28,76 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
 }));
 
 const RegisterPage = () => {
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastname] = useState("");
+  const [email, setEmail] = useState("");
+  const [phone, setPhoneNumber] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const [isLoading, setIsLoading] = useState(false);
+
+  const submitAction = () => {
+    const validateEmail = (email: string) => {
+      return String(email)
+        .toLowerCase()
+        .match(
+          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+        );
+    };
+
+    if (password !== confirmPassword) {
+      enqueueSnackbar("Password and confirmation password should be equal", {
+        variant: "error",
+      });
+      return;
+    }
+
+    if (!validateEmail(email)) {
+      enqueueSnackbar("Invalid email", {
+        variant: "error",
+      });
+      return;
+    }
+
+    axios({
+      method: "post",
+      url: `${AppConfig.BACKEND_API}auth/sign-up`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify({
+        email: email,
+        password: password,
+        firstName: firstName,
+        lastName: lastName,
+        phone: phone,
+      }),
+    })
+      .then(function (response: AxiosResponse) {
+        enqueueSnackbar(
+          "Account created successfully please check your email",
+          {
+            variant: "success",
+          }
+        );
+      })
+      .catch(function (error) {
+        if (error.response?.data?.message) {
+          enqueueSnackbar(error.response?.data?.message, {
+            variant: "error",
+          });
+          return;
+        }
+
+        enqueueSnackbar(error.message, {
+          variant: "error",
+        });
+      });
+  };
+
   return (
     <>
       <AuthSectionWrapper>
@@ -74,32 +147,68 @@ const RegisterPage = () => {
             >
               <Grid item xs={4} sm={4} md={6}>
                 <InputLabel text={"First Name"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
               </Grid>
 
               <Grid item xs={4} sm={4} md={6}>
                 <InputLabel text={"Last Name"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={lastName}
+                  onChange={(e) => setLastname(e.target.value)}
+                />
               </Grid>
 
               <Grid item xs={4} sm={4} md={6}>
                 <InputLabel text={"Phone Number"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={phone}
+                  onChange={(e) => setPhoneNumber(e.target.value)}
+                />
               </Grid>
 
               <Grid item xs={4} sm={4} md={6}>
                 <InputLabel text={"Email"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
               </Grid>
 
               <Grid item xs={4} sm={8} md={12}>
                 <InputLabel text={"Password"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
+                />
               </Grid>
 
               <Grid item xs={4} sm={8} md={12}>
                 <InputLabel text={"Confirm password"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
+                <TextField
+                  fullWidth
+                  sx={{ mb: 1, mt: 1 }}
+                  variant="outlined"
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
+                />
               </Grid>
             </Grid>
           </Box>
@@ -115,6 +224,7 @@ const RegisterPage = () => {
                 fullWidth
                 size="large"
                 sx={{ mt: 5 }}
+                onClick={() => submitAction()}
               >
                 Sign up
               </ColorButton>

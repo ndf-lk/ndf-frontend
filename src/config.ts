@@ -6,6 +6,6 @@ interface ENV {
 
 const ENVIRONMENT: ENV = {
   BACKEND_API: "https://api.ndf.lk/",
-  // BACKEND_API: "http://localhost:4000/",
+  //  BACKEND_API: "http://localhost:4000/",
 };
 export default ENVIRONMENT;
