@@ -56,7 +56,7 @@ const IndexPage = () => {
             fontWeight: 900,
           }}
         >
-          ආයුබෝවන් Welcome வரவேற்பு
+          ආයුබෝවන් Welcome வணக்கம்
         </Typography>
 
         <Typography
