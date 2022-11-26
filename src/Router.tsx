@@ -10,6 +10,8 @@ import ScrollToTop from "./utils/scrollTop";
 import { LoginPage } from "./pages/login";
 import { DashboardPage } from "./pages/dashboard";
 import { LibraryPage } from "./pages/library";
+import { EditPage } from "./pages/dashboard/EditPage";
+import { ContactPage } from "./pages/contact";
 
 export const router = createBrowserRouter([
   {
@@ -37,6 +39,16 @@ export const router = createBrowserRouter([
   },
 
   {
+    path: "/contact",
+    element: (
+      <MainLayout>
+        <ScrollToTop />
+        <ContactPage />
+      </MainLayout>
+    ),
+  },
+
+  {
     path: "/post/:id",
     element: (
       <MainLayout>
@@ -51,6 +63,15 @@ export const router = createBrowserRouter([
     element: (
       <MainLayout>
         <GalleryPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/create",
+    element: (
+      <MainLayout>
+        <EditPage />
       </MainLayout>
     ),
   },

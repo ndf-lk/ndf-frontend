@@ -156,7 +156,7 @@ export const Header = () => {
             Gallery
           </Button>
 
-          <Button component={Link} to="#">
+          <Button component={Link} to="/contact">
             Contact
           </Button>
 

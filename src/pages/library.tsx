@@ -6,6 +6,7 @@ import {
   FormControl,
   Grid,
   Table,
+  LinearProgress,
   TableBody,
   TableCell,
   TableContainer,
@@ -25,25 +26,29 @@ import { useBooks } from "../hooks/library/useBooks";
 
 export const LibraryPage = () => {
   const [category, setCategory] = useState("Novels");
+  const [keyword, setKeyword] = useState(null);
 
-  const books = useBooks(category);
+  const books = useBooks(category, keyword);
 
   useEffect(() => {
     books.refetch();
   }, [category]);
 
+  useEffect(() => {
+    books.refetch();
+  }, [keyword]);
+
   return (
     <>
       <HomeSectionWrapper sx={{ pb: 1 }}>
         <Container>
-          <Box mb={{ xs: 9.25, md: 14 }}>
-            <Stack
-              sx={{ width: "100%", mb: 10, mt: 5 }}
-              direction="row"
-              justifyContent="space-between"
-              alignItems="center"
-              spacing={2}
-            >
+          <Grid
+            sx={{ width: "100%", mb: 50, m: 1 }}
+            container
+            spacing={{ xs: 2, md: 3 }}
+            columns={{ xs: 4, sm: 8, md: 12 }}
+          >
+            <Grid item xs={2} sm={4} md={5}>
               <Typography
                 variant="h5"
                 style={{
@@ -55,8 +60,27 @@ export const LibraryPage = () => {
               >
                 Our Library
               </Typography>
+            </Grid>
 
-              <FormControl sx={{ m: 1, minWidth: 200 }} size="medium">
+            <Grid item xs={2} sm={4} md={5}>
+              <TextField
+                sx={{ m: 1 }}
+                id="outlined-basic"
+                label="Search Here"
+                variant="outlined"
+                onClick={(e: any) => setKeyword(e.target.value)}
+                style={{ float: "right" }}
+                fullWidth
+              />
+            </Grid>
+
+            <Grid item xs={2} sm={4} md={2}>
+              <FormControl
+                size="medium"
+                sx={{ m: 1 }}
+                fullWidth
+                style={{ float: "right" }}
+              >
                 <InputLabel id="demo-simple-select-label">Category</InputLabel>
                 <Select
                   labelId="demo-simple-select-label"
@@ -83,7 +107,12 @@ export const LibraryPage = () => {
                   <MenuItem value={"Sociology"}>Sociology</MenuItem>
                 </Select>
               </FormControl>
-            </Stack>
+            </Grid>
+          </Grid>
+
+          <Box mb={{ xs: 9.25, md: 14 }}>
+            <Stack></Stack>
+
             <TableContainer
               component={Box}
               style={{
@@ -99,6 +128,20 @@ export const LibraryPage = () => {
               >
                 <TableHead>
                   <TableRow>
+                    <TableCell>
+                      <Typography
+                        sx={{ mt: 1 }}
+                        style={{
+                          fontWeight: 600,
+                          color: "#868585",
+                          fontSize: "16px",
+                          fontFamily: "Open Sans",
+                        }}
+                      >
+                        Book Id
+                      </Typography>
+                    </TableCell>
+
                     <TableCell>
                       <Typography
                         sx={{ mt: 1 }}
@@ -168,6 +211,20 @@ export const LibraryPage = () => {
                                       fontFamily: "Open Sans",
                                     }}
                                   >
+                                    {book?.number}
+                                  </TableCell>
+
+                                  <TableCell
+                                    component="th"
+                                    scope="row"
+                                    className="table-cell text"
+                                    style={{
+                                      fontWeight: 600,
+                                      color: "#333333",
+                                      fontSize: "16px",
+                                      fontFamily: "Open Sans",
+                                    }}
+                                  >
                                     {book?.book_name}
                                   </TableCell>
 
@@ -207,6 +264,8 @@ export const LibraryPage = () => {
                   )}
                 </TableBody>
               </Table>
+
+              {books.isLoading && <LinearProgress />}
             </TableContainer>
           </Box>
         </Container>
