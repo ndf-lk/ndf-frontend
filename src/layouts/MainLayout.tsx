@@ -5,7 +5,10 @@ import themeFactory from "../config/theme";
 import Values from "values.js";
 import Footer from "../components/footer";
 
-const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+const MainLayout: React.FC<{
+  children: React.ReactNode;
+  hideNewsBar: boolean;
+}> = ({ children, hideNewsBar }) => {
   let primaryColor = "#D8532E";
   let secondaryColor = "#821824";
   let selectedHeaderFont = "Open Sans";
@@ -37,7 +40,7 @@ const MainLayout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   return (
     <>
       <ThemeProvider theme={theme}>
-        <Header />
+        <Header hideNewsBar={hideNewsBar} />
         <div>{children}</div>
         <Footer />
       </ThemeProvider>

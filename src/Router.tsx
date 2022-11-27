@@ -21,7 +21,7 @@ export const router = createBrowserRouter([
   {
     path: "/home",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={false}>
         <ScrollToTop />
         <HomePage />
       </MainLayout>
@@ -31,7 +31,7 @@ export const router = createBrowserRouter([
   {
     path: "/news",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={false}>
         <ScrollToTop />
         <NewsPage />
       </MainLayout>
@@ -41,7 +41,7 @@ export const router = createBrowserRouter([
   {
     path: "/contact",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={true}>
         <ScrollToTop />
         <ContactPage />
       </MainLayout>
@@ -51,7 +51,7 @@ export const router = createBrowserRouter([
   {
     path: "/post/:id",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={false}>
         <ScrollToTop />
         <PostPage />
       </MainLayout>
@@ -61,7 +61,7 @@ export const router = createBrowserRouter([
   {
     path: "/gallery",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={false}>
         <GalleryPage />
       </MainLayout>
     ),
@@ -70,7 +70,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard/create",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={true}>
         <EditPage />
       </MainLayout>
     ),
@@ -79,7 +79,7 @@ export const router = createBrowserRouter([
   {
     path: "/dashboard",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={true}>
         <DashboardPage />
       </MainLayout>
     ),
@@ -98,7 +98,7 @@ export const router = createBrowserRouter([
   {
     path: "/library",
     element: (
-      <MainLayout>
+      <MainLayout hideNewsBar={true}>
         <LibraryPage />
       </MainLayout>
     ),

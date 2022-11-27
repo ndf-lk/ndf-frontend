@@ -61,7 +61,7 @@ const DrawerHeader = styled("div")(({ theme }) => ({
   justifyContent: "flex-end",
 }));
 
-export const Header = () => {
+export const Header = (props: { hideNewsBar: boolean }) => {
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
   const { language } = useContext(LanguageContext);
@@ -173,38 +173,46 @@ export const Header = () => {
         </ButtonGroup>
       </Box>
 
-      <Box style={{ width: "100%", backgroundColor: "#EFEFEF", padding: 20 }}>
-        <Marquee
-          duration={50000}
-          height="20px"
-          width="100%"
-          align="center"
-          pauseOnHover={true}
-        >
-          {news.isSuccess && (
-            <>
-              {news.data.data.map((article: { title: string; _id: string }) => {
-                return (
-                  <Typography
-                    variant="body1"
-                    component={Link}
-                    to={`/post/${article?._id}`}
-                    key={article._id}
-                    fontWeight={500}
-                    style={{
-                      marginLeft: 50,
-                      marginRight: 50,
-                      textDecoration: "none",
-                    }}
-                  >
-                    {article?.title}
-                  </Typography>
-                );
-              })}
-            </>
-          )}
-        </Marquee>
-      </Box>
+      {props.hideNewsBar ? null : (
+        <>
+          <Box
+            style={{ width: "100%", backgroundColor: "#EFEFEF", padding: 20 }}
+          >
+            <Marquee
+              duration={50000}
+              height="20px"
+              width="100%"
+              align="center"
+              pauseOnHover={true}
+            >
+              {news.isSuccess && (
+                <>
+                  {news.data.data.map(
+                    (article: { title: string; _id: string }) => {
+                      return (
+                        <Typography
+                          variant="body1"
+                          component={Link}
+                          to={`/post/${article?._id}`}
+                          key={article._id}
+                          fontWeight={500}
+                          style={{
+                            marginLeft: 50,
+                            marginRight: 50,
+                            textDecoration: "none",
+                          }}
+                        >
+                          {article?.title}
+                        </Typography>
+                      );
+                    }
+                  )}
+                </>
+              )}
+            </Marquee>
+          </Box>
+        </>
+      )}
 
       <Drawer
         sx={{

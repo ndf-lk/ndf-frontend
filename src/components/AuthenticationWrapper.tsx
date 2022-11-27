@@ -23,7 +23,7 @@ export const AuthSectionWrapper = React.forwardRef(
             }}
           >
             <Stack
-              direction="row"
+              direction="column"
               justifyContent="center"
               alignItems="center"
               style={{ height: "95%" }}
