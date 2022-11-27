@@ -19,11 +19,15 @@ import {
   AppBarProps as MuiAppBarProps,
   useMediaQuery,
   IconButton,
+  Typography,
 } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AccountMenu } from "./AccountButton";
+import { useNews } from "../hooks/news/useNews";
+import { LanguageContext } from "../context/userLangctx";
+import Marquee from "react-easy-marquee";
 
 const drawerWidth = 240;
 
@@ -59,11 +63,9 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 export const Header = () => {
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
-  const [showMe, setShowMe] = useState(false);
-  function toggle() {
-    setShowMe(!showMe);
-  }
+  const { language } = useContext(LanguageContext);
 
+  const [showMe, setShowMe] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {
@@ -73,6 +75,8 @@ export const Header = () => {
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const news = useNews(language, 20);
 
   return (
     <>
@@ -168,6 +172,39 @@ export const Header = () => {
             Join Us
           </Button>
         </ButtonGroup>
+      </Box>
+
+      <Box style={{ width: "100%", backgroundColor: "#EFEFEF", padding: 20 }}>
+        <Marquee
+          duration={50000}
+          height="20px"
+          width="100%"
+          align="center"
+          pauseOnHover={true}
+        >
+          {news.isSuccess && (
+            <>
+              {news.data.data.map((article: { title: string; _id: string }) => {
+                return (
+                  <Typography
+                    variant="body1"
+                    component={Link}
+                    to={`/post/${article?._id}`}
+                    key={article._id}
+                    fontWeight={500}
+                    style={{
+                      marginLeft: 50,
+                      marginRight: 50,
+                      textDecoration: "none",
+                    }}
+                  >
+                    {article?.title}
+                  </Typography>
+                );
+              })}
+            </>
+          )}
+        </Marquee>
       </Box>
 
       <Drawer
