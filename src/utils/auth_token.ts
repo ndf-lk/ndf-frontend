@@ -2,7 +2,7 @@ import jwt_decode from "jwt-decode";
 import { JwtPayload } from "../types/jwt-payload.interface";
 
 export const getAuthStorage = () => {
-  let values = JSON.parse(localStorage.getItem("auth-storage")!).state
+  let values = JSON.parse(localStorage.getItem("auth-storage")!)?.state
     ?.accessToken;
   return values;
 };
