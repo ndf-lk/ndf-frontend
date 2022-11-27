@@ -15,6 +15,8 @@ import AppConfig from "../config";
 import axios from "axios";
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
+import { useUserStore } from "../store/createUserSlice";
+import { useTokenStore } from "../store/createAuthStore";
 
 const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
   color: "#FFFFFF",
@@ -28,15 +30,15 @@ const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
 }));
 
 export const LoginPage = () => {
-  const { token, setToken } = useContext(AuthTokenContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
   let navigate = useNavigate();
+  const { setUser } = useUserStore();
+  const { setAccessToken } = useTokenStore();
 
   const signIn = async () => {
     setIsLoading(true);
@@ -54,8 +56,9 @@ export const LoginPage = () => {
 
     await axios(config)
       .then(function (response) {
-        setToken(response?.data?.data);
-        console.log(response?.data?.data);
+        setAccessToken(response.data?.data?.idToken?.jwtToken);
+        setUser(response?.data?.data?.idToken?.payload);
+
         enqueueSnackbar("Login success", { variant: "success" });
         return navigate("/home");
       })

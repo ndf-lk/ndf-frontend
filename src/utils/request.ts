@@ -8,6 +8,6 @@ export default axios.create({
   baseURL: ENVIRONMENT.BACKEND_API,
   headers: {
     "Content-type": "application/json",
-    Authorization: `Bearer ${authStorage?.idToken?.jwtToken}`,
+    Authorization: `Bearer ${authStorage}`,
   },
 });

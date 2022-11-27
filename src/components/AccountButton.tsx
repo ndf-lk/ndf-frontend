@@ -11,37 +11,45 @@ import PersonAdd from "@mui/icons-material/PersonAdd";
 import DashboardIcon from "@mui/icons-material/Dashboard";
 import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { AuthTokenContext } from "../context/AuthTokenContext";
 import { IAuthResponse } from "../types/AuthToken";
 import { useMe } from "../hooks/me/useMe";
 import { Link } from "react-router-dom";
+import { useUserStore } from "../store/createUserSlice";
+import { useTokenStore } from "../store/createAuthStore";
 
 export function AccountMenu() {
-  const { token }: { token: IAuthResponse } =
-    React.useContext(AuthTokenContext);
   const currentUser = useMe();
 
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const [user, setUser] = React.useState<any>();
 
+  const tokenPayload = useUserStore();
+  const { setAccessToken } = useTokenStore();
+
   const open = Boolean(anchorEl);
+
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
+
   const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const logoutUser = () => {
+    tokenPayload.setUser(null);
+    setAccessToken(null);
   };
 
   React.useEffect(() => {
     if (currentUser.isSuccess) {
       setUser(currentUser.data.data);
-      console.log(user);
     }
   }, []);
 
   return (
     <React.Fragment>
-      {token && Object.keys(token).length > 0 ? (
+      {tokenPayload.user ? (
         <>
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
@@ -122,7 +130,7 @@ export function AccountMenu() {
               </ListItemIcon>
               Settings
             </MenuItem>
-            <MenuItem>
+            <MenuItem onClick={() => logoutUser()}>
               <ListItemIcon>
                 <Logout fontSize="small" />
               </ListItemIcon>

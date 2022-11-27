@@ -2,7 +2,8 @@ import jwt_decode from "jwt-decode";
 import { JwtPayload } from "../types/jwt-payload.interface";
 
 export const getAuthStorage = () => {
-  let values = JSON.parse(localStorage.getItem("auth")!);
+  let values = JSON.parse(localStorage.getItem("auth-storage")!).state
+    ?.accessToken;
   return values;
 };
 
@@ -13,7 +14,7 @@ export const isValidToken = () => {
   if (!values.idToken?.jwtToken) return false;
 
   try {
-    const decoded_token: JwtPayload = jwt_decode(values?.idToken.jwtToken);
+    const decoded_token: JwtPayload = jwt_decode(values);
     if (!decoded_token) {
       localStorage.setItem("auth", "");
       return false;

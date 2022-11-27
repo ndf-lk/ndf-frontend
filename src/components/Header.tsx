@@ -28,6 +28,7 @@ import { AccountMenu } from "./AccountButton";
 import { useNews } from "../hooks/news/useNews";
 import { LanguageContext } from "../context/userLangctx";
 import Marquee from "react-easy-marquee";
+import { useUserStore } from "../store/createUserSlice";
 
 const drawerWidth = 240;
 
@@ -64,8 +65,6 @@ export const Header = () => {
   const theme = useTheme();
   const isSmDown = useMediaQuery(theme.breakpoints.down("sm"));
   const { language } = useContext(LanguageContext);
-
-  const [showMe, setShowMe] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleDrawerOpen = () => {

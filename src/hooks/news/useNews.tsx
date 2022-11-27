@@ -7,5 +7,5 @@ const fetchData = (lang: string, limit: number) =>
     .then((response) => response.data);
 
 export function useNews(lang: string, limit: number) {
-  return useQuery(["news", lang], () => fetchData(lang, limit));
+  return useQuery([`news-${limit}`, lang], () => fetchData(lang, limit));
 }

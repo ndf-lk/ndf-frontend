@@ -8,6 +8,8 @@ import axios from "axios";
 import { useSnackbar } from "notistack";
 import { AuthTokenContext } from "../context/AuthTokenContext";
 import { useMe } from "../hooks/me/useMe";
+import { useTokenStore } from "../store/createAuthStore";
+import { useUserStore } from "../store/createUserSlice";
 
 const CssTextField = styled(TextField)({
   color: "white",
@@ -44,13 +46,14 @@ const CssTextField = styled(TextField)({
 });
 
 export const JoinNDF = () => {
-  const { token, setToken } = useContext(AuthTokenContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
 
-  const [isLogin, setIsLogin] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+
+  const { setAccessToken } = useTokenStore();
+  const { setUser, user } = useUserStore();
 
   const currentUser: any = useMe();
 
@@ -82,10 +85,10 @@ export const JoinNDF = () => {
 
     await axios(config)
       .then(function (response) {
-        setToken(response.data.data);
-        console.log(response.data.data);
+        setAccessToken(response.data?.data?.idToken?.jwtToken);
+        setUser(response?.data?.data?.idToken?.payload);
+
         enqueueSnackbar("Login success", { variant: "success" });
-        console.log(token);
       })
       .catch(function (error) {
         if (error.response.data.message) {
@@ -117,7 +120,7 @@ export const JoinNDF = () => {
             width="auto"
           />
         </center>
-        {token && Object.keys(token).length > 0 ? (
+        {user && Object.keys(user).length > 0 ? (
           <>
             {currentUser.isLoading ? (
               <>Loading...</>
