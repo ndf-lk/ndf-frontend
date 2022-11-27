@@ -7,15 +7,10 @@ import {
   styled,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { Link } from "react-router-dom";
-import AuthSectionWrapper from "../components/AuthenticationWrapper";
 import { useContext, useState } from "react";
 import { AuthTokenContext } from "../context/AuthTokenContext";
-import AppConfig from "../config";
-import axios from "axios";
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
-import React from "react";
 import { Stack, Box } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
 import { FacebookOutlined, MarginOutlined, YouTube } from "@mui/icons-material";
@@ -23,6 +18,8 @@ import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import YouTubeIcon from "@mui/icons-material/YouTube";
+import axios from "axios";
+import AppConfig from "../config";
 
 const contactdata = [
   {
@@ -35,7 +32,7 @@ const contactdata = [
   },
   {
     text: "0117364566, 0763581404, 077003001",
-    icon: <LocationOnIcon style={{ color: "white" }} />,
+    icon: <LocalPhoneIcon style={{ color: "white" }} />,
   },
   {
     text: "/NationalDemocraticFront.lk",
@@ -63,15 +60,46 @@ const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
 }));
 
 export const ContactPage = () => {
-  const { token, setToken } = useContext(AuthTokenContext);
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
-
-  const [isLogin, setIsLogin] = useState(true);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const { enqueueSnackbar } = useSnackbar();
   const [isLoading, setIsLoading] = useState(false);
 
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+  const [subject, setSubject] = useState("");
+  const [message, setMessage] = useState("");
+
   let navigate = useNavigate();
+
+  const submitData = async () => {
+    setIsLoading(true);
+
+    await axios({
+      method: "post",
+      url: `${AppConfig.BACKEND_API}contact`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: JSON.stringify({
+        user: name,
+        subject: subject,
+        userMessage: message,
+        userEmail: email,
+      }),
+    })
+      .then(function (response) {
+        console.log(JSON.stringify(response.data));
+
+        enqueueSnackbar("Your Message posted successfully", {
+          variant: "success",
+        });
+      })
+      .catch(function (error) {
+        console.log(error);
+        enqueueSnackbar("Cant send your message. please try again later", {
+          variant: "error",
+        });
+      });
+  };
 
   return (
     <>
@@ -161,6 +189,8 @@ export const ContactPage = () => {
               variant="outlined"
               fullWidth
               placeholder="Enter your email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
             />
             <Typography
               variant="h5"
@@ -178,6 +208,8 @@ export const ContactPage = () => {
               variant="outlined"
               fullWidth
               placeholder="Enter your name"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
 
             <Typography
@@ -192,7 +224,13 @@ export const ContactPage = () => {
             >
               Subject
             </Typography>
-            <TextField variant="outlined" fullWidth placeholder="Subject" />
+            <TextField
+              variant="outlined"
+              fullWidth
+              placeholder="Subject"
+              value={subject}
+              onChange={(e) => setSubject(e.target.value)}
+            />
 
             <Typography
               variant="h5"
@@ -212,6 +250,8 @@ export const ContactPage = () => {
               placeholder="I want to talk about..."
               multiline
               rows={5}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
             />
 
             <Grid
@@ -225,6 +265,7 @@ export const ContactPage = () => {
                   fullWidth
                   size="large"
                   sx={{ mt: 5 }}
+                  onClick={() => submitData()}
                   loading={isLoading}
                 >
                   Send Message

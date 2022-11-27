@@ -9,6 +9,7 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Divider,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
@@ -150,6 +151,20 @@ const HomePage = () => {
           </Box>
         </Container>
       </HomeSectionWrapper>
+
+      <Container>
+        <Divider />
+
+        <iframe
+          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FNationalDemocraticFront.lk&tabs=timeline&width=350&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=234405398704718"
+          style={{ border: "none", overflow: "hidden" }}
+          scrolling="no"
+          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+          width={350}
+          height={400}
+          frameBorder={0}
+        />
+      </Container>
     </>
   );
 };
