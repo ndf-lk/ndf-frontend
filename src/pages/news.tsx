@@ -21,7 +21,7 @@ const NewsPage = () => {
   const theme = useTheme();
   const { language } = useContext(LanguageContext);
   const isSmall = useMediaQuery(theme.breakpoints.down("sm"));
-  const news = useNews(language);
+  const news = useNews(language, 100);
   const latestNews = useLatestNews(language);
 
   return (

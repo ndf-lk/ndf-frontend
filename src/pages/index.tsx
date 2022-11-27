@@ -8,8 +8,8 @@ import { useNavigate } from "react-router-dom";
 const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: theme.palette.getContrastText("#FFFFFF"),
   fontWeight: 800,
-  paddingLeft: 20,
-  paddingRight: 20,
+  paddingLeft: 5,
+  paddingRight: 5,
   paddingTop: 10,
   paddingBottom: 10,
   backgroundColor: "#FFFFFF",
@@ -77,14 +77,14 @@ const IndexPage = () => {
           alignItems="center"
           sx={{ mt: 5 }}
         >
-          <ColorButton size="large" onClick={() => updateLanguage("en")}>
+          <ColorButton size="small" onClick={() => updateLanguage("si")}>
+            සිංහල
+          </ColorButton>
+          <ColorButton size="small" onClick={() => updateLanguage("en")}>
             English
           </ColorButton>
-          <ColorButton size="large" onClick={() => updateLanguage("tm")}>
-            Tamil
-          </ColorButton>
-          <ColorButton size="large" onClick={() => updateLanguage("si")}>
-            Sinhala
+          <ColorButton size="small" onClick={() => updateLanguage("tm")}>
+            தமிழ்
           </ColorButton>
         </Stack>
 

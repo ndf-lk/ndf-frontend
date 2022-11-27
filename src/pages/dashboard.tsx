@@ -8,6 +8,7 @@ import {
   styled,
   Button,
   ButtonProps,
+  Stack,
 } from "@mui/material";
 import "../styles/dashboard.css";
 import { InputLabel } from "../components/InuptLabel";
@@ -23,6 +24,14 @@ const ColorButton = styled(Button)<ButtonProps>(() => ({
   backgroundColor: "#871C25",
   "&:hover": {
     backgroundColor: "#871C25",
+  },
+}));
+
+const GalleryButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: "white",
+  backgroundColor: "#6E00FF",
+  "&:hover": {
+    backgroundColor: "#6E00FF",
   },
 }));
 
@@ -55,18 +64,31 @@ export const DashboardPage = () => {
           }}
           maxWidth="xl"
         >
-          <Typography
-            variant={"h2"}
-            style={{
-              fontSize: "28px",
-              fontFamily: "Open Sans",
-              fontStyle: "normal",
-              fontWeight: 600,
-              color: "#333333",
-            }}
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
           >
-            Dashboard
-          </Typography>
+            <Typography
+              variant={"h2"}
+              style={{
+                fontSize: "28px",
+                fontFamily: "Open Sans",
+                fontStyle: "normal",
+                fontWeight: 600,
+                color: "#333333",
+              }}
+            >
+              Dashboard
+            </Typography>
+            <Box>
+              <GalleryButton variant="contained" size="small">
+                {" "}
+                Upload to gallery{" "}
+              </GalleryButton>
+            </Box>
+          </Stack>
 
           <Typography
             variant={"h2"}

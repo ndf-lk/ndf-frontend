@@ -75,7 +75,7 @@ export const ContactPage = () => {
 
   return (
     <>
-      <Grid container columns={{ xs: 1, sm: 1, md:5 }}>
+      <Grid container columns={{ xs: 1, sm: 1, md: 5 }}>
         <Grid item xs={1} sm={1} md={2}>
           <Box
             height={{ xs: 700, sm: 200, md: "100vh" }}
@@ -134,13 +134,12 @@ export const ContactPage = () => {
           <Container sx={{ mt: { xs: 0, sm: 15, md: 15 } }} maxWidth="md">
             <Typography
               variant="h5"
-              sx={{ mt: 5 ,mb:15 }}
+              sx={{ mt: 5, mb: 15 }}
               style={{
                 fontWeight: 700,
                 color: "#494949",
                 fontSize: "30px",
                 fontFamily: "Open Sans",
-
               }}
             >
               Send us a message
@@ -148,7 +147,7 @@ export const ContactPage = () => {
 
             <Typography
               variant="h5"
-              sx={{ mb: 1, mt:5 }}
+              sx={{ mb: 1, mt: 5 }}
               style={{
                 fontWeight: 700,
                 color: "#333333",
@@ -165,7 +164,7 @@ export const ContactPage = () => {
             />
             <Typography
               variant="h5"
-              sx={{ mb: 1, mt:5 }}
+              sx={{ mb: 1, mt: 5 }}
               style={{
                 fontWeight: 700,
                 color: "#333333",
@@ -183,7 +182,7 @@ export const ContactPage = () => {
 
             <Typography
               variant="h5"
-              sx={{ mb: 1, mt:5 }}
+              sx={{ mb: 1, mt: 5 }}
               style={{
                 fontWeight: 700,
                 color: "#333333",
@@ -193,15 +192,11 @@ export const ContactPage = () => {
             >
               Subject
             </Typography>
-            <TextField
-              variant="outlined"
-              fullWidth
-              placeholder="Subject"
-            />
+            <TextField variant="outlined" fullWidth placeholder="Subject" />
 
             <Typography
               variant="h5"
-              sx={{ mb: 1, mt:5 }}
+              sx={{ mb: 1, mt: 5 }}
               style={{
                 fontWeight: 700,
                 color: "#333333",
@@ -209,7 +204,7 @@ export const ContactPage = () => {
                 fontFamily: "Open Sans",
               }}
             >
-Your message
+              Your message
             </Typography>
             <TextField
               variant="outlined"
@@ -218,7 +213,6 @@ Your message
               multiline
               rows={5}
             />
-
 
             <Grid
               container
@@ -233,11 +227,10 @@ Your message
                   sx={{ mt: 5 }}
                   loading={isLoading}
                 >
-                 Send Message
+                  Send Message
                 </ColorButton>
               </Grid>
             </Grid>
-
           </Container>
         </Grid>
       </Grid>
