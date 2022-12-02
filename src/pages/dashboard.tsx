@@ -9,12 +9,17 @@ import {
   Button,
   ButtonProps,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import "../styles/dashboard.css";
 import { InputLabel } from "../components/InuptLabel";
 import { useMe } from "../hooks/me/useMe";
 import { useEffect } from "react";
 import { useSnackbar } from "notistack";
+import { UpdateProfileForm } from "../components/update-profile/UpdateProfileForm";
+import { UseQueryResult } from "@tanstack/react-query";
+import { IUser } from "../types/user";
+import { IAPIError } from "../types/error";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -40,6 +45,8 @@ export const DashboardPage = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
+    // @todo
+    // handle error better here with types
     if (currentUser.isError) {
       if (currentUser.error.response.data.message) {
         enqueueSnackbar(currentUser.error.response.data.message, {
@@ -104,65 +111,8 @@ export const DashboardPage = () => {
             Your Profile
           </Typography>
 
-          <Box sx={{ mt: 5 }}>
-            <Grid
-              container
-              spacing={{ xs: 2, md: 3 }}
-              columns={{ xs: 4, sm: 8, md: 12 }}
-            >
-              <Grid item xs={4} sm={4} md={6}>
-                <InputLabel text={"First name"} />
-                <TextField
-                  fullWidth
-                  sx={{ mb: 1, mt: 1 }}
-                  variant="outlined"
-                  value={currentUser.data?.data?.firstName}
-                />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={6}>
-                <InputLabel text={"Last name"} />
-                <TextField
-                  fullWidth
-                  sx={{ mb: 1, mt: 1 }}
-                  variant="outlined"
-                  value={currentUser.data?.data?.lastName}
-                />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={7}>
-                <InputLabel text={"Address"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={5}>
-                <InputLabel text={"District"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={6}>
-                <InputLabel text={"Position"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={3}>
-                <InputLabel text={"Date"} />
-                <TextField
-                  fullWidth
-                  sx={{ mb: 1, mt: 1 }}
-                  variant="outlined"
-                  type="date"
-                />
-              </Grid>
-
-              <Grid item xs={4} sm={4} md={3}>
-                <InputLabel text={"Seat"} />
-                <TextField fullWidth sx={{ mb: 1, mt: 1 }} variant="outlined" />
-              </Grid>
-            </Grid>
-
-            <ColorButton sx={{ mt: 7 }}> Edit details </ColorButton>
-          </Box>
+          {currentUser.isLoading && <CircularProgress />}
+          {currentUser.data && <UpdateProfileForm currentUser={currentUser} />}
         </Container>
       </HomeSectionWrapper>
     </>

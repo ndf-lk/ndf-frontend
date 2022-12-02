@@ -72,6 +72,20 @@ const HomePage = () => {
                 <Grid item xs={12} sm={6} md={12}>
                   <JoinNDF />
                 </Grid>
+
+                <Grid item xs={12} sm={6} md={12}>
+                  <iframe
+                    width="100%"
+                    height="200c"
+                    src="https://www.youtube.com/embed/w40uOSkebxc"
+                    title="YouTube video player"
+                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                    allowFullScreen
+                    style={{
+                      border: "none",
+                    }}
+                  />
+                </Grid>
               </Grid>
             </Grid>
           </Grid>
