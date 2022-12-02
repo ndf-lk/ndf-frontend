@@ -16,21 +16,12 @@ import { useSnackbar } from "notistack";
 import httpConfig from "../../utils/request";
 import { IAPIError } from "../../types/error";
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
+import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 
 export const UpdateProfileForm = (props: {
   currentUser: UseQueryResult<{ data: IUser }, unknown>;
 }) => {
   const { enqueueSnackbar } = useSnackbar();
-  const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
-    color: "#FFFFFF",
-    fontSize: "16px",
-    fontWeight: 700,
-    textTransform: "none",
-    backgroundColor: "#871C25",
-    "&:hover": {
-      backgroundColor: "#871C25",
-    },
-  }));
 
   const updateProfileMutation = useMutation(
     (userData: {
@@ -192,14 +183,13 @@ export const UpdateProfileForm = (props: {
             </Grid>
           </Grid>
 
-          <ColorButton
+          <DashboardMainButton
             sx={{ mt: 7 }}
             type="submit"
             loading={updateProfileMutation.isLoading}
           >
-            {" "}
-            Edit details{" "}
-          </ColorButton>
+            Edit details
+          </DashboardMainButton>
         </form>
       </Box>
     </>
