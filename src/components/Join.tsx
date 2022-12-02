@@ -55,19 +55,8 @@ export const JoinNDF = () => {
   const { setAccessToken } = useTokenStore();
   const { setUser, user } = useUserStore();
 
-  const currentUser: any = useMe();
+  const currentUser = useMe();
 
-  useEffect(() => {
-    if (currentUser.isError) {
-      if (currentUser.error?.response?.data?.message) {
-        enqueueSnackbar(currentUser.error?.response?.data?.message, {
-          variant: "error",
-        });
-      } else {
-        enqueueSnackbar(currentUser.error.message, { variant: "error" });
-      }
-    }
-  }, [currentUser]);
 
   const signIn = async () => {
     setIsLoading(true);
@@ -89,6 +78,7 @@ export const JoinNDF = () => {
         setUser(response?.data?.data?.idToken?.payload);
 
         enqueueSnackbar("Login success", { variant: "success" });
+        window.location.reload
       })
       .catch(function (error) {
         if (error.response.data.message) {

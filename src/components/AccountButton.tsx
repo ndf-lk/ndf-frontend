@@ -111,17 +111,11 @@ export function AccountMenu() {
               {"  My account"}
             </MenuItem>
             <Divider />
-            <MenuItem>
-              <ListItemIcon>
-                <PersonAdd fontSize="small" />
-              </ListItemIcon>
-              Add another account
-            </MenuItem>
             <MenuItem component={Link} to="/dashboard">
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
-              Dashboard
+              My Ndf Dashboard
             </MenuItem>
 
             <MenuItem>
