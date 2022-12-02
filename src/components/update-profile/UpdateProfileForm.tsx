@@ -84,7 +84,15 @@ export const UpdateProfileForm = (props: {
       birthDay: props.currentUser.data?.data?.birthDay,
       seat: props.currentUser.data?.data?.seat,
     },
-    onSubmit: (values) => {
+    onSubmit: (values: {
+      firstName: string | undefined;
+      lastName: string | undefined;
+      address: string | undefined;
+      district: string | undefined;
+      position: string | undefined;
+      birthDay: string | undefined;
+      seat: string | undefined;
+    }) => {
       updateProfileMutation.mutate(values);
     },
   });
