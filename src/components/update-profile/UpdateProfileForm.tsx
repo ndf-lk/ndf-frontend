@@ -6,21 +6,22 @@ import {
   styled,
   Button,
   ButtonProps,
-  CircularProgress,
+  LinearProgress,
 } from "@mui/material";
-import { useMe } from "../../hooks/me/useMe";
 import { InputLabel } from "../InuptLabel";
 import { IUser } from "../../types/user";
-import { PropaneSharp } from "@mui/icons-material";
+import { useMutation, UseQueryResult } from "@tanstack/react-query";
+import { AxiosError } from "axios";
+import { useSnackbar } from "notistack";
+import httpConfig from "../../utils/request";
+import { IAPIError } from "../../types/error";
+import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 
 export const UpdateProfileForm = (props: {
-  currentUser: {
-    data: {
-      data: IUser;
-    };
-  };
+  currentUser: UseQueryResult<{ data: IUser }, unknown>;
 }) => {
-  const ColorButton = styled(Button)<ButtonProps>(() => ({
+  const { enqueueSnackbar } = useSnackbar();
+  const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
     color: "#FFFFFF",
     fontSize: "16px",
     fontWeight: 700,
@@ -30,6 +31,48 @@ export const UpdateProfileForm = (props: {
       backgroundColor: "#871C25",
     },
   }));
+
+  const updateProfileMutation = useMutation(
+    (userData: {
+      firstName: string | undefined;
+      lastName: string | undefined;
+      address: string | undefined;
+      district: string | undefined;
+      position: string | undefined;
+      birthDay: string | undefined;
+      seat: string | undefined;
+    }) =>
+      httpConfig({
+        method: "post",
+        url: "users/update",
+        data: JSON.stringify(userData),
+      }),
+    {
+      onSuccess: (response) => {
+        console.log(response);
+        enqueueSnackbar("Profile updated successfully", { variant: "success" });
+      },
+
+      onError: (error: AxiosError) => {
+        const errorMessages: any = error?.response?.data;
+
+        if (!errorMessages) {
+          enqueueSnackbar(error.message, { variant: "error" });
+          return;
+        }
+
+        if (!Array.isArray(errorMessages.message)) {
+          enqueueSnackbar(errorMessages.message, { variant: "error" });
+          return;
+        }
+
+        for (const message of errorMessages?.message) {
+          enqueueSnackbar(message, { variant: "error" });
+        }
+      },
+      onMutate: () => {},
+    }
+  );
 
   const formik = useFormik({
     initialValues: {
@@ -42,7 +85,7 @@ export const UpdateProfileForm = (props: {
       seat: props.currentUser.data?.data?.seat,
     },
     onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
+      updateProfileMutation.mutate(values);
     },
   });
 
@@ -141,7 +184,11 @@ export const UpdateProfileForm = (props: {
             </Grid>
           </Grid>
 
-          <ColorButton sx={{ mt: 7 }} type="submit">
+          <ColorButton
+            sx={{ mt: 7 }}
+            type="submit"
+            loading={updateProfileMutation.isLoading}
+          >
             {" "}
             Edit details{" "}
           </ColorButton>

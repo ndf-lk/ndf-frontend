@@ -17,6 +17,9 @@ import { useMe } from "../hooks/me/useMe";
 import { useEffect } from "react";
 import { useSnackbar } from "notistack";
 import { UpdateProfileForm } from "../components/update-profile/UpdateProfileForm";
+import { UseQueryResult } from "@tanstack/react-query";
+import { IUser } from "../types/user";
+import { IAPIError } from "../types/error";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -42,6 +45,8 @@ export const DashboardPage = () => {
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
 
   useEffect(() => {
+    // @todo
+    // handle error better here with types
     if (currentUser.isError) {
       if (currentUser.error.response.data.message) {
         enqueueSnackbar(currentUser.error.response.data.message, {
