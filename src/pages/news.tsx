@@ -30,9 +30,10 @@ const NewsPage = () => {
         <>
           {latestNews.data && (
             <>
+              {latestNews.data.lang}
               <section
                 style={{
-                  background: `url(${latestNews?.data?.data?.[0]?.bannerImage})`,
+                  background: `url(${latestNews?.data?.data?.bannerImage})`,
                   padding: "20px 10px",
                   height: "400px",
                 }}
@@ -115,9 +116,6 @@ const NewsCardMessage = ({
   isSmall: boolean;
   latestNews: any;
 }) => {
-  console.log("---------------------");
-  console.log(latestNews.data);
-
   return (
     <>
       {latestNews.isLoading && (
@@ -134,7 +132,7 @@ const NewsCardMessage = ({
             mt={isSmall ? 0 : 20}
             style={{ color: "white" }}
           >
-            {latestNews?.data?.data[0]?.title}
+            {latestNews?.data?.data?.title}
           </Typography>
           <Typography
             variant={isSmall ? "body2" : "body1"}
@@ -142,7 +140,7 @@ const NewsCardMessage = ({
             mt={2}
             style={{ color: "white" }}
           >
-            {latestNews?.data?.data[0]?.title}
+            {latestNews?.data?.data?.title}
           </Typography>
         </>
       )}

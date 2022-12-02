@@ -25,26 +25,32 @@ const contactdata = [
   {
     text: "contact.ndf.lk@gmail.com",
     icon: <MailOutlineIcon style={{ color: "white" }} />,
+    link: "mailto:contact.ndf.lk@gmail.com",
   },
   {
     text: "NDF Building, No. 201/07, Pore, Athurugiriya",
     icon: <LocationOnIcon style={{ color: "white" }} />,
+    link: "https://goo.gl/maps/WQzoTh6sVpQJb1e86",
   },
   {
     text: "0117364566, 0763581404, 077003001",
     icon: <LocalPhoneIcon style={{ color: "white" }} />,
+    link: "tel:0117364566",
   },
   {
     text: "/NationalDemocraticFront.lk",
     icon: <InstagramIcon style={{ color: "white" }} />,
+    link: "https://www.instagram.com/NationalDemocraticFront.lk/",
   },
   {
     text: "/NationalDemocraticFront.lk",
     icon: <FacebookOutlined style={{ color: "white" }} />,
+    link: "https://www.facebook.com/NationalDemocraticFront.lk",
   },
   {
-    text: "@nationaldemocraticfront9619",
+    text: "@nationaldemocraticfront",
     icon: <YouTubeIcon style={{ color: "white" }} />,
+    link: "https://www.youtube.com/@nationaldemocraticfront",
   },
 ];
 
@@ -99,6 +105,12 @@ export const ContactPage = () => {
           variant: "error",
         });
       });
+
+    setEmail("");
+    setName("");
+    setSubject("");
+    setMessage("");
+    setIsLoading(false);
   };
 
   return (
@@ -136,7 +148,11 @@ export const ContactPage = () => {
                           spacing={10}
                           style={{
                             marginTop: 50,
+                            textDecoration: "none",
                           }}
+                          component="a"
+                          href={details.link}
+                          target="_blank"
                         >
                           {details.icon}
                           <Typography

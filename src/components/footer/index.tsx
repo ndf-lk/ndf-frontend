@@ -26,9 +26,13 @@ const ColorButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 
 const Footer = () => {
-  const { language } = useContext(LanguageContext);
+  const { language, setLanguage } = useContext(LanguageContext);
+
   const content = getData(language);
-  console.log(content);
+
+  const updateLang = (lang: string) => {
+    setLanguage(lang);
+  };
 
   return (
     <>
@@ -70,21 +74,36 @@ const Footer = () => {
 
             <Stack sx={{ mt: 10 }} style={{ textAlign: "left" }}>
               <Typography
-                style={{ color: "white", textDecoration: "none" }}
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => updateLang("si")}
                 sx={{ mt: 5 }}
               >
                 සිංහල
               </Typography>
 
               <Typography
-                style={{ color: "white", textDecoration: "none" }}
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
+                onClick={() => updateLang("en")}
                 sx={{ mt: 5 }}
               >
                 English
               </Typography>
 
               <Typography
-                style={{ color: "white", textDecoration: "none" }}
+                onClick={() => updateLang("tm")}
+                style={{
+                  color: "white",
+                  textDecoration: "none",
+                  cursor: "pointer",
+                }}
                 sx={{ mt: 5 }}
               >
                 தமிழ்

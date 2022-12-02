@@ -31,8 +31,7 @@ export const NewsCard = ({ data }: { data: INews }) => {
             {data.title}
           </Typography>
           <Typography variant="body2" sx={{ mt: 3 }}>
-            Lizards are a widespread group of squamate reptiles, with over 6,000
-            species, ranging across all continents except Antarctica
+            {data.title}
           </Typography>
         </CardContent>
       </Card>
