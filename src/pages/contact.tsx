@@ -7,13 +7,12 @@ import {
   styled,
 } from "@mui/material";
 import { useSnackbar } from "notistack";
-import { useContext, useState } from "react";
-import { AuthTokenContext } from "../context/AuthTokenContext";
+import { useState } from "react";
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
 import { Stack, Box } from "@mui/material";
 import MailOutlineIcon from "@mui/icons-material/MailOutline";
-import { FacebookOutlined, MarginOutlined, YouTube } from "@mui/icons-material";
+import { FacebookOutlined } from "@mui/icons-material";
 import LocalPhoneIcon from "@mui/icons-material/LocalPhone";
 import InstagramIcon from "@mui/icons-material/Instagram";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
@@ -118,7 +117,7 @@ export const ContactPage = () => {
       <Grid container columns={{ xs: 1, sm: 1, md: 5 }}>
         <Grid item xs={1} sm={1} md={2}>
           <Box
-            height={{ xs: 700, sm: 200, md: "100vh" }}
+            height={{ xs: 700, sm: 200, md: "100%" }}
             sx={{
               width: "100%",
               background:
@@ -280,7 +279,7 @@ export const ContactPage = () => {
                   variant="contained"
                   fullWidth
                   size="large"
-                  sx={{ mt: 5 }}
+                  sx={{ mt: 5, mb: 20 }}
                   onClick={() => submitData()}
                   loading={isLoading}
                 >

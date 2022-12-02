@@ -12,7 +12,6 @@ import {
   TableContainer,
   TableHead,
   TableRow,
-  Paper,
   Stack,
   InputLabel,
   Select,
@@ -91,7 +90,7 @@ export const LibraryPage = () => {
                 >
                   <MenuItem value={"Law"}>Law</MenuItem>
                   <MenuItem value={"Biography"}>Biography</MenuItem>
-                  <MenuItem value={"Transactions"}>Transactions</MenuItem>
+                  <MenuItem value={"Translations"}>Translations</MenuItem>
                   <MenuItem value={"Political"}>Political</MenuItem>
                   <MenuItem value={"Other"}>Other</MenuItem>
                   <MenuItem value={"Novels"}>Novels</MenuItem>
@@ -266,6 +265,7 @@ export const LibraryPage = () => {
               </Table>
 
               {books.isLoading && <LinearProgress />}
+              {books.isRefetching && <LinearProgress />}
             </TableContainer>
           </Box>
         </Container>
