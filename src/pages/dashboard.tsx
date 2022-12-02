@@ -116,7 +116,7 @@ export const DashboardPage = () => {
                   fullWidth
                   sx={{ mb: 1, mt: 1 }}
                   variant="outlined"
-                  value={currentUser.data?.data.firstName}
+                  value={currentUser.data?.data?.firstName}
                 />
               </Grid>
 

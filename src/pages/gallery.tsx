@@ -13,10 +13,10 @@ import {
   Grid,
   Tabs,
   Tab,
+  Button,
 } from "@mui/material";
 import { useTheme } from "@mui/system";
 import React, { useState } from "react";
-import HomeSectionWrapper from "../components/HomeSectionWrapper";
 import { useGallery } from "../hooks/gallery/useGallery";
 import useGalleryCollection from "../hooks/gallery/useGalleryCollection";
 import "../styles/gallery.css";
@@ -210,6 +210,24 @@ const GalleryPage = () => {
                                   alt={collectionDetails.title}
                                   style={{ backgroundRepeat: "no-repeat" }}
                                 />
+
+                                <Box sx={{ "& button": { m: 1 } }}>
+                                  <Button
+                                    size="small"
+                                    sx={{ m: 0, p: 1 }}
+                                    style={{
+                                      width: "40%",
+                                      height: "5%",
+                                      fontSize: 15,
+                                    }}
+                                    component={`a`}
+                                    href={`${collectionDetails.img}`}
+                                    download
+                                    variant="outlined"
+                                  >
+                                    Download
+                                  </Button>
+                                </Box>
                               </Card>
                             </Grid>
                           </>
