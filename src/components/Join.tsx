@@ -57,7 +57,6 @@ export const JoinNDF = () => {
 
   const currentUser = useMe();
 
-
   const signIn = async () => {
     setIsLoading(true);
     const config = {
@@ -78,7 +77,7 @@ export const JoinNDF = () => {
         setUser(response?.data?.data?.idToken?.payload);
 
         enqueueSnackbar("Login success", { variant: "success" });
-        window.location.reload
+        window.location.reload;
       })
       .catch(function (error) {
         if (error.response.data.message) {
