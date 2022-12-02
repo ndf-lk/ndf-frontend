@@ -1,5 +1,12 @@
 import styled from "@emotion/styled";
-import { Paper, Typography, Button, Box, TextField } from "@mui/material";
+import {
+  Paper,
+  Typography,
+  Button,
+  Box,
+  TextField,
+  CircularProgress,
+} from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Link } from "react-router-dom";
@@ -112,7 +119,9 @@ export const JoinNDF = () => {
         {user && Object.keys(user).length > 0 ? (
           <>
             {currentUser.isLoading ? (
-              <>Loading...</>
+              <Box sx={{ p: 20, alignItems: "center", textAlign: "center" }}>
+                <CircularProgress />
+              </Box>
             ) : (
               <>
                 {currentUser.isSuccess && currentUser.data && (
