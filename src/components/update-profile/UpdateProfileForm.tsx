@@ -17,6 +17,8 @@ import httpConfig from "../../utils/request";
 import { useState, useEffect } from "react";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import { ImageUploader } from "../ImageUploader/image-uploader";
+import { useMe } from "../../hooks/me/useMe";
+import { queryClient } from "../../utils/query_client";
 
 export const UpdateProfileForm = (props: {
   currentUser: UseQueryResult<{ data: IUser }, unknown>;
@@ -24,6 +26,7 @@ export const UpdateProfileForm = (props: {
   const { enqueueSnackbar } = useSnackbar();
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
+  const currentUser = useMe();
   const [profileImage, setProfileImage] = useState(
     props.currentUser.data?.data?.profileImgUrl!
   );
@@ -61,6 +64,7 @@ export const UpdateProfileForm = (props: {
       onSuccess: (response) => {
         console.log(response);
         enqueueSnackbar("Profile updated successfully", { variant: "success" });
+        queryClient.invalidateQueries(["current-user"]);
       },
 
       onError: (error: AxiosError) => {

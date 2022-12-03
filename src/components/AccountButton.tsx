@@ -115,15 +115,9 @@ export function AccountMenu() {
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
-              My Ndf Dashboard
+              Ndf Dashboard
             </MenuItem>
 
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
             <MenuItem onClick={() => logoutUser()}>
               <ListItemIcon>
                 <Logout fontSize="small" />
