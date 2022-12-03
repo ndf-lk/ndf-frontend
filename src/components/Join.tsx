@@ -17,6 +17,7 @@ import { AuthTokenContext } from "../context/AuthTokenContext";
 import { useMe } from "../hooks/me/useMe";
 import { useTokenStore } from "../store/createAuthStore";
 import { useUserStore } from "../store/createUserSlice";
+import { useNavigate } from "react-router-dom";
 
 const CssTextField = styled(TextField)({
   color: "white",
@@ -61,6 +62,7 @@ export const JoinNDF = () => {
 
   const { setAccessToken } = useTokenStore();
   const { setUser, user } = useUserStore();
+  const navigate = useNavigate();
 
   const currentUser = useMe();
 
@@ -159,7 +161,7 @@ export const JoinNDF = () => {
                       fullWidth
                       sx={{ mt: 8, mb: 2 }}
                       variant="contained"
-                      onClick={() => signIn()}
+                      onClick={() => navigate("/dashboard")}
                       loading={isLoading}
                     >
                       Edit details
