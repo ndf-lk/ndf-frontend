@@ -217,7 +217,12 @@ export const EditPage = () => {
               />
             </Box>
 
-            <DashboardMainButton sx={{ mt: 8 }} type="submit" onClick={onSave}>
+            <DashboardMainButton
+              sx={{ mt: 8 }}
+              type="submit"
+              onClick={onSave}
+              loading={createNewsMutation.isLoading}
+            >
               Publish
             </DashboardMainButton>
           </Box>

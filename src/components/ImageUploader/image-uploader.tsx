@@ -5,7 +5,7 @@ import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import "./style.css";
 
 export const ImageUploader = (props: {
-  setImage: Dispatch<SetStateAction<string | null>>;
+  setImage: Dispatch<SetStateAction<string | null | undefined>>;
   path: string;
 }) => {
   const [selectedFile, setSelectedFile] = useState(null);

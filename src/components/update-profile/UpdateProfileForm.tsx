@@ -2,11 +2,11 @@ import { useFormik } from "formik";
 import {
   Box,
   TextField,
+  Modal,
   Grid,
-  styled,
-  Button,
-  ButtonProps,
-  LinearProgress,
+  Stack,
+  Avatar,
+  Typography,
 } from "@mui/material";
 import { InputLabel } from "../InuptLabel";
 import { IUser } from "../../types/user";
@@ -14,14 +14,32 @@ import { useMutation, UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 import { useSnackbar } from "notistack";
 import httpConfig from "../../utils/request";
-import { IAPIError } from "../../types/error";
-import { LoadingButton, LoadingButtonProps } from "@mui/lab";
+import { useState, useEffect } from "react";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
+import { ImageUploader } from "../ImageUploader/image-uploader";
 
 export const UpdateProfileForm = (props: {
   currentUser: UseQueryResult<{ data: IUser }, unknown>;
 }) => {
   const { enqueueSnackbar } = useSnackbar();
+  const [width, setWidth] = useState<number>(window.innerWidth);
+  const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
+  const [profileImage, setProfileImage] = useState(
+    props.currentUser.data?.data?.profileImgUrl!
+  );
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   const updateProfileMutation = useMutation(
     (userData: {
@@ -32,6 +50,7 @@ export const UpdateProfileForm = (props: {
       position: string | undefined;
       birthDay: string | undefined;
       seat: string | undefined;
+      profileImgUrl: string | undefined;
     }) =>
       httpConfig({
         method: "post",
@@ -84,12 +103,68 @@ export const UpdateProfileForm = (props: {
       birthDay: string | undefined;
       seat: string | undefined;
     }) => {
-      updateProfileMutation.mutate(values);
+      updateProfileMutation.mutate({
+        ...values,
+        profileImgUrl: profileImage,
+      });
     },
   });
 
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "90%" : "50%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: 3,
+    p: 4,
+  };
+
   return (
     <>
+      <Modal
+        open={openImageUploaderModal}
+        onClose={() => setOpenImageUplaoderModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <ImageUploader setImage={setProfileImage} path={"users/upload"} />
+        </Box>
+      </Modal>
+
+      <Stack
+        direction="row"
+        justifyContent="space-between"
+        alignItems="center"
+        spacing={2}
+        sx={{ mt: 7 }}
+      >
+        <Typography
+          variant={"h2"}
+          style={{
+            fontSize: "20px",
+            fontFamily: "Open Sans",
+            fontStyle: "normal",
+            fontWeight: 600,
+            color: "#333333",
+          }}
+        >
+          Your Profile
+        </Typography>
+
+        <Avatar
+          sx={{ width: 56, height: 56 }}
+          onClick={() => setOpenImageUplaoderModal(true)}
+          src={profileImage}
+          style={{
+            cursor: "pointer",
+          }}
+        />
+      </Stack>
+
       <Box sx={{ mt: 5 }}>
         <form onSubmit={formik.handleSubmit}>
           <Grid

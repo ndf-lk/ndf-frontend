@@ -10,6 +10,7 @@ import {
   ButtonProps,
   Stack,
   CircularProgress,
+  Avatar,
 } from "@mui/material";
 import "../styles/dashboard.css";
 import { InputLabel } from "../components/InuptLabel";
@@ -20,6 +21,7 @@ import { UpdateProfileForm } from "../components/update-profile/UpdateProfileFor
 import { UseQueryResult } from "@tanstack/react-query";
 import { IUser } from "../types/user";
 import { IAPIError } from "../types/error";
+import EditIcon from "@mui/icons-material/Edit";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",
@@ -96,20 +98,6 @@ export const DashboardPage = () => {
               </GalleryButton>
             </Box>
           </Stack>
-
-          <Typography
-            variant={"h2"}
-            sx={{ mt: 5 }}
-            style={{
-              fontSize: "20px",
-              fontFamily: "Open Sans",
-              fontStyle: "normal",
-              fontWeight: 600,
-              color: "#333333",
-            }}
-          >
-            Your Profile
-          </Typography>
 
           {currentUser.isLoading && <CircularProgress />}
           {currentUser.data && <UpdateProfileForm currentUser={currentUser} />}

@@ -65,7 +65,7 @@ export function AccountMenu() {
               >
                 <Avatar
                   sx={{ width: 32, height: 32 }}
-                  src={user?.profileImgUrl}
+                  src={user?.profil}
                   alt={user?.fullName}
                 />
               </IconButton>
