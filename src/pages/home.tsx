@@ -10,6 +10,7 @@ import {
   AccordionSummary,
   AccordionDetails,
   Divider,
+  Stack,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
@@ -21,6 +22,7 @@ import HomeSectionWrapper from "../components/HomeSectionWrapper";
 import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
 import { JoinNDF } from "../components/Join";
+import { Timeline } from "react-twitter-widgets";
 
 declare global {
   namespace JSX {
@@ -169,15 +171,36 @@ const HomePage = () => {
       <Container>
         <Divider />
 
-        <iframe
-          src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FNationalDemocraticFront.lk&tabs=timeline&width=350&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=234405398704718"
-          style={{ border: "none", overflow: "hidden" }}
-          scrolling="no"
-          allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
-          width={350}
-          height={400}
-          frameBorder={0}
-        />
+        <Stack
+          direction={{ xs: "column", sm: "row" }}
+          spacing={{ xs: 1, sm: 2, md: 4 }}
+          sx={{ mt: 10, mb: 10 }}
+        >
+          <iframe
+            src="https://www.facebook.com/plugins/page.php?href=https%3A%2F%2Fwww.facebook.com%2FNationalDemocraticFront.lk&tabs=timeline&width=350&height=400&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true&appId=234405398704718"
+            style={{ border: "none", overflow: "hidden" }}
+            scrolling="no"
+            allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"
+            width="100%"
+            height={400}
+            frameBorder={0}
+          />
+
+          <Timeline
+            dataSource={{ sourceType: "profile", screenName: "ndf_lk" }}
+            options={{
+              height: 400,
+              width: 400,
+            }}
+          />
+
+          <iframe
+            src="https://www.instagram.com/nationaldemocraticfront.lk"
+            width="100%"
+            height={400}
+            frameBorder={0}
+          />
+        </Stack>
       </Container>
     </>
   );

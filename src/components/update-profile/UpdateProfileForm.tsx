@@ -267,7 +267,7 @@ export const UpdateProfileForm = (props: {
             type="submit"
             loading={updateProfileMutation.isLoading}
           >
-            Edit details
+            Save Profile
           </DashboardMainButton>
         </form>
       </Box>
