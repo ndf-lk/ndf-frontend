@@ -6,12 +6,11 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 import { AuthTokenContext } from "./context/AuthTokenContext";
 import { SnackbarProvider } from "notistack";
+import { queryClient } from "./utils/query_client";
 
 function App() {
   const [language, setLanguage] = useLocalStorage<any>("lang", "en");
   const [token, setToken] = useLocalStorage<any>("auth", {});
-
-  const queryClient = new QueryClient();
 
   return (
     <div className="App">

@@ -65,7 +65,7 @@ export function AccountMenu() {
               >
                 <Avatar
                   sx={{ width: 32, height: 32 }}
-                  src={user?.profileImgUrl}
+                  src={user?.profil}
                   alt={user?.fullName}
                 />
               </IconButton>
@@ -115,15 +115,9 @@ export function AccountMenu() {
               <ListItemIcon>
                 <DashboardIcon fontSize="small" />
               </ListItemIcon>
-              My Ndf Dashboard
+              Ndf Dashboard
             </MenuItem>
 
-            <MenuItem>
-              <ListItemIcon>
-                <Settings fontSize="small" />
-              </ListItemIcon>
-              Settings
-            </MenuItem>
             <MenuItem onClick={() => logoutUser()}>
               <ListItemIcon>
                 <Logout fontSize="small" />
