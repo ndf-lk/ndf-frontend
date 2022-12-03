@@ -9,10 +9,15 @@ import { LanguageContext } from "../../context/userLangctx";
 import { Languages } from "../../enum/lang";
 import { EditorCore } from "../../components/editor/editor-core";
 import { useSnackbar } from "notistack";
+import { useMutation } from "@tanstack/react-query";
+import httpConfig from "../../utils/request";
+import { ImageUploader } from "../../components/ImageUploader/image-uploader";
+import { AxiosError } from "axios";
 
 export const EditPage = () => {
   const ReactEditorJS = createReactEditorJS();
   const [newsTitle, setNewsTitle] = useState("");
+  const [bannerImage, setBannerImage] = useState<string | null>(null);
   const editorCore = useRef<EditorCore | null>(null);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -22,11 +27,57 @@ export const EditPage = () => {
 
   const { language }: { language: string } = useContext(LanguageContext);
 
+  const createNewsMutation = useMutation(
+    (newsData: {
+      title: string;
+      bannerImage: string | null;
+      lang: string;
+      body: any;
+    }) =>
+      httpConfig({
+        method: "post",
+        url: "news/create",
+        data: JSON.stringify(newsData),
+      }),
+    {
+      onSuccess: (response) => {
+        console.log(response);
+        enqueueSnackbar("Post created successfully", { variant: "success" });
+      },
+
+      onError: (error: AxiosError) => {
+        const errorMessages: any = error?.response?.data;
+
+        if (!errorMessages) {
+          enqueueSnackbar(error.message, { variant: "error" });
+          return;
+        }
+
+        if (!Array.isArray(errorMessages.message)) {
+          enqueueSnackbar(errorMessages.message, { variant: "error" });
+          return;
+        }
+
+        for (const message of errorMessages?.message) {
+          enqueueSnackbar(message, { variant: "error" });
+        }
+      },
+      onMutate: () => {},
+    }
+  );
+
   const onSave = async () => {
     if (editorCore !== null) {
       const data = await editorCore?.current?.save();
-      console.log(newsTitle)
+      console.log(newsTitle);
       console.log(data);
+
+      await createNewsMutation.mutateAsync({
+        title: newsTitle,
+        bannerImage: bannerImage,
+        body: data,
+        lang: language,
+      });
     } else {
       enqueueSnackbar("EditorJs instance not found", { variant: "error" });
     }
@@ -45,6 +96,17 @@ export const EditPage = () => {
           }}
           maxWidth="xl"
         >
+          {bannerImage && (
+            <>
+              <img
+                src={bannerImage}
+                style={{
+                  width: "100%",
+                }}
+              />
+            </>
+          )}
+
           <Typography
             variant={"h2"}
             style={{
@@ -82,6 +144,8 @@ export const EditPage = () => {
               value={newsTitle}
               onChange={(e) => setNewsTitle(e.target.value)}
             />
+
+            <ImageUploader setImage={setBannerImage} path={"news/upload"} />
 
             <Box
               sx={{ mt: 5 }}
