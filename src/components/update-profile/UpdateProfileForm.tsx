@@ -27,7 +27,7 @@ export const UpdateProfileForm = (props: {
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
   const currentUser = useMe();
-  const [profileImage, setProfileImage] = useState(
+  const [profileImage, setProfileImage] = useState<string | null | undefined>(
     props.currentUser.data?.data?.profileImgUrl!
   );
 
@@ -53,7 +53,7 @@ export const UpdateProfileForm = (props: {
       position: string | undefined;
       birthDay: string | undefined;
       seat: string | undefined;
-      profileImgUrl: string | undefined;
+      profileImgUrl: string | undefined | null;
     }) =>
       httpConfig({
         method: "post",
@@ -162,7 +162,7 @@ export const UpdateProfileForm = (props: {
         <Avatar
           sx={{ width: 56, height: 56 }}
           onClick={() => setOpenImageUplaoderModal(true)}
-          src={profileImage}
+          src={profileImage!}
           style={{
             cursor: "pointer",
           }}

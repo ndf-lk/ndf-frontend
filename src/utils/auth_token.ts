@@ -11,7 +11,6 @@ export const isValidToken = () => {
   let values = getAuthStorage();
 
   if (!values) return false;
-  if (!values.idToken?.jwtToken) return false;
 
   try {
     const decoded_token: JwtPayload = jwt_decode(values);
@@ -27,5 +26,26 @@ export const isValidToken = () => {
     localStorage.setItem("auth", "");
     console.log(error);
     return false;
+  }
+};
+
+export const decodeToken = () => {
+  let values = getAuthStorage();
+
+  if (!values) return null;
+
+  try {
+    const decoded_token: JwtPayload = jwt_decode(values);
+
+    if (!decoded_token) {
+      return null;
+    }
+
+    // token expred - refresh
+    if (decoded_token.exp * 1000 < Date.now()) return null;
+
+    return decoded_token;
+  } catch (error) {
+    return null;
   }
 };

@@ -15,24 +15,12 @@ import {
 import "../styles/dashboard.css";
 import { InputLabel } from "../components/InuptLabel";
 import { useMe } from "../hooks/me/useMe";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSnackbar } from "notistack";
 import { UpdateProfileForm } from "../components/update-profile/UpdateProfileForm";
-import { UseQueryResult } from "@tanstack/react-query";
-import { IUser } from "../types/user";
-import { IAPIError } from "../types/error";
-import EditIcon from "@mui/icons-material/Edit";
-
-const ColorButton = styled(Button)<ButtonProps>(() => ({
-  color: "#FFFFFF",
-  fontSize: "16px",
-  fontWeight: 700,
-  textTransform: "none",
-  backgroundColor: "#871C25",
-  "&:hover": {
-    backgroundColor: "#871C25",
-  },
-}));
+import { decodeToken } from "../utils/auth_token";
+import { Create } from "@mui/icons-material";
+import { Link } from "react-router-dom";
 
 const GalleryButton = styled(Button)<ButtonProps>(({ theme }) => ({
   color: "white",
@@ -42,9 +30,26 @@ const GalleryButton = styled(Button)<ButtonProps>(({ theme }) => ({
   },
 }));
 
+const CreatePostButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  color: "white",
+  backgroundColor: "#FF7A49",
+  "&:hover": {
+    backgroundColor: "#FF7A49",
+  },
+}));
+
 export const DashboardPage = () => {
   const currentUser: any = useMe();
   const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const [isAdmin, setIsAdmin] = useState(false);
+
+  useEffect(() => {
+    const tokenpayload = decodeToken();
+    console.log(tokenpayload);
+    if (tokenpayload?.["cognito:groups"].includes("admin")) {
+      setIsAdmin(true);
+    }
+  }, []);
 
   useEffect(() => {
     // @todo
@@ -92,10 +97,24 @@ export const DashboardPage = () => {
               Dashboard
             </Typography>
             <Box>
-              <GalleryButton variant="contained" size="small">
-                {" "}
-                Upload to gallery{" "}
-              </GalleryButton>
+              {isAdmin ? (
+                <>
+                  <Stack direction="row" spacing={2}>
+                    <CreatePostButton
+                      variant="contained"
+                      size="small"
+                      LinkComponent={"a"}
+                      href="/dashboard/create"
+                    >
+                      New post
+                    </CreatePostButton>
+
+                    <GalleryButton variant="contained" size="small">
+                      Upload to gallery
+                    </GalleryButton>
+                  </Stack>
+                </>
+              ) : null}
             </Box>
           </Stack>
 

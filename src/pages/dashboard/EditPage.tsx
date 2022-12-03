@@ -24,7 +24,9 @@ import { AxiosError } from "axios";
 export const EditPage = () => {
   const ReactEditorJS = createReactEditorJS();
   const [newsTitle, setNewsTitle] = useState("");
-  const [bannerImage, setBannerImage] = useState<string | null>(null);
+  const [bannerImage, setBannerImage] = useState<string | null | undefined>(
+    null
+  );
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
   const [width, setWidth] = useState<number>(window.innerWidth);
 
@@ -65,7 +67,7 @@ export const EditPage = () => {
   const createNewsMutation = useMutation(
     (newsData: {
       title: string;
-      bannerImage: string | null;
+      bannerImage: string | null | undefined;
       lang: string;
       body: any;
     }) =>
