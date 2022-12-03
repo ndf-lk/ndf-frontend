@@ -40,30 +40,29 @@ export const ImageUploader = (props: {
 
   return (
     <>
-      <Box>
-        <form onSubmit={handleSubmit}>
-          <br />
+      <form onSubmit={handleSubmit}>
+        <br />
 
-          <input
-            type="file"
-            onChange={handleFileSelect}
-            className="formbold-browse"
-          />
+        <input
+          type="file"
+          style={{ width: "100%" }}
+          onChange={handleFileSelect}
+          className="formbold-browse"
+        />
 
-          <br />
+        <br />
 
-          {isLoading && <LinearProgress sx={{ mt: 2 }} />}
+        {isLoading && <LinearProgress sx={{ mt: 2 }} />}
 
-          <DashboardMainButton
-            type="submit"
-            sx={{ mt: 3 }}
-            loading={isLoading}
-            style={{ width: "15%", height: 35, fontSize: 15 }}
-          >
-            Upload File
-          </DashboardMainButton>
-        </form>
-      </Box>
+        <DashboardMainButton
+          type="submit"
+          sx={{ mt: 10 }}
+          loading={isLoading}
+          style={{ height: 35, fontSize: 15 }}
+        >
+          Upload File
+        </DashboardMainButton>
+      </form>
     </>
   );
 };

@@ -1,10 +1,17 @@
-import { Container, Typography, Box, Grid, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  Modal,
+  TextField,
+  Button,
+} from "@mui/material";
 import HomeSectionWrapper from "../../components/HomeSectionWrapper";
 import { InputLabel } from "../../components/InuptLabel";
 import { EDITOR_JS_TOOLS } from "../../components/editor/constants";
 import { createReactEditorJS } from "react-editor-js";
 import { DashboardMainButton } from "../../components/Buttons/DashboardMainButton";
-import { useContext, useState, useRef, useCallback } from "react";
+import { useContext, useState, useRef, useEffect, useCallback } from "react";
 import { LanguageContext } from "../../context/userLangctx";
 import { Languages } from "../../enum/lang";
 import { EditorCore } from "../../components/editor/editor-core";
@@ -18,14 +25,42 @@ export const EditPage = () => {
   const ReactEditorJS = createReactEditorJS();
   const [newsTitle, setNewsTitle] = useState("");
   const [bannerImage, setBannerImage] = useState<string | null>(null);
+  const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
+  const [width, setWidth] = useState<number>(window.innerWidth);
+
   const editorCore = useRef<EditorCore | null>(null);
   const { enqueueSnackbar } = useSnackbar();
+
+  function handleWindowSizeChange() {
+    setWidth(window.innerWidth);
+  }
+
+  useEffect(() => {
+    window.addEventListener("resize", handleWindowSizeChange);
+    return () => {
+      window.removeEventListener("resize", handleWindowSizeChange);
+    };
+  }, []);
+
+  const isMobile = width <= 768;
 
   const handleInitialize = useCallback((instance: EditorCore) => {
     editorCore.current = instance;
   }, []);
 
   const { language }: { language: string } = useContext(LanguageContext);
+
+  const style = {
+    position: "absolute" as "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: isMobile ? "90%" : "50%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: 3,
+    p: 4,
+  };
 
   const createNewsMutation = useMutation(
     (newsData: {
@@ -85,6 +120,17 @@ export const EditPage = () => {
 
   return (
     <>
+      <Modal
+        open={openImageUploaderModal}
+        onClose={() => setOpenImageUplaoderModal(false)}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <ImageUploader setImage={setBannerImage} path={"news/upload"} />
+        </Box>
+      </Modal>
+
       <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
         <Container
           className="dashboard-container"
@@ -145,7 +191,18 @@ export const EditPage = () => {
               onChange={(e) => setNewsTitle(e.target.value)}
             />
 
-            <ImageUploader setImage={setBannerImage} path={"news/upload"} />
+            <Button
+              sx={{ mt: 3 }}
+              onClick={() => setOpenImageUplaoderModal(true)}
+              variant="outlined"
+              style={{
+                width: isMobile ? "100%" : "15%",
+                height: 40,
+                fontSize: 15,
+              }}
+            >
+              Upload banner
+            </Button>
 
             <Box
               sx={{ mt: 5 }}
