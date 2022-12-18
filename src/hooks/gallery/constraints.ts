@@ -4,7 +4,7 @@ const API = {
     method: "GET",
   },
   VIEW_GALLERY_COLLECTION: {
-    path: "meta/gallery/details/",
+    path: "meta/gallery/details",
     method: "GET",
   },
 };
