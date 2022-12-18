@@ -14,11 +14,16 @@ import { useSnackbar } from "notistack";
 import { useState, useEffect } from "react";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import { ImageUploader } from "../ImageUploader/image-uploader";
+import { request } from "../../utils/request";
+import { useMutation } from "@tanstack/react-query";
+import { useUserStore } from "../../store/createUserSlice";
 
 export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
+  const { setUser } = useUserStore();
+
   const [profileImage, setProfileImage] = useState<string | null | undefined>(
     props.currentUser.profileImgUrl
   );
@@ -35,7 +40,6 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   }, []);
 
   const isMobile = width <= 768;
-  /*
 
   const updateProfileMutation = useMutation(
     (userData: {
@@ -48,39 +52,26 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
       seat: string | undefined;
       profileImgUrl: string | undefined | null;
     }) =>
-      httpConfig({
-        method: "post",
-        url: "users/update",
-        data: JSON.stringify(userData),
-      }),
+      request(
+        {
+          path: "users/update",
+          method: "POST",
+        },
+        userData,
+        true
+      ),
     {
       onSuccess: (response) => {
-        console.log(response);
+        setUser(response.data);
         enqueueSnackbar("Profile updated successfully", { variant: "success" });
-        queryClient.invalidateQueries(["current-user"]);
       },
 
-      onError: (error: AxiosError) => {
-        const errorMessages: any = error?.response?.data;
-
-        if (!errorMessages) {
-          enqueueSnackbar(error.message, { variant: "error" });
-          return;
-        }
-
-        if (!Array.isArray(errorMessages.message)) {
-          enqueueSnackbar(errorMessages.message, { variant: "error" });
-          return;
-        }
-
-        for (const message of errorMessages?.message) {
-          enqueueSnackbar(message, { variant: "error" });
-        }
+      onError: (error) => {
+        console.log(error);
       },
       onMutate: () => {},
     }
   );
-  */
 
   const formik = useFormik({
     initialValues: {
@@ -101,13 +92,10 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
       birthDay: string | undefined;
       seat: string | undefined;
     }) => {
-      /*
       updateProfileMutation.mutate({
         ...values,
         profileImgUrl: profileImage,
       });
-      */
-      console.log("test");
     },
   });
 
@@ -262,7 +250,7 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
           <DashboardMainButton
             sx={{ mt: 7 }}
             type="submit"
-            // loading={updateProfileMutation.isLoading}
+            loading={updateProfileMutation.isLoading}
           >
             Save Profile
           </DashboardMainButton>
