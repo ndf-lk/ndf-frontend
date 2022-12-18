@@ -13,6 +13,7 @@ import { useEffect, useState } from "react";
 import { UpdateProfileForm } from "../../components/update-profile/UpdateProfileForm";
 import { decodeToken } from "../../utils/auth_token";
 import { useUserStore } from "../../store/createUserSlice";
+import { Link } from "react-router-dom";
 
 const GalleryButton = styled(Button)<ButtonProps>(() => ({
   color: "white",
@@ -76,13 +77,13 @@ export const DashboardPage = () => {
               {isAdmin ? (
                 <>
                   <Stack direction="row" spacing={2}>
-                    <CreatePostButton
-                      variant="contained"
-                      size="small"
-                      LinkComponent={"a"}
-                      href="/dashboard/create"
-                    >
-                      New post
+                    <CreatePostButton variant="contained" size="small">
+                      <Link
+                        to="/dashboard/create"
+                        style={{ textDecoration: "none", color: "white" }}
+                      >
+                        New post
+                      </Link>
                     </CreatePostButton>
 
                     <GalleryButton variant="contained" size="small">

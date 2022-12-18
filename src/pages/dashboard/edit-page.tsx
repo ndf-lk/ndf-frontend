@@ -8,27 +8,22 @@ import {
 } from "@mui/material";
 import HomeSectionWrapper from "../../components/HomeSectionWrapper";
 import { InputLabel } from "../../components/InuptLabel";
-import { EDITOR_JS_TOOLS } from "../../components/editor/constants";
-import { createReactEditorJS } from "react-editor-js";
 import { DashboardMainButton } from "../../components/Buttons/DashboardMainButton";
-import { useContext, useState, useRef, useEffect, useCallback } from "react";
+import { useContext, useState, useEffect } from "react";
 import { LanguageContext } from "../../context/userLangctx";
 import { Languages } from "../../enum/lang";
-import { EditorCore } from "../../components/editor/editor-core";
 import { useSnackbar } from "notistack";
 import { ImageUploader } from "../../components/ImageUploader/image-uploader";
+import ReactEditor from "./components/react-editor";
 
 export const EditPage = () => {
-  const ReactEditorJS = createReactEditorJS();
+  const [body, setBody] = useState("");
   const [newsTitle, setNewsTitle] = useState("");
   const [bannerImage, setBannerImage] = useState<string | null | undefined>(
     null
   );
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
   const [width, setWidth] = useState<number>(window.innerWidth);
-
-  const editorCore = useRef<EditorCore | null>(null);
-  const { enqueueSnackbar } = useSnackbar();
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -42,10 +37,6 @@ export const EditPage = () => {
   }, []);
 
   const isMobile = width <= 768;
-
-  const handleInitialize = useCallback((instance: EditorCore) => {
-    editorCore.current = instance;
-  }, []);
 
   const { language }: { language: string } = useContext(LanguageContext);
 
@@ -103,23 +94,8 @@ export const EditPage = () => {
 
     */
 
-  const onSave = async () => {
-    if (editorCore !== null) {
-      const data = await editorCore?.current?.save();
-      console.log(newsTitle);
-      console.log(data);
-
-      /*
-      await createNewsMutation.mutateAsync({
-        title: newsTitle,
-        bannerImage: bannerImage,
-        body: data,
-        lang: language,
-      });
-      */
-    } else {
-      enqueueSnackbar("EditorJs instance not found", { variant: "error" });
-    }
+  const postNews = () => {
+    console.log(body);
   };
 
   return (
@@ -215,13 +191,14 @@ export const EditPage = () => {
                 border: "1px solid #bdbdbd",
               }}
             >
-              <ReactEditorJS
-                onInitialize={handleInitialize}
-                tools={EDITOR_JS_TOOLS}
-              />
+              <ReactEditor setBody={(e: string) => setBody(e)} />
             </Box>
 
-            <DashboardMainButton sx={{ mt: 8 }} type="submit" onClick={onSave}>
+            <DashboardMainButton
+              sx={{ mt: 8 }}
+              type="submit"
+              onClick={() => postNews()}
+            >
               Publish
             </DashboardMainButton>
           </Box>
