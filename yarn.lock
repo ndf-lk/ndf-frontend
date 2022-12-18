@@ -625,10 +625,32 @@
   dependencies:
     cross-fetch "^3.1.5"
 
+"@types/draft-js@*", "@types/draft-js@^0.11.10":
+  version "0.11.10"
+  resolved "https://registry.yarnpkg.com/@types/draft-js/-/draft-js-0.11.10.tgz#46cf41e142b4b572467f7a78269a630a77e1f19c"
+  integrity sha512-o/DST8x0wNerwhRiaE577UHFIXb6HCywaZOZfj9TF2vU3CONvsCGoQmdOsKqERdXp+3ZNlSvFUH0B8lEEYOT4A==
+  dependencies:
+    "@types/react" "*"
+    immutable "~3.7.4"
+
+"@types/draftjs-to-html@^0.8.1":
+  version "0.8.1"
+  resolved "https://registry.yarnpkg.com/@types/draftjs-to-html/-/draftjs-to-html-0.8.1.tgz#0800a4f6ff19ece49b6a337bfa8b39ed3d08a5fa"
+  integrity sha512-NBkphQs+qZ/sAz/j1pCUaxkPAOx00LTsE88aMSSfcvK+UfCpjHJDqIMCkm6wKotuJvY5w0BtdRazQ0sAaXzPdg==
+  dependencies:
+    "@types/draft-js" "*"
+
 "@types/editorjs__header@^2.6.0":
   version "2.6.0"
   resolved "https://registry.yarnpkg.com/@types/editorjs__header/-/editorjs__header-2.6.0.tgz#994aa7f2891954187908190105132ad5faa18a5a"
   integrity sha512-J9TyO/BjNVddi+syyXpvMRMtVz5Z62pwmFKynWsgP+wnJYdWF8ABqgomokIsAvuEwH5NHa/YxsTltYcPPGCRRQ==
+
+"@types/html-to-draftjs@^1.4.0":
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/@types/html-to-draftjs/-/html-to-draftjs-1.4.0.tgz#bfd712d3c5993e0644b76d2654adeae214678fae"
+  integrity sha512-w7Te62TAk2xkl+f/PRepVfaVbsArRYRACqH7Rv9H97gKqglQye3Cf8EArsKuSsN7vW6/zf1kTCsm/jnSR0gDQA==
+  dependencies:
+    "@types/draft-js" "*"
 
 "@types/js-cookie@^3.0.2":
   version "3.0.2"
@@ -655,6 +677,14 @@
   resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-18.0.6.tgz#36652900024842b74607a17786b6662dd1e103a1"
   integrity sha512-/5OFZgfIPSwy+YuIBP/FgJnQnsxhZhjjrnxudMddeblOouIodEQ75X14Rr4wGSG/bknL+Omy9iWlLo1u/9GzAA==
   dependencies:
+    "@types/react" "*"
+
+"@types/react-draft-wysiwyg@^1.13.4":
+  version "1.13.4"
+  resolved "https://registry.yarnpkg.com/@types/react-draft-wysiwyg/-/react-draft-wysiwyg-1.13.4.tgz#df951c76afb47e311061d363f41a10c76de04ac8"
+  integrity sha512-wasD1t78JDmQvdPDRPf/mf5FSHMlncunW0F6KMOKB3awzi3Wi21yHMGsRAUOkfTr3R8F+yceG8fSLz0kYWu/QA==
+  dependencies:
+    "@types/draft-js" "*"
     "@types/react" "*"
 
 "@types/react-is@^16.7.1 || ^17.0.0":

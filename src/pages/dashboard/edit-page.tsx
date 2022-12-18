@@ -15,6 +15,9 @@ import { Languages } from "../../enum/lang";
 import { useSnackbar } from "notistack";
 import { ImageUploader } from "../../components/ImageUploader/image-uploader";
 import ReactEditor from "./components/react-editor";
+import { request } from "../../utils/request";
+import { useMutation } from "@tanstack/react-query";
+import { IRestApiResponse } from "../../interfaces/api-response";
 
 export const EditPage = () => {
   const [body, setBody] = useState("");
@@ -24,6 +27,7 @@ export const EditPage = () => {
   );
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
   const [width, setWidth] = useState<number>(window.innerWidth);
+  const { enqueueSnackbar } = useSnackbar();
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -52,50 +56,36 @@ export const EditPage = () => {
     p: 4,
   };
 
-  /*
   const createNewsMutation = useMutation(
     (newsData: {
       title: string;
       bannerImage: string | null | undefined;
       lang: string;
       body: any;
-    }) => 
-      axios.post(({
-        method: "post",
-        url: "news/create",
-        data: JSON.stringify(newsData),
-      }),
+    }) =>
+      request(
+        {
+          path: "news/create",
+          method: "POST",
+        },
+        newsData,
+        true
+      ),
     {
-      onSuccess: (response) => {
+      onSuccess: (response: IRestApiResponse) => {
         console.log(response);
         enqueueSnackbar("Post created successfully", { variant: "success" });
       },
-
-      onError: (error: AxiosError) => {
-        const errorMessages: any = error?.response?.data;
-
-        if (!errorMessages) {
-          enqueueSnackbar(error.message, { variant: "error" });
-          return;
-        }
-
-        if (!Array.isArray(errorMessages.message)) {
-          enqueueSnackbar(errorMessages.message, { variant: "error" });
-          return;
-        }
-
-        for (const message of errorMessages?.message) {
-          enqueueSnackbar(message, { variant: "error" });
-        }
-      },
-      onMutate: () => {},
     }
   );
 
-    */
-
   const postNews = () => {
-    console.log(body);
+    createNewsMutation.mutate({
+      title: newsTitle,
+      bannerImage: bannerImage,
+      lang: language,
+      body: body,
+    });
   };
 
   return (
@@ -198,6 +188,7 @@ export const EditPage = () => {
               sx={{ mt: 8 }}
               type="submit"
               onClick={() => postNews()}
+              loading={createNewsMutation.isLoading}
             >
               Publish
             </DashboardMainButton>
