@@ -17,6 +17,8 @@ import { ImageUploader } from "../ImageUploader/image-uploader";
 import { request } from "../../utils/request";
 import { useMutation } from "@tanstack/react-query";
 import { useUserStore } from "../../store/createUserSlice";
+import { AvatarUploader } from "./avatar-uploader";
+import { UploadScenarios } from "../../enum/file-uploader";
 
 export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -27,6 +29,10 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   const [profileImage, setProfileImage] = useState<string | null | undefined>(
     props.currentUser.profileImgUrl
   );
+
+  const handleProfileImg = (res: any) => {
+    setProfileImage(res.url);
+  };
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -144,13 +150,12 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
           Your Profile
         </Typography>
 
-        <Avatar
+        <AvatarUploader
+          handleFile={handleProfileImg}
           sx={{ width: 56, height: 56 }}
-          onClick={() => setOpenImageUplaoderModal(true)}
-          src={profileImage!}
-          style={{
-            cursor: "pointer",
-          }}
+          currentImageUrl={props.currentUser.profileImgUrl}
+          scenario={UploadScenarios.userProfile}
+          alt={props.currentUser.firstName}
         />
       </Stack>
 
