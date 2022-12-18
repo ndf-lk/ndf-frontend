@@ -8,9 +8,8 @@ import PostPage from "./pages/post";
 import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
 import { LoginPage } from "./pages/login";
-import { DashboardPage } from "./pages/dashboard";
 import { LibraryPage } from "./pages/library";
-import { EditPage } from "./pages/dashboard/EditPage";
+import { EditPage, DashboardPage } from "./pages/dashboard";
 import { ContactPage } from "./pages/contact";
 
 export const router = createBrowserRouter([

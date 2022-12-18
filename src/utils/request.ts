@@ -32,7 +32,10 @@ const checkStatus = async (response: Response) => {
   if (response.status >= 200 && response.status < 300) {
     return response;
   }
+
   if (response.status === 401) {
+    console.log("Got 404 status");
+
     parseJSON(response)?.then((data: any) => {
       if (data.errors && data.errors.userLoggedOut) {
         window.location.reload();
@@ -42,6 +45,7 @@ const checkStatus = async (response: Response) => {
 
   const res = (await response.json()) as IRestApiResponse;
   const apiMessage = res.message ?? "Something went wrong";
+
   toast.error(isArray(apiMessage) ? res.message.join(", ") : res.message, {
     style: {
       borderRadius: "10px",
@@ -49,6 +53,7 @@ const checkStatus = async (response: Response) => {
       color: "#fff",
     },
   });
+
   const error = new ResponseError(response);
   error.response = response;
   throw error;

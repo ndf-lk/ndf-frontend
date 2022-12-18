@@ -10,25 +10,17 @@ import {
 } from "@mui/material";
 import { InputLabel } from "../InuptLabel";
 import { IUser } from "../../types/user";
-import { useMutation, UseQueryResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { useSnackbar } from "notistack";
-import httpConfig from "../../utils/request";
 import { useState, useEffect } from "react";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import { ImageUploader } from "../ImageUploader/image-uploader";
-import { useMe } from "../../hooks/me/useMe";
-import { queryClient } from "../../utils/query_client";
 
-export const UpdateProfileForm = (props: {
-  currentUser: UseQueryResult<{ data: IUser }, unknown>;
-}) => {
+export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
-  const currentUser = useMe();
   const [profileImage, setProfileImage] = useState<string | null | undefined>(
-    props.currentUser.data?.data?.profileImgUrl!
+    props.currentUser.profileImgUrl
   );
 
   function handleWindowSizeChange() {
@@ -92,13 +84,13 @@ export const UpdateProfileForm = (props: {
 
   const formik = useFormik({
     initialValues: {
-      firstName: props.currentUser.data?.data?.firstName,
-      lastName: props.currentUser.data?.data?.lastName,
-      address: props.currentUser.data?.data?.address,
-      district: props.currentUser.data?.data?.district,
-      position: props.currentUser.data?.data?.position,
-      birthDay: props.currentUser.data?.data?.birthDay,
-      seat: props.currentUser.data?.data?.seat,
+      firstName: props.currentUser.firstName,
+      lastName: props.currentUser.lastName,
+      address: props.currentUser.address,
+      district: props.currentUser.district,
+      position: props.currentUser.position,
+      birthDay: props.currentUser.birthDay,
+      seat: props.currentUser.seat,
     },
     onSubmit: (values: {
       firstName: string | undefined;

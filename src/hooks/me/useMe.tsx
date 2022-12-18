@@ -3,7 +3,10 @@ import { useQuery } from "@tanstack/react-query";
 import API from "./constants";
 
 export const useMe = () => {
-  return useQuery(["current-user"], () =>
+  return useQuery(["current-user"], () => console.log("ignore"));
+};
+
+/*
     request(
       {
         path: API.CURRENT_USER.path,
@@ -13,4 +16,4 @@ export const useMe = () => {
       true
     )
   );
-};
+  */

@@ -16,9 +16,7 @@ import { LanguageContext } from "../../context/userLangctx";
 import { Languages } from "../../enum/lang";
 import { EditorCore } from "../../components/editor/editor-core";
 import { useSnackbar } from "notistack";
-import { useMutation } from "@tanstack/react-query";
 import { ImageUploader } from "../../components/ImageUploader/image-uploader";
-import axios, { Axios, AxiosError } from "axios";
 
 export const EditPage = () => {
   const ReactEditorJS = createReactEditorJS();

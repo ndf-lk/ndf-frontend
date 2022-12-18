@@ -7,24 +7,15 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import PersonAdd from "@mui/icons-material/PersonAdd";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import Settings from "@mui/icons-material/Settings";
 import Logout from "@mui/icons-material/Logout";
-import { IAuthResponse } from "../types/AuthToken";
-import { useMe } from "../hooks/me/useMe";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../store/createUserSlice";
-import { useTokenStore } from "../store/createAuthStore";
+import { clearAuthToken } from "../helpers/token";
 
 export function AccountMenu() {
-  const currentUser = useMe();
-
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-  const [user, setUser] = React.useState<any>();
-
-  const tokenPayload = useUserStore();
-  const { setAccessToken } = useTokenStore();
+  const { user, setUser } = useUserStore();
 
   const open = Boolean(anchorEl);
 
@@ -37,19 +28,13 @@ export function AccountMenu() {
   };
 
   const logoutUser = () => {
-    tokenPayload.setUser(null);
-    setAccessToken(null);
+    setUser(null);
+    clearAuthToken();
   };
-
-  React.useEffect(() => {
-    if (currentUser.isSuccess) {
-      setUser(currentUser.data.data);
-    }
-  }, []);
 
   return (
     <React.Fragment>
-      {tokenPayload.user ? (
+      {user ? (
         <>
           <Box
             sx={{ display: "flex", alignItems: "center", textAlign: "center" }}
@@ -65,8 +50,8 @@ export function AccountMenu() {
               >
                 <Avatar
                   sx={{ width: 32, height: 32 }}
-                  src={user?.profil}
-                  alt={user?.fullName}
+                  src={user.profileImgUrl}
+                  alt={user.firstName}
                 />
               </IconButton>
             </Tooltip>
@@ -107,7 +92,7 @@ export function AccountMenu() {
             anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
           >
             <MenuItem>
-              <Avatar src={user?.profileImgUrl} alt={user?.fullName} />
+              <Avatar src={user?.profileImgUrl} alt={user?.firstName} />
               {"  My account"}
             </MenuItem>
             <Divider />
