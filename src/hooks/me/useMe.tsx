@@ -1,12 +1,16 @@
-import httpConfig from "../../utils/request";
+import { request } from "../../utils/request";
 import { useQuery } from "@tanstack/react-query";
-import { isValidToken } from "../../utils/auth_token";
-
-const fetchGallery = () =>
-  httpConfig.get(`users/me`).then((response) => response.data);
+import API from "./constants";
 
 export const useMe = () => {
-  const status = isValidToken();
-  console.log(status);
-  return useQuery(["current-user"], fetchGallery);
+  return useQuery(["current-user"], () =>
+    request(
+      {
+        path: API.CURRENT_USER.path,
+        method: API.CURRENT_USER.method,
+      },
+      null,
+      true
+    )
+  );
 };

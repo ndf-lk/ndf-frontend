@@ -17,9 +17,8 @@ import { Languages } from "../../enum/lang";
 import { EditorCore } from "../../components/editor/editor-core";
 import { useSnackbar } from "notistack";
 import { useMutation } from "@tanstack/react-query";
-import httpConfig from "../../utils/request";
 import { ImageUploader } from "../../components/ImageUploader/image-uploader";
-import { AxiosError } from "axios";
+import axios, { Axios, AxiosError } from "axios";
 
 export const EditPage = () => {
   const ReactEditorJS = createReactEditorJS();
@@ -64,14 +63,15 @@ export const EditPage = () => {
     p: 4,
   };
 
+  /*
   const createNewsMutation = useMutation(
     (newsData: {
       title: string;
       bannerImage: string | null | undefined;
       lang: string;
       body: any;
-    }) =>
-      httpConfig({
+    }) => 
+      axios.post(({
         method: "post",
         url: "news/create",
         data: JSON.stringify(newsData),
@@ -103,18 +103,22 @@ export const EditPage = () => {
     }
   );
 
+    */
+
   const onSave = async () => {
     if (editorCore !== null) {
       const data = await editorCore?.current?.save();
       console.log(newsTitle);
       console.log(data);
 
+      /*
       await createNewsMutation.mutateAsync({
         title: newsTitle,
         bannerImage: bannerImage,
         body: data,
         lang: language,
       });
+      */
     } else {
       enqueueSnackbar("EditorJs instance not found", { variant: "error" });
     }
@@ -219,12 +223,7 @@ export const EditPage = () => {
               />
             </Box>
 
-            <DashboardMainButton
-              sx={{ mt: 8 }}
-              type="submit"
-              onClick={onSave}
-              loading={createNewsMutation.isLoading}
-            >
+            <DashboardMainButton sx={{ mt: 8 }} type="submit" onClick={onSave}>
               Publish
             </DashboardMainButton>
           </Box>

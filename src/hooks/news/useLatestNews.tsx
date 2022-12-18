@@ -1,11 +1,16 @@
-import httpConfig from "../../utils/request";
+import { request } from "../../utils/request";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchData = (lang: string) =>
-  httpConfig
-    .get(`meta/news/info/latest/${lang}`)
-    .then((response) => response.data);
+import API from "./constraints";
 
 export function useLatestNews(lang: string) {
-  return useQuery(["news", lang], () => fetchData(lang));
+  return useQuery(["news", lang], () =>
+    request(
+      {
+        path: `${API.LATEST_NEWS.path}${lang}`,
+        method: API.LATEST_NEWS.method,
+      },
+      null,
+      true
+    )
+  );
 }

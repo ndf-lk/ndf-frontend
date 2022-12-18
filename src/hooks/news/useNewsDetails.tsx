@@ -1,9 +1,15 @@
-import httpConfig from "../../utils/request";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchData = (id: string) =>
-  httpConfig.get(`meta/news/details/${id}`).then((response) => response.data);
+import { request } from "../../utils/request";
 
 export default function useNewsDetails(id: string) {
-  return useQuery(["news", id], () => fetchData(id));
+  return useQuery(["news", id], () =>
+    request(
+      {
+        path: `meta/news/details/${id}`,
+        method: "GET",
+      },
+      null,
+      true
+    )
+  );
 }

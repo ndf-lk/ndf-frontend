@@ -43,6 +43,7 @@ export const UpdateProfileForm = (props: {
   }, []);
 
   const isMobile = width <= 768;
+  /*
 
   const updateProfileMutation = useMutation(
     (userData: {
@@ -87,6 +88,7 @@ export const UpdateProfileForm = (props: {
       onMutate: () => {},
     }
   );
+  */
 
   const formik = useFormik({
     initialValues: {
@@ -107,10 +109,13 @@ export const UpdateProfileForm = (props: {
       birthDay: string | undefined;
       seat: string | undefined;
     }) => {
+      /*
       updateProfileMutation.mutate({
         ...values,
         profileImgUrl: profileImage,
       });
+      */
+      console.log("test");
     },
   });
 
@@ -265,7 +270,7 @@ export const UpdateProfileForm = (props: {
           <DashboardMainButton
             sx={{ mt: 7 }}
             type="submit"
-            loading={updateProfileMutation.isLoading}
+            // loading={updateProfileMutation.isLoading}
           >
             Save Profile
           </DashboardMainButton>

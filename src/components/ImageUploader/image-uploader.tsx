@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { Box, Button, LinearProgress } from "@mui/material";
-import httpConfig from "../../utils/request";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import "./style.css";
 
@@ -17,19 +16,7 @@ export const ImageUploader = (props: {
 
     const data = new FormData();
     data.append("file", selectedFile!);
-
-    await httpConfig({
-      method: "post",
-      url: props.path,
-      data: data,
-    })
-      .then(function (response) {
-        props.setImage(response.data?.data);
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+    // @todo fix here
 
     setIsLoading(false);
   };
