@@ -14,4 +14,5 @@ export enum FileExtensions {
 }
 export enum UploadScenarios {
   userProfile,
+  articleCover
 }

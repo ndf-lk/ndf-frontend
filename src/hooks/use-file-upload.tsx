@@ -16,10 +16,19 @@ export const uploadConfig = new Map<number, IUploadConfig>([
     UploadScenarios.userProfile,
     {
       path: "/users/upload",
-      allowedExtensions: [...images, ...documents],
-      sizeLimit: 3072 * mbSize,
+      allowedExtensions: [...images],
+      sizeLimit: 10 * mbSize, // 10 mb
     },
   ],
+  [
+    UploadScenarios.articleCover,
+    {
+      path: "/news/upload",
+      allowedExtensions: [...images],
+      sizeLimit: 100 * mbSize, // 100mb
+    },
+  ],
+
 ]);
 
 const useFileUpload = () => {

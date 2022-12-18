@@ -1,14 +1,16 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import { LinearProgress } from "@mui/material";
+import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import "./style.css";
 import useFileUpload from "../../hooks/use-file-upload";
 import { UploadScenarios } from "../../enum/file-uploader";
 
 export const ImageUploader = ({
   setImage,
+  uploadType
 }: {
   setImage: Dispatch<SetStateAction<string | null | undefined>>;
-  uploadType: string;
+  uploadType: UploadScenarios;
 }) => {
   const [uploading, setUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -16,12 +18,16 @@ export const ImageUploader = ({
   const hiddenFileInput: any = useRef(null);
   const { handleContentDataUpload } = useFileUpload();
 
+  const handleClick = () => {
+    hiddenFileInput.current.click();
+  };
+
   const handleChange = async (event: any) => {
     setUploading(true);
     const res = await handleContentDataUpload(
       event,
       imageUrl,
-      UploadScenarios.userProfile
+      uploadType
     );
     setTimeout(() => {
       setImageUrl(res!.url);
@@ -37,19 +43,21 @@ export const ImageUploader = ({
 
   return (
     <>
-      <br />
-
       <input
         ref={hiddenFileInput}
         accept="image/*"
         type="file"
+        style={{
+          display: "none",
+        }}
         onChange={handleChange}
       />
 
-      <br />
+      <DashboardMainButton loading={uploading} onClick={handleClick}>
+        Upload Banner
+      </DashboardMainButton>
 
-      <div className="overlay">
-        {uploading && <LinearProgress sx={{ mt: 2 }} />}
+      <div style={{ marginTop: 10 }}>
         {!uploading && (
           <> {isSuccess ? "Upload successfully" : "select a image"} </>
         )}

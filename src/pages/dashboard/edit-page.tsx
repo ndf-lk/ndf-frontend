@@ -18,6 +18,7 @@ import ReactEditor from "./components/react-editor";
 import { request } from "../../utils/request";
 import { useMutation } from "@tanstack/react-query";
 import { IRestApiResponse } from "../../interfaces/api-response";
+import { UploadScenarios } from "../../enum/file-uploader";
 
 export const EditPage = () => {
   const [body, setBody] = useState("");
@@ -25,7 +26,6 @@ export const EditPage = () => {
   const [bannerImage, setBannerImage] = useState<string | null | undefined>(
     null
   );
-  const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
   const [width, setWidth] = useState<number>(window.innerWidth);
   const { enqueueSnackbar } = useSnackbar();
 
@@ -41,20 +41,7 @@ export const EditPage = () => {
   }, []);
 
   const isMobile = width <= 768;
-
   const { language }: { language: string } = useContext(LanguageContext);
-
-  const style = {
-    position: "absolute" as "absolute",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
-    width: isMobile ? "90%" : "50%",
-    bgcolor: "background.paper",
-    boxShadow: 24,
-    borderRadius: 3,
-    p: 4,
-  };
 
   const createNewsMutation = useMutation(
     (newsData: {
@@ -90,17 +77,6 @@ export const EditPage = () => {
 
   return (
     <>
-      <Modal
-        open={openImageUploaderModal}
-        onClose={() => setOpenImageUplaoderModal(false)}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <ImageUploader setImage={setBannerImage} path={"news/upload"} />
-        </Box>
-      </Modal>
-
       <HomeSectionWrapper sx={{ background: "#EFEFEF", pb: 1 }}>
         <Container
           className="dashboard-container"
@@ -161,18 +137,9 @@ export const EditPage = () => {
               onChange={(e) => setNewsTitle(e.target.value)}
             />
 
-            <Button
-              sx={{ mt: 3 }}
-              onClick={() => setOpenImageUplaoderModal(true)}
-              variant="outlined"
-              style={{
-                width: isMobile ? "100%" : "15%",
-                height: 40,
-                fontSize: 15,
-              }}
-            >
-              Upload banner
-            </Button>
+            <Box sx={{ mt: 5, mb: 5 }}>
+              <ImageUploader setImage={setBannerImage} uploadType={UploadScenarios.articleCover} />
+            </Box>
 
             <Box
               sx={{ mt: 5 }}

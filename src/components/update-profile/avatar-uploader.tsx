@@ -62,11 +62,11 @@ export const AvatarUploader = ({
         onClick={handleClick}
       >
         <Avatar alt={alt} src={imageUrl} sx={sx} />
-        <div className="overlay">
+        <div className="profileImageUploaderOverlay">
           {uploading && (
             <LoadingButton sx={{ mx: "auto", mt: "13px" }} loading />
           )}
-          {!uploading && <EditIcon sx={{ color: "black", fontSize: "20px" }} />}
+          {!uploading && <EditIcon sx={{ color: "white", fontSize: "20px" }} />}
         </div>
       </IconButton>
     </Grid>
