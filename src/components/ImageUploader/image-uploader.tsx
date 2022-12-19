@@ -3,6 +3,9 @@ import "./style.css";
 import useFileUpload from "../../hooks/use-file-upload";
 import { UploadScenarios } from "../../enum/file-uploader";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { IconButton } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
+import CollectionsIcon from "@mui/icons-material/Collections";
 
 export const ImageUploader = ({
   setImage,
@@ -55,8 +58,9 @@ export const ImageUploader = ({
         onClick={handleClick}
         size="small"
         variant="outlined"
+        endIcon={<CollectionsIcon />}
       >
-        {buttonName ? buttonName : "Select Image"}
+        Select Image
       </LoadingButton>
 
       <div style={{ marginTop: 10 }}>

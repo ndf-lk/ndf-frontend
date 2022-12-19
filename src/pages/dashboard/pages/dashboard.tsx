@@ -79,7 +79,7 @@ export const DashboardPage = () => {
                   <Stack direction="row" spacing={2}>
                     <CreatePostButton variant="contained" size="small">
                       <Link
-                        to="/dashboard/create"
+                        to="/dashboard/news/create"
                         style={{ textDecoration: "none", color: "white" }}
                       >
                         New post
@@ -87,7 +87,12 @@ export const DashboardPage = () => {
                     </CreatePostButton>
 
                     <GalleryButton variant="contained" size="small">
-                      Upload to gallery
+                      <Link
+                        to="/dashboard/collections/create"
+                        style={{ textDecoration: "none", color: "white" }}
+                      >
+                        Upload to gallery
+                      </Link>
                     </GalleryButton>
                   </Stack>
                 </>
