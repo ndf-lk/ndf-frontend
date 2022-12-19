@@ -188,7 +188,7 @@ export const GalleryUploader = ({
         loading={createCollectionMutation.isLoading}
         onClick={() => createCollection()}
       >
-        Save
+        {isUpdate ? "Update Collection" : "Create Collection"}
       </DashboardMainButton>
     </>
   );
