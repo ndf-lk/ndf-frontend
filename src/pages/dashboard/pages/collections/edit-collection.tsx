@@ -1,8 +1,8 @@
 import { Container, Typography, CircularProgress } from "@mui/material";
 import { useParams } from "react-router";
-import HomeSectionWrapper from "../../components/HomeSectionWrapper";
-import useGalleryCollection from "../../hooks/gallery/useGalleryCollection";
-import { GalleryUploader } from "./components/gallery-uploader";
+import HomeSectionWrapper from "../../../../components/HomeSectionWrapper";
+import useGalleryCollection from "../../../../hooks/gallery/useGalleryCollection";
+import { GalleryUploader } from "../../components/gallery-uploader";
 
 export const EditCollectionsPage = () => {
   const { id } = useParams();

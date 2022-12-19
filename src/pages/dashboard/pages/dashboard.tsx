@@ -1,4 +1,4 @@
-import HomeSectionWrapper from "../../components/HomeSectionWrapper";
+import HomeSectionWrapper from "../../../components/HomeSectionWrapper";
 import {
   Container,
   Box,
@@ -8,11 +8,11 @@ import {
   ButtonProps,
   Stack,
 } from "@mui/material";
-import "../../styles/dashboard.css";
+import "../../../styles/dashboard.css";
 import { useEffect, useState } from "react";
-import { UpdateProfileForm } from "../../components/update-profile/UpdateProfileForm";
-import { decodeToken } from "../../utils/auth_token";
-import { useUserStore } from "../../store/createUserSlice";
+import { UpdateProfileForm } from "../../../components/update-profile/UpdateProfileForm";
+import { decodeToken } from "../../../utils/auth_token";
+import { useUserStore } from "../../../store/createUserSlice";
 import { Link } from "react-router-dom";
 
 const GalleryButton = styled(Button)<ButtonProps>(() => ({

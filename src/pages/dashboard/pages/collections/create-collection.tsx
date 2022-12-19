@@ -1,7 +1,7 @@
-import { GalleryUploader } from "./components/gallery-uploader";
+import { GalleryUploader } from "../../components/gallery-uploader";
 import { Container, Typography } from "@mui/material";
-import HomeSectionWrapper from "../../components/HomeSectionWrapper";
-import "../../styles/gallery.css";
+import HomeSectionWrapper from "../../../../components/HomeSectionWrapper";
+import "../../../../styles/gallery.css";
 
 export const GalleryCreatePage = () => {
   return (

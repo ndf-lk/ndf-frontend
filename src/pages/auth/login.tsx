@@ -8,15 +8,15 @@ import {
 } from "@mui/material";
 import { useSnackbar } from "notistack";
 import { Link } from "react-router-dom";
-import AuthSectionWrapper from "../components/AuthenticationWrapper";
+import AuthSectionWrapper from "../../components/AuthenticationWrapper";
 import { useContext, useState } from "react";
-import { AuthTokenContext } from "../context/AuthTokenContext";
-import AppConfig from "../config";
+import { AuthTokenContext } from "../../context/AuthTokenContext";
+import AppConfig from "../../config";
 import axios from "axios";
 import { LoadingButton, LoadingButtonProps } from "@mui/lab";
 import { useNavigate } from "react-router-dom";
-import { useUserStore } from "../store/createUserSlice";
-import { useTokenStore } from "../store/createAuthStore";
+import { useUserStore } from "../../store/createUserSlice";
+import { useTokenStore } from "../../store/createAuthStore";
 
 const ColorButton = styled(LoadingButton)<LoadingButtonProps>(() => ({
   color: "#FFFFFF",

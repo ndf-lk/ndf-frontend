@@ -10,11 +10,11 @@ import {
   styled,
 } from "@mui/material";
 import { Link } from "react-router-dom";
-import AuthSectionWrapper from "../components/AuthenticationWrapper";
+import AuthSectionWrapper from "../../components/AuthenticationWrapper";
 import { useState } from "react";
 import { useSnackbar } from "notistack";
 import axios, { AxiosResponse } from "axios";
-import AppConfig from "../config";
+import AppConfig from "../../config";
 
 const ColorButton = styled(Button)<ButtonProps>(() => ({
   color: "#FFFFFF",

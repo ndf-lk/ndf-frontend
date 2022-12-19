@@ -2,23 +2,13 @@ export interface INews {
   _id: string;
   title: string;
   bannerImage: string;
-  body: Body;
+  body: string;
   createdAt: Date;
   updatedAt: Date;
   __v: number;
 }
 
-export interface Body {
-  time: number;
-  blocks: Block[];
-  version: string;
-}
 
-export interface Block {
-  id: string;
-  type: string;
-  data?: Data;
-}
 
 export interface Data {
   text?: string;

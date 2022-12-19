@@ -1,9 +1,8 @@
-export { DashboardPage } from "./dashboard";
-export { UsersPage } from "./users";
-export { GalleryCreatePage } from "./create-gallery";
-export { EditPage } from "./edit-page";
-export { CollectionsPage } from "./view-collections";
-export { EditCollectionsPage } from "./edit-collection";
-export { ViewNewsPage } from "./view-news";
-export { CreateNewsPage } from "./create-news";
-export { EditNewsPage } from "./edit-news";
+export { DashboardPage } from "./pages/dashboard";
+export { UsersPage } from "./pages/users";
+export { GalleryCreatePage } from "./pages/collections/create-collection";
+export { CollectionsPage } from "./pages/collections/view-collections";
+export { EditCollectionsPage } from "./pages/collections/edit-collection";
+export { ViewNewsPage } from "./pages/news/view-news";
+export { CreateNewsPage } from "./pages/news/create-news";
+export { EditNewsPage } from "./pages/news/edit-news";

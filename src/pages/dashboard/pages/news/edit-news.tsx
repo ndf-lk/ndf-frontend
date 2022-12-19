@@ -1,7 +1,7 @@
 import { CircularProgress } from "@mui/material";
 import { useParams } from "react-router-dom";
-import useNewsDetails from "../../hooks/news/useNewsDetails";
-import { NewsEditor } from "./components/edit-news";
+import useNewsDetails from "../../../../hooks/news/useNewsDetails";
+import { NewsEditor } from "../../components/edit-news";
 
 export const EditNewsPage = () => {
   const { id } = useParams();

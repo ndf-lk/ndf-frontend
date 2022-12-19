@@ -1,7 +1,6 @@
 import {
   Stack,
   Button,
-  Avatar,
   Box,
   Container,
   LinearProgress,
@@ -13,12 +12,17 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import HomeSectionWrapper from "../../components/HomeSectionWrapper";
-import { useUsers } from "../../hooks/users/useUsers";
-import { IUser } from "../../types/user";
+import HomeSectionWrapper from "../../../../components/HomeSectionWrapper";
+import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
+import { Link } from "react-router-dom";
+import { useNews } from "../../../../hooks/news/useNews";
+import { useContext } from "react";
+import { LanguageContext } from "../../../../context/userLangctx";
+import { INews } from "../../../../types/news";
 
-export const UsersPage = () => {
-  const users = useUsers();
+export const ViewNewsPage = () => {
+  const { language } = useContext(LanguageContext);
+  const news = useNews(language, 100);
 
   return (
     <>
@@ -50,14 +54,18 @@ export const UsersPage = () => {
                 color: "#333333",
               }}
             >
-              Users
+              News
             </Typography>
 
             <Box>
               <Stack direction="row" spacing={2}>
-                <Button variant="contained" size="small">
-                  {" "}
-                  Add user{" "}
+                <Button
+                  variant="contained"
+                  size="small"
+                  component={Link}
+                  to={"/dashboard/news/create"}
+                >
+                  Create News
                 </Button>
               </Stack>
             </Box>
@@ -69,6 +77,8 @@ export const UsersPage = () => {
             }}
             sx={{ mt: 2, maxHeight: 800 }}
           >
+            {news.isLoading && <LinearProgress />}
+            {news.isRefetching && <LinearProgress />}
             <Table
               stickyHeader
               sx={{ minWidth: 650 }}
@@ -86,50 +96,10 @@ export const UsersPage = () => {
                         fontFamily: "Open Sans",
                       }}
                     >
-                      Avatar
+                      Title
                     </Typography>
                   </TableCell>
 
-                  <TableCell>
-                    <Typography
-                      sx={{ mt: 1 }}
-                      style={{
-                        fontWeight: 600,
-                        color: "#868585",
-                        fontSize: "16px",
-                        fontFamily: "Open Sans",
-                      }}
-                    >
-                      First name
-                    </Typography>
-                  </TableCell>
-
-                  <TableCell>
-                    <Typography
-                      sx={{ mt: 1 }}
-                      style={{
-                        fontWeight: 600,
-                        color: "#868585",
-                        fontSize: "16px",
-                        fontFamily: "Open Sans",
-                      }}
-                    >
-                      Last Name
-                    </Typography>
-                  </TableCell>
-                  <TableCell>
-                    <Typography
-                      sx={{ mt: 1 }}
-                      style={{
-                        fontWeight: 600,
-                        color: "#868585",
-                        fontSize: "16px",
-                        fontFamily: "Open Sans",
-                      }}
-                    >
-                      Email
-                    </Typography>
-                  </TableCell>
                   <TableCell align="right">
                     <Typography
                       sx={{ mt: 1 }}
@@ -139,22 +109,21 @@ export const UsersPage = () => {
                         fontSize: "16px",
                         fontFamily: "Open Sans",
                       }}
-                    >
-                      phone
-                    </Typography>
+                    ></Typography>
                   </TableCell>
                 </TableRow>
               </TableHead>
+
               <TableBody>
-                {users.isSuccess && (
+                {news.isSuccess && (
                   <>
-                    {users.data && (
+                    {news.data && (
                       <>
-                        {users?.data?.data?.map((user: IUser) => {
+                        {news?.data?.data?.map((news: INews) => {
                           return (
                             <>
                               <TableRow
-                                key={user?._id}
+                                key={news?._id}
                                 className="table_row"
                                 sx={{
                                   "&:last-child td, &:last-child th": {
@@ -173,51 +142,7 @@ export const UsersPage = () => {
                                     fontFamily: "Open Sans",
                                   }}
                                 >
-                                  <Avatar src={user?.profileImgUrl}></Avatar>
-                                </TableCell>
-
-                                <TableCell
-                                  component="th"
-                                  scope="row"
-                                  className="table-cell text"
-                                  style={{
-                                    fontWeight: 600,
-                                    color: "#333333",
-                                    fontSize: "16px",
-                                    fontFamily: "Open Sans",
-                                  }}
-                                >
-                                  {user?.firstName}
-                                </TableCell>
-
-                                <TableCell
-                                  component="th"
-                                  scope="row"
-                                  className="table-cell text"
-                                  style={{
-                                    fontWeight: 600,
-                                    color: "#333333",
-                                    fontSize: "16px",
-                                    fontFamily: "Open Sans",
-                                  }}
-                                >
-                                  {user?.lastName}
-                                </TableCell>
-
-                                <TableCell
-                                  component="th"
-                                  scope="row"
-                                  className="table-cell text"
-                                  style={{
-                                    fontWeight: 600,
-                                    color: "#333333",
-                                    fontSize: "16px",
-                                    fontFamily: "Open Sans",
-                                  }}
-                                >
-                                  <a href={`to:${user?.email}`}>
-                                    {user?.email}
-                                  </a>
+                                  {news.title}
                                 </TableCell>
 
                                 <TableCell
@@ -232,9 +157,14 @@ export const UsersPage = () => {
                                     fontFamily: "Open Sans",
                                   }}
                                 >
-                                  <a href={`tele:${user?.phone}`}>
-                                    {user?.phone}
-                                  </a>
+                                  <Button
+                                    variant="text"
+                                    component={Link}
+                                    to={`/dashboard/news/edit/${news._id}`}
+                                    endIcon={<ArrowRightAltIcon />}
+                                  >
+                                    Edit News
+                                  </Button>
                                 </TableCell>
                               </TableRow>
                             </>
@@ -246,9 +176,6 @@ export const UsersPage = () => {
                 )}
               </TableBody>
             </Table>
-
-            {users.isLoading && <LinearProgress />}
-            {users.isRefetching && <LinearProgress />}
           </TableContainer>
         </Container>
       </HomeSectionWrapper>

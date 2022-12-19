@@ -1,4 +1,4 @@
-import { NewsEditor } from "./components/edit-news";
+import { NewsEditor } from "../../components/edit-news";
 
 export const CreateNewsPage = () => {
   return (

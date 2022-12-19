@@ -1,16 +1,15 @@
-import { createBrowserRouter, Route, Link } from "react-router-dom";
+import { createBrowserRouter } from "react-router-dom";
 import MainLayout from "./layouts/MainLayout";
-import RegisterPage from "./pages/register";
+import RegisterPage from "./pages/auth/register";
 import HomePage from "./pages/home";
 import IndexPage from "./pages";
 import NewsPage from "./pages/news";
 import PostPage from "./pages/post";
 import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
-import { LoginPage } from "./pages/login";
+import { LoginPage } from "./pages/auth/login";
 import { LibraryPage } from "./pages/library";
 import {
-  EditPage,
   DashboardPage,
   UsersPage,
   GalleryCreatePage,
@@ -24,160 +23,152 @@ import { ContactPage } from "./pages/contact";
 
 export const router = createBrowserRouter([
   {
-    path: "/",
-    element: <IndexPage />,
-  },
-  {
-    path: "/home",
-    element: (
-      <MainLayout hideNewsBar={false}>
-        <ScrollToTop />
-        <HomePage />
-      </MainLayout>
-    ),
-  },
+    element: <ScrollToTop />,
+    children: [
+      {
+        path: "/",
+        element: <IndexPage />,
+      },
 
-  {
-    path: "/news",
-    element: (
-      <MainLayout hideNewsBar={false}>
-        <ScrollToTop />
-        <NewsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/home",
+        element: (
+          <MainLayout hideNewsBar={false}>
+            <HomePage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/contact",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <ScrollToTop />
-        <ContactPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/news",
+        element: (
+          <MainLayout hideNewsBar={false}>
+            <NewsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/post/:id",
-    element: (
-      <MainLayout hideNewsBar={false}>
-        <ScrollToTop />
-        <PostPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/contact",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <ContactPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/gallery",
-    element: (
-      <MainLayout hideNewsBar={false}>
-        <GalleryPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/post/:id",
+        element: (
+          <MainLayout hideNewsBar={false}>
+            <PostPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/create",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <EditPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/gallery",
+        element: (
+          <MainLayout hideNewsBar={false}>
+            <GalleryPage />
+          </MainLayout>
+        ),
+      },
+      {
+        path: "/dashboard",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <DashboardPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/users",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <UsersPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/users",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <UsersPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/news",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <ViewNewsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/news",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <ViewNewsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/news/edit/:id",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <EditNewsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/news/create",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <CreateNewsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/news/create",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <CreateNewsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/news/edit/:id",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <EditNewsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/collections/create",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <GalleryCreatePage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/collections",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <CollectionsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/collections/edit/:id",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <EditCollectionsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/collections/create",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <GalleryCreatePage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard/collections",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <CollectionsPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/dashboard/collections/edit/:id",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <EditCollectionsPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/dashboard",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <DashboardPage />
-      </MainLayout>
-    ),
-  },
+      {
+        path: "/login",
+        element: <LoginPage />,
+      },
 
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
+      {
+        path: "/register",
+        element: <RegisterPage />,
+      },
 
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
+      {
+        path: "/library",
+        element: (
+          <MainLayout hideNewsBar={true}>
+            <LibraryPage />
+          </MainLayout>
+        ),
+      },
 
-  {
-    path: "/library",
-    element: (
-      <MainLayout hideNewsBar={true}>
-        <LibraryPage />
-      </MainLayout>
-    ),
-  },
-
-  {
-    path: "/register",
-    element: <LoginPage />,
+      {
+        path: "/register",
+        element: <LoginPage />,
+      },
+    ],
   },
 ]);

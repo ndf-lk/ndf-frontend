@@ -12,10 +12,11 @@ import {
   TableRow,
   Typography,
 } from "@mui/material";
-import HomeSectionWrapper from "../../components/HomeSectionWrapper";
-import { useGallery } from "../../hooks/gallery/useGallery";
+import HomeSectionWrapper from "../../../../components/HomeSectionWrapper";
+import { useGallery } from "../../../../hooks/gallery/useGallery";
 import ArrowRightAltIcon from "@mui/icons-material/ArrowRightAlt";
 import { Link } from "react-router-dom";
+import { ICollection } from "../../../../types/collection";
 
 export const CollectionsPage = () => {
   const collections = useGallery();
@@ -129,7 +130,7 @@ export const CollectionsPage = () => {
                   <>
                     {collections.data && (
                       <>
-                        {collections?.data?.data?.map((collection) => {
+                        {collections?.data?.data?.map((collection: ICollection) => {
                           return (
                             <>
                               <TableRow
