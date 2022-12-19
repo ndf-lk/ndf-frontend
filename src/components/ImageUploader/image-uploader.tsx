@@ -7,9 +7,11 @@ import LoadingButton from "@mui/lab/LoadingButton";
 export const ImageUploader = ({
   setImage,
   uploadType,
+  buttonName,
 }: {
-  setImage: Dispatch<SetStateAction<string | null | undefined>>;
+  setImage: (img: string) => void;
   uploadType: UploadScenarios;
+  buttonName?: string;
 }) => {
   const [uploading, setUploading] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
@@ -54,7 +56,7 @@ export const ImageUploader = ({
         size="small"
         variant="outlined"
       >
-        Select Image
+        {buttonName ? buttonName : "Select Image"}
       </LoadingButton>
 
       <div style={{ marginTop: 10 }}>
