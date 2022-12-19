@@ -4,3 +4,6 @@ export { GalleryCreatePage } from "./create-gallery";
 export { EditPage } from "./edit-page";
 export { CollectionsPage } from "./view-collections";
 export { EditCollectionsPage } from "./edit-collection";
+export { ViewNewsPage } from "./view-news";
+export { CreateNewsPage } from "./create-news";
+export { EditNewsPage } from "./edit-news";

@@ -16,6 +16,9 @@ import {
   GalleryCreatePage,
   CollectionsPage,
   EditCollectionsPage,
+  ViewNewsPage,
+  CreateNewsPage,
+  EditNewsPage,
 } from "./pages/dashboard";
 import { ContactPage } from "./pages/contact";
 
@@ -87,6 +90,33 @@ export const router = createBrowserRouter([
     element: (
       <MainLayout hideNewsBar={true}>
         <UsersPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/news",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ViewNewsPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/news/edit/:id",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <EditNewsPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/news/create",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <CreateNewsPage />
       </MainLayout>
     ),
   },

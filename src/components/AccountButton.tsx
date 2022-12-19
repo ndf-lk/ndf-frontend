@@ -17,6 +17,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import EditIcon from "@mui/icons-material/Edit";
 import GroupIcon from "@mui/icons-material/Group";
 import CollectionsIcon from "@mui/icons-material/Collections";
+import NewspaperIcon from "@mui/icons-material/Newspaper";
 
 export function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
@@ -125,18 +126,18 @@ export function AccountMenu() {
                   Users
                 </MenuItem>
 
-                <MenuItem component={Link} to="/dashboard/create">
-                  <ListItemIcon>
-                    <EditIcon fontSize="small" />
-                  </ListItemIcon>
-                  Create post
-                </MenuItem>
-
                 <MenuItem component={Link} to="/dashboard/collections">
                   <ListItemIcon>
                     <CollectionsIcon fontSize="small" />
                   </ListItemIcon>
                   Collections
+                </MenuItem>
+
+                <MenuItem component={Link} to="/dashboard/news">
+                  <ListItemIcon>
+                    <NewspaperIcon fontSize="small" />
+                  </ListItemIcon>
+                  News
                 </MenuItem>
               </>
             ) : null}
