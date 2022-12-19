@@ -7,15 +7,20 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Divider from "@mui/material/Divider";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
-import DashboardIcon from "@mui/icons-material/Dashboard";
 import Logout from "@mui/icons-material/Logout";
 import { Link } from "react-router-dom";
 import { useUserStore } from "../store/createUserSlice";
 import { clearAuthToken } from "../helpers/token";
+import { decodeToken } from "../utils/auth_token";
+
+import DashboardIcon from "@mui/icons-material/Dashboard";
+import EditIcon from "@mui/icons-material/Edit";
+import GroupIcon from "@mui/icons-material/Group";
 
 export function AccountMenu() {
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const { user, setUser } = useUserStore();
+  const [isAdmin, setIsAdmin] = React.useState(false);
 
   const open = Boolean(anchorEl);
 
@@ -31,6 +36,13 @@ export function AccountMenu() {
     setUser(null);
     clearAuthToken();
   };
+
+  React.useEffect(() => {
+    const tokenpayload = decodeToken();
+    if (tokenpayload?.["cognito:groups"].includes("admin")) {
+      setIsAdmin(true);
+    }
+  }, []);
 
   return (
     <React.Fragment>
@@ -102,6 +114,24 @@ export function AccountMenu() {
               </ListItemIcon>
               Ndf Dashboard
             </MenuItem>
+
+            {isAdmin ? (
+              <>
+                <MenuItem component={Link} to="/dashboard/users">
+                  <ListItemIcon>
+                    <GroupIcon fontSize="small" />
+                  </ListItemIcon>
+                  Users
+                </MenuItem>
+
+                <MenuItem component={Link} to="/dashboard/create">
+                  <ListItemIcon>
+                    <EditIcon fontSize="small" />
+                  </ListItemIcon>
+                  Create post
+                </MenuItem>
+              </>
+            ) : null}
 
             <MenuItem onClick={() => logoutUser()}>
               <ListItemIcon>

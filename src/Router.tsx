@@ -9,7 +9,7 @@ import GalleryPage from "./pages/gallery";
 import ScrollToTop from "./utils/scrollTop";
 import { LoginPage } from "./pages/login";
 import { LibraryPage } from "./pages/library";
-import { EditPage, DashboardPage } from "./pages/dashboard";
+import { EditPage, DashboardPage, UsersPage } from "./pages/dashboard";
 import { ContactPage } from "./pages/contact";
 
 export const router = createBrowserRouter([
@@ -71,6 +71,15 @@ export const router = createBrowserRouter([
     element: (
       <MainLayout hideNewsBar={true}>
         <EditPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/users",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <UsersPage />
       </MainLayout>
     ),
   },
