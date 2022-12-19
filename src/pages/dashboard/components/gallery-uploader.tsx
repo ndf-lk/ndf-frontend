@@ -15,6 +15,7 @@ import { ImageUploader } from "../../../components/ImageUploader/image-uploader"
 import { UploadScenarios } from "../../../enum/file-uploader";
 import { useMutation } from "@tanstack/react-query";
 import { request } from "../../../utils/request";
+import { queryClient } from "../../../utils/query_client";
 import { IRestApiResponse } from "../../../interfaces/api-response";
 import { useSnackbar } from "notistack";
 
@@ -74,6 +75,7 @@ export const GalleryUploader = ({
         enqueueSnackbar("Collection created successfully", {
           variant: "success",
         });
+        queryClient.invalidateQueries(["gallery"]);
       },
     }
   );

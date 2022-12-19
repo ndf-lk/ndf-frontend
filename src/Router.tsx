@@ -23,152 +23,161 @@ import { ContactPage } from "./pages/contact";
 
 export const router = createBrowserRouter([
   {
-    element: <ScrollToTop />,
-    children: [
-      {
-        path: "/",
-        element: <IndexPage />,
-      },
+    path: "/",
+    element: <IndexPage />,
+  },
 
-      {
-        path: "/home",
-        element: (
-          <MainLayout hideNewsBar={false}>
-            <HomePage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/home",
+    element: (
+      <MainLayout hideNewsBar={false}>
+        <ScrollToTop />
+        <HomePage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/news",
-        element: (
-          <MainLayout hideNewsBar={false}>
-            <NewsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/news",
+    element: (
+      <MainLayout hideNewsBar={false}>
+        <ScrollToTop />
+        <NewsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/contact",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <ContactPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/contact",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <ContactPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/post/:id",
-        element: (
-          <MainLayout hideNewsBar={false}>
-            <PostPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/post/:id",
+    element: (
+      <MainLayout hideNewsBar={false}>
+        <ScrollToTop />
+        <PostPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/gallery",
-        element: (
-          <MainLayout hideNewsBar={false}>
-            <GalleryPage />
-          </MainLayout>
-        ),
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <DashboardPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/gallery",
+    element: (
+      <MainLayout hideNewsBar={false}>
+        <ScrollToTop />
+        <GalleryPage />
+      </MainLayout>
+    ),
+  },
+  {
+    path: "/dashboard",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <DashboardPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/users",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <UsersPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/users",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <UsersPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/news",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <ViewNewsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/news",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <ViewNewsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/news/create",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <CreateNewsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/news/create",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <CreateNewsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/news/edit/:id",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <EditNewsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/news/edit/:id",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <EditNewsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/collections",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <CollectionsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/collections",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <CollectionsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/collections/create",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <GalleryCreatePage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/collections/create",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <GalleryCreatePage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/dashboard/collections/edit/:id",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <EditCollectionsPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/dashboard/collections/edit/:id",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <EditCollectionsPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/login",
-        element: <LoginPage />,
-      },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
 
-      {
-        path: "/register",
-        element: <RegisterPage />,
-      },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
 
-      {
-        path: "/library",
-        element: (
-          <MainLayout hideNewsBar={true}>
-            <LibraryPage />
-          </MainLayout>
-        ),
-      },
+  {
+    path: "/library",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />,
+        <LibraryPage />
+      </MainLayout>
+    ),
+  },
 
-      {
-        path: "/register",
-        element: <LoginPage />,
-      },
-    ],
+  {
+    path: "/register",
+    element: <LoginPage />,
   },
 ]);

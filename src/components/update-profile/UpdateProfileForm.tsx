@@ -126,7 +126,10 @@ export const UpdateProfileForm = (props: { currentUser: IUser }) => {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ImageUploader setImage={setProfileImage} path={"users/upload"} />
+          <ImageUploader
+            setImage={setProfileImage}
+            uploadType={UploadScenarios.userProfile}
+          />
         </Box>
       </Modal>
 

@@ -9,6 +9,7 @@ import { useSnackbar } from "notistack";
 import { ImageUploader } from "../../../components/ImageUploader/image-uploader";
 import ReactEditor from "./../components/react-editor";
 import { request } from "../../../utils/request";
+import { queryClient } from "../../../utils/query_client";
 import { useMutation } from "@tanstack/react-query";
 import { IRestApiResponse } from "../../../interfaces/api-response";
 import { UploadScenarios } from "../../../enum/file-uploader";
@@ -58,6 +59,7 @@ export const NewsEditor = ({
           }`,
           { variant: "success" }
         );
+        queryClient.invalidateQueries(["news"]);
       },
     }
   );

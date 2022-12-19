@@ -14,7 +14,6 @@ import { clearAuthToken } from "../helpers/token";
 import { decodeToken } from "../utils/auth_token";
 
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import EditIcon from "@mui/icons-material/Edit";
 import GroupIcon from "@mui/icons-material/Group";
 import CollectionsIcon from "@mui/icons-material/Collections";
 import NewspaperIcon from "@mui/icons-material/Newspaper";
@@ -62,11 +61,7 @@ export function AccountMenu() {
                 aria-haspopup="true"
                 aria-expanded={open ? "true" : undefined}
               >
-                <Avatar
-                  sx={{ width: 56, height: 56 }}
-                  src={user.profileImgUrl}
-                  alt={user.firstName}
-                />
+                <Avatar src={user.profileImgUrl} alt={user.firstName} />
               </IconButton>
             </Tooltip>
           </Box>
@@ -107,7 +102,7 @@ export function AccountMenu() {
           >
             <MenuItem>
               <Avatar src={user?.profileImgUrl} alt={user?.firstName} />
-              {"  My account"}
+              {"My account"}
             </MenuItem>
             <Divider />
             <MenuItem component={Link} to="/dashboard">

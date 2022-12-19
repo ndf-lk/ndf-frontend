@@ -1,17 +1,8 @@
 import styled from "@emotion/styled";
-import {
-  Paper,
-  Typography,
-  Button,
-  Box,
-  TextField,
-  CircularProgress,
-} from "@mui/material";
+import { Paper, Typography, Button, Box, TextField } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Link } from "react-router-dom";
-import { useSnackbar } from "notistack";
-import { useMe } from "../hooks/me/useMe";
 import { useUserStore } from "../store/createUserSlice";
 import { useNavigate } from "react-router-dom";
 import { setAuthToken, setRefreshToken } from "../helpers/token";
