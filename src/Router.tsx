@@ -15,6 +15,7 @@ import {
   GalleryCreatePage,
   CollectionsPage,
   EditCollectionsPage,
+  UpdateBanenrPage,
   ViewNewsPage,
   CreateNewsPage,
   EditNewsPage,
@@ -152,6 +153,16 @@ export const router = createBrowserRouter([
       <MainLayout hideNewsBar={true}>
         <ScrollToTop />
         <EditCollectionsPage />
+      </MainLayout>
+    ),
+  },
+
+  {
+    path: "/dashboard/banners/update",
+    element: (
+      <MainLayout hideNewsBar={true}>
+        <ScrollToTop />
+        <UpdateBanenrPage />
       </MainLayout>
     ),
   },
