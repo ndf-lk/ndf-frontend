@@ -1,17 +1,18 @@
-import httpConfig from "../../utils/request";
+import { request } from "../../utils/request";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchData = async (category: string, query?: string | null) => {
-  let url = `meta/library/${category}?limit=100`;
-
-  if (query) {
-    url = url + `&keyword=${query}`;
-  }
-
-  const response = await httpConfig.get(url);
-  return response.data;
-};
+import API from "./constraints";
 
 export function useBooks(category: string, query?: string | null) {
-  return useQuery(["books", category], () => fetchData(category, query));
+  return useQuery(["books", category], () =>
+    request(
+      {
+        path: `${API.LIST_BOOKS_CATEGORY.path}${category}?limit=100${
+          query ? `&keyword=${query}` : ""
+        }`,
+        method: API.LIST_BOOKS_CATEGORY.method,
+      },
+      null,
+      true
+    )
+  );
 }

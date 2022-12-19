@@ -1,22 +1,12 @@
 import styled from "@emotion/styled";
-import {
-  Paper,
-  Typography,
-  Button,
-  Box,
-  TextField,
-  CircularProgress,
-} from "@mui/material";
+import { Paper, Typography, Button, Box, TextField } from "@mui/material";
 import { useContext, useState, useEffect } from "react";
 import LoadingButton from "@mui/lab/LoadingButton";
 import { Link } from "react-router-dom";
-import AppConfig from "../config";
-import axios from "axios";
-import { useSnackbar } from "notistack";
-import { AuthTokenContext } from "../context/AuthTokenContext";
-import { useMe } from "../hooks/me/useMe";
-import { useTokenStore } from "../store/createAuthStore";
 import { useUserStore } from "../store/createUserSlice";
+import { useNavigate } from "react-router-dom";
+import { setAuthToken, setRefreshToken } from "../helpers/token";
+import { request } from "../utils/request";
 
 const CssTextField = styled(TextField)({
   color: "white",
@@ -53,48 +43,37 @@ const CssTextField = styled(TextField)({
 });
 
 export const JoinNDF = () => {
-  const { enqueueSnackbar } = useSnackbar();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-
-  const { setAccessToken } = useTokenStore();
   const { setUser, user } = useUserStore();
-
-  const currentUser = useMe();
+  const navigate = useNavigate();
 
   const signIn = async () => {
-    setIsLoading(true);
-    const config = {
-      method: "post",
-      url: `${AppConfig.BACKEND_API}auth/sign-in`,
-      headers: {
-        "Content-Type": "application/json",
+    const res = await request(
+      {
+        path: `auth/sign-in`,
+        method: "POST",
       },
-      data: {
+      {
         name: email,
         password: password,
       },
-    };
+      true
+    );
 
-    await axios(config)
-      .then(function (response) {
-        setAccessToken(response.data?.data?.idToken?.jwtToken);
-        setUser(response?.data?.data?.idToken?.payload);
+    setAuthToken(res.data.idToken.jwtToken);
+    setRefreshToken(res.data.refreshToken.token);
 
-        enqueueSnackbar("Login success", { variant: "success" });
-        window.location.reload;
-      })
-      .catch(function (error) {
-        if (error.response.data.message) {
-          enqueueSnackbar(error.response.data.message, { variant: "error" });
-        } else {
-          enqueueSnackbar(error.message, { variant: "error" });
-        }
-      });
+    const resUser = await request(
+      {
+        path: "users/me",
+        method: "GET",
+      },
+      null,
+      true
+    );
 
-    setIsLoading(false);
+    setUser(resUser.data);
   };
 
   return (
@@ -116,58 +95,51 @@ export const JoinNDF = () => {
             width="auto"
           />
         </center>
-        {user && Object.keys(user).length > 0 ? (
+        {user ? (
           <>
-            {currentUser.isLoading ? (
-              <Box sx={{ p: 20, alignItems: "center", textAlign: "center" }}>
-                <CircularProgress />
-              </Box>
-            ) : (
-              <>
-                {currentUser.isSuccess && currentUser.data && (
-                  <>
-                    <Typography
-                      variant={"h5"}
-                      textAlign="center"
-                      sx={{ color: "white", mt: 5 }}
-                    >
-                      Welcome Back {currentUser.data?.data?.firstName}
-                    </Typography>
+            <>
+              {user && (
+                <>
+                  <Typography
+                    variant={"h5"}
+                    textAlign="center"
+                    sx={{ color: "white", mt: 5 }}
+                  >
+                    Welcome Back {user.firstName}
+                  </Typography>
 
-                    <CssTextField
-                      label="first Name"
-                      value={currentUser.data?.firstName}
-                      fullWidth
-                      sx={{ mt: 5 }}
-                    />
+                  <CssTextField
+                    label="first Name"
+                    value={user.firstName}
+                    fullWidth
+                    sx={{ mt: 5 }}
+                  />
 
-                    <CssTextField
-                      label="last Name"
-                      value={currentUser.data?.lastName}
-                      fullWidth
-                      sx={{ mt: 5 }}
-                    />
+                  <CssTextField
+                    label="last Name"
+                    value={user.lastName}
+                    fullWidth
+                    sx={{ mt: 5 }}
+                  />
 
-                    <CssTextField
-                      label="Address"
-                      value={currentUser.data?.lastName}
-                      fullWidth
-                      sx={{ mt: 5 }}
-                    />
+                  <CssTextField
+                    label="Address"
+                    value={user.lastName}
+                    fullWidth
+                    sx={{ mt: 5 }}
+                  />
 
-                    <LoadingButton
-                      fullWidth
-                      sx={{ mt: 8, mb: 2 }}
-                      variant="contained"
-                      onClick={() => signIn()}
-                      loading={isLoading}
-                    >
-                      Edit details
-                    </LoadingButton>
-                  </>
-                )}
-              </>
-            )}
+                  <LoadingButton
+                    fullWidth
+                    sx={{ mt: 8, mb: 2 }}
+                    variant="contained"
+                    onClick={() => navigate("/dashboard")}
+                  >
+                    Edit details
+                  </LoadingButton>
+                </>
+              )}
+            </>
           </>
         ) : (
           <>
@@ -208,7 +180,6 @@ export const JoinNDF = () => {
                 sx={{ mt: 8, mb: 2 }}
                 variant="contained"
                 onClick={() => signIn()}
-                loading={isLoading}
               >
                 Sign-In
               </LoadingButton>

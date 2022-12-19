@@ -1,12 +1,5 @@
-import {
-  Container,
-  Grid,
-  Skeleton,
-  Typography,
-  TypographyProps,
-} from "@mui/material";
+import { Box, Container, Grid, Skeleton, Typography } from "@mui/material";
 import { useParams } from "react-router-dom";
-import Output from "editorjs-react-renderer";
 import useNewsDetails from "../hooks/news/useNewsDetails";
 
 const PostPage = () => {
@@ -43,7 +36,13 @@ const PostPage = () => {
                 </Container>
               </section>
 
-              <Output data={newsDetails.data.data.body} />
+              <Box sx={{ mt: 5 }}>
+                <div
+                  dangerouslySetInnerHTML={{
+                    __html: newsDetails.data.data.body,
+                  }}
+                />
+              </Box>
             </>
           )}
         </section>

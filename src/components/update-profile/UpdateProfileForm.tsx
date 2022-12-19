@@ -10,26 +10,29 @@ import {
 } from "@mui/material";
 import { InputLabel } from "../InuptLabel";
 import { IUser } from "../../types/user";
-import { useMutation, UseQueryResult } from "@tanstack/react-query";
-import { AxiosError } from "axios";
 import { useSnackbar } from "notistack";
-import httpConfig from "../../utils/request";
 import { useState, useEffect } from "react";
 import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import { ImageUploader } from "../ImageUploader/image-uploader";
-import { useMe } from "../../hooks/me/useMe";
-import { queryClient } from "../../utils/query_client";
+import { request } from "../../utils/request";
+import { useMutation } from "@tanstack/react-query";
+import { useUserStore } from "../../store/createUserSlice";
+import { AvatarUploader } from "./avatar-uploader";
+import { UploadScenarios } from "../../enum/file-uploader";
 
-export const UpdateProfileForm = (props: {
-  currentUser: UseQueryResult<{ data: IUser }, unknown>;
-}) => {
+export const UpdateProfileForm = (props: { currentUser: IUser }) => {
   const { enqueueSnackbar } = useSnackbar();
   const [width, setWidth] = useState<number>(window.innerWidth);
   const [openImageUploaderModal, setOpenImageUplaoderModal] = useState(false);
-  const currentUser = useMe();
+  const { setUser } = useUserStore();
+
   const [profileImage, setProfileImage] = useState<string | null | undefined>(
-    props.currentUser.data?.data?.profileImgUrl!
+    props.currentUser.profileImgUrl
   );
+
+  const handleProfileImg = (res: any) => {
+    setProfileImage(res.url);
+  };
 
   function handleWindowSizeChange() {
     setWidth(window.innerWidth);
@@ -55,34 +58,22 @@ export const UpdateProfileForm = (props: {
       seat: string | undefined;
       profileImgUrl: string | undefined | null;
     }) =>
-      httpConfig({
-        method: "post",
-        url: "users/update",
-        data: JSON.stringify(userData),
-      }),
+      request(
+        {
+          path: "users/update",
+          method: "POST",
+        },
+        userData,
+        true
+      ),
     {
       onSuccess: (response) => {
-        console.log(response);
+        setUser(response.data);
         enqueueSnackbar("Profile updated successfully", { variant: "success" });
-        queryClient.invalidateQueries(["current-user"]);
       },
 
-      onError: (error: AxiosError) => {
-        const errorMessages: any = error?.response?.data;
-
-        if (!errorMessages) {
-          enqueueSnackbar(error.message, { variant: "error" });
-          return;
-        }
-
-        if (!Array.isArray(errorMessages.message)) {
-          enqueueSnackbar(errorMessages.message, { variant: "error" });
-          return;
-        }
-
-        for (const message of errorMessages?.message) {
-          enqueueSnackbar(message, { variant: "error" });
-        }
+      onError: (error) => {
+        console.log(error);
       },
       onMutate: () => {},
     }
@@ -90,13 +81,13 @@ export const UpdateProfileForm = (props: {
 
   const formik = useFormik({
     initialValues: {
-      firstName: props.currentUser.data?.data?.firstName,
-      lastName: props.currentUser.data?.data?.lastName,
-      address: props.currentUser.data?.data?.address,
-      district: props.currentUser.data?.data?.district,
-      position: props.currentUser.data?.data?.position,
-      birthDay: props.currentUser.data?.data?.birthDay,
-      seat: props.currentUser.data?.data?.seat,
+      firstName: props.currentUser.firstName,
+      lastName: props.currentUser.lastName,
+      address: props.currentUser.address,
+      district: props.currentUser.district,
+      position: props.currentUser.position,
+      birthDay: props.currentUser.birthDay,
+      seat: props.currentUser.seat,
     },
     onSubmit: (values: {
       firstName: string | undefined;
@@ -135,7 +126,10 @@ export const UpdateProfileForm = (props: {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <ImageUploader setImage={setProfileImage} path={"users/upload"} />
+          <ImageUploader
+            setImage={setProfileImage}
+            uploadType={UploadScenarios.userProfile}
+          />
         </Box>
       </Modal>
 
@@ -159,13 +153,12 @@ export const UpdateProfileForm = (props: {
           Your Profile
         </Typography>
 
-        <Avatar
+        <AvatarUploader
+          handleFile={handleProfileImg}
           sx={{ width: 56, height: 56 }}
-          onClick={() => setOpenImageUplaoderModal(true)}
-          src={profileImage!}
-          style={{
-            cursor: "pointer",
-          }}
+          currentImageUrl={props.currentUser.profileImgUrl}
+          scenario={UploadScenarios.userProfile}
+          alt={props.currentUser.firstName}
         />
       </Stack>
 

@@ -1,8 +1,6 @@
-import { styled } from "@mui/material/styles";
 import {
   Container,
   Skeleton,
-  TextField,
   Box,
   Grid,
   Typography,
@@ -11,6 +9,7 @@ import {
   AccordionDetails,
   Divider,
   Stack,
+  CircularProgress,
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
@@ -23,6 +22,9 @@ import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
 import { JoinNDF } from "../components/Join";
 import { Timeline } from "react-twitter-widgets";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
+import { useHomeBanner } from "../hooks/banner/useHomeBanner";
 
 declare global {
   namespace JSX {
@@ -39,6 +41,7 @@ const HomePage = () => {
   const { language } = useContext(LanguageContext);
   const content = getData(language);
   const news = useNews(language, 6);
+  const bannerImages = useHomeBanner();
 
   return (
     <>
@@ -50,15 +53,26 @@ const HomePage = () => {
             <Grid item xs={12} md={8}>
               <Box display="flex" alignItems="flex-start" gap={4} mb={5}>
                 <Box>
-                  <Box
-                    component="img"
-                    alt="test"
-                    src="/header.png"
-                    maxWidth="100%"
-                    sx={{
-                      borderRadius: 1,
-                    }}
-                  />
+                  {bannerImages.isLoading && <CircularProgress />}
+                  {bannerImages.isSuccess && bannerImages.data && (
+                    <>
+                      <Carousel
+                        showThumbs={false}
+                        transitionTime={500}
+                        interval={2000}
+                        swipeScrollTolerance={5}
+                        showStatus={false}
+                      >
+                        {bannerImages.data.data.banners.map((image: string) => {
+                          return (
+                            <div>
+                              <img src={image} />
+                            </div>
+                          );
+                        })}
+                      </Carousel>
+                    </>
+                  )}
                   <Typography variant={"h2"} textAlign="left" sx={{ mt: 5 }}>
                     {content.seconary.title}
                   </Typography>

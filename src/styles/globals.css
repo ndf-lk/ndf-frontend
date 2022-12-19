@@ -99,3 +99,10 @@ div.sticky {
 #custom-css-outlined-input {
   color: "white" !important;
 }
+
+.profileImageUploaderOverlay {
+  position: absolute;
+  width: 100%;
+  height: 50px;
+  bottom: -15px;
+}

@@ -1,68 +1,73 @@
-import { Dispatch, SetStateAction, useState } from "react";
-import { Box, Button, LinearProgress } from "@mui/material";
-import httpConfig from "../../utils/request";
-import { DashboardMainButton } from "../Buttons/DashboardMainButton";
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
 import "./style.css";
+import useFileUpload from "../../hooks/use-file-upload";
+import { UploadScenarios } from "../../enum/file-uploader";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { IconButton } from "@mui/material";
+import { PhotoCamera } from "@mui/icons-material";
+import CollectionsIcon from "@mui/icons-material/Collections";
 
-export const ImageUploader = (props: {
-  setImage: Dispatch<SetStateAction<string | null | undefined>>;
-  path: string;
+export const ImageUploader = ({
+  setImage,
+  uploadType,
+  buttonName,
+}: {
+  setImage: (img: string) => void;
+  uploadType: UploadScenarios;
+  buttonName?: string;
 }) => {
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [uploading, setUploading] = useState(false);
+  const [isSuccess, setIsSuccess] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
+  const hiddenFileInput: any = useRef(null);
+  const { handleContentDataUpload } = useFileUpload();
 
-  const handleSubmit = async (event: any) => {
-    setIsLoading(true);
-    event.preventDefault();
-
-    const data = new FormData();
-    data.append("file", selectedFile!);
-
-    await httpConfig({
-      method: "post",
-      url: props.path,
-      data: data,
-    })
-      .then(function (response) {
-        props.setImage(response.data?.data);
-        console.log(JSON.stringify(response.data));
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
-
-    setIsLoading(false);
+  const handleClick = () => {
+    hiddenFileInput.current.click();
   };
 
-  const handleFileSelect = (event: any) => {
-    setSelectedFile(event.target.files[0]);
+  const handleChange = async (event: any) => {
+    setUploading(true);
+    const res = await handleContentDataUpload(event, imageUrl, uploadType);
+    setTimeout(() => {
+      setImageUrl(res!.url);
+      setImage(res!.url);
+      setUploading(false);
+      setIsSuccess(true);
+    }, 3000);
   };
+
+  useEffect(() => {
+    setImageUrl(imageUrl);
+  }, [imageUrl]);
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
-        <br />
+      <input
+        ref={hiddenFileInput}
+        accept="image/*"
+        type="file"
+        style={{
+          display: "none",
+        }}
+        onChange={handleChange}
+      />
 
-        <input
-          type="file"
-          style={{ width: "100%" }}
-          onChange={handleFileSelect}
-          className="formbold-browse"
-        />
+      <LoadingButton
+        loading={uploading}
+        onClick={handleClick}
+        size="small"
+        variant="outlined"
+        endIcon={<CollectionsIcon />}
+      >
+        Select Image
+      </LoadingButton>
 
-        <br />
-
-        {isLoading && <LinearProgress sx={{ mt: 2 }} />}
-
-        <DashboardMainButton
-          type="submit"
-          sx={{ mt: 10 }}
-          loading={isLoading}
-          style={{ height: 35, fontSize: 15 }}
-        >
-          Upload File
-        </DashboardMainButton>
-      </form>
+      <div style={{ marginTop: 10 }}>
+        {!uploading && (
+          <> {isSuccess ? "Upload successfully" : "select a image"} </>
+        )}
+      </div>
     </>
   );
 };

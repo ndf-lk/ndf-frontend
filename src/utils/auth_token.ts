@@ -1,36 +1,29 @@
 import jwt_decode from "jwt-decode";
+import { getAuthToken } from "../helpers/token";
 import { JwtPayload } from "../types/jwt-payload.interface";
 
-export const getAuthStorage = () => {
-  let values = JSON.parse(localStorage.getItem("auth-storage")!)?.state
-    ?.accessToken;
-  return values;
-};
-
 export const isValidToken = () => {
-  let values = getAuthStorage();
+  let values = getAuthToken();
 
   if (!values) return false;
 
   try {
     const decoded_token: JwtPayload = jwt_decode(values);
+
     if (!decoded_token) {
-      localStorage.setItem("auth", "");
       return false;
     }
 
-    // token expred - refresh
     if (decoded_token.exp * 1000 < Date.now()) return false;
     return true;
   } catch (error) {
-    localStorage.setItem("auth", "");
     console.log(error);
     return false;
   }
 };
 
 export const decodeToken = () => {
-  let values = getAuthStorage();
+  let values = getAuthToken();
 
   if (!values) return null;
 
@@ -41,7 +34,6 @@ export const decodeToken = () => {
       return null;
     }
 
-    // token expred - refresh
     if (decoded_token.exp * 1000 < Date.now()) return null;
 
     return decoded_token;

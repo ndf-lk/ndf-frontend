@@ -1,28 +1,21 @@
-import HomeSectionWrapper from "../components/HomeSectionWrapper";
+import HomeSectionWrapper from "../../../components/HomeSectionWrapper";
 import {
   Container,
   Box,
   Typography,
-  TextField,
-  Grid,
   styled,
   Button,
   ButtonProps,
   Stack,
-  CircularProgress,
-  Avatar,
 } from "@mui/material";
-import "../styles/dashboard.css";
-import { InputLabel } from "../components/InuptLabel";
-import { useMe } from "../hooks/me/useMe";
+import "../../../styles/dashboard.css";
 import { useEffect, useState } from "react";
-import { useSnackbar } from "notistack";
-import { UpdateProfileForm } from "../components/update-profile/UpdateProfileForm";
-import { decodeToken } from "../utils/auth_token";
-import { Create } from "@mui/icons-material";
+import { UpdateProfileForm } from "../../../components/update-profile/UpdateProfileForm";
+import { decodeToken } from "../../../utils/auth_token";
+import { useUserStore } from "../../../store/createUserSlice";
 import { Link } from "react-router-dom";
 
-const GalleryButton = styled(Button)<ButtonProps>(({ theme }) => ({
+const GalleryButton = styled(Button)<ButtonProps>(() => ({
   color: "white",
   backgroundColor: "#6E00FF",
   "&:hover": {
@@ -30,7 +23,7 @@ const GalleryButton = styled(Button)<ButtonProps>(({ theme }) => ({
   },
 }));
 
-const CreatePostButton = styled(Button)<ButtonProps>(({ theme }) => ({
+const CreatePostButton = styled(Button)<ButtonProps>(() => ({
   color: "white",
   backgroundColor: "#FF7A49",
   "&:hover": {
@@ -39,31 +32,15 @@ const CreatePostButton = styled(Button)<ButtonProps>(({ theme }) => ({
 }));
 
 export const DashboardPage = () => {
-  const currentUser: any = useMe();
-  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+  const { user } = useUserStore();
   const [isAdmin, setIsAdmin] = useState(false);
 
   useEffect(() => {
     const tokenpayload = decodeToken();
-    console.log(tokenpayload);
     if (tokenpayload?.["cognito:groups"].includes("admin")) {
       setIsAdmin(true);
     }
   }, []);
-
-  useEffect(() => {
-    // @todo
-    // handle error better here with types
-    if (currentUser.isError) {
-      if (currentUser.error.response.data.message) {
-        enqueueSnackbar(currentUser.error.response.data.message, {
-          variant: "error",
-        });
-      } else {
-        enqueueSnackbar(currentUser.error.message, { variant: "error" });
-      }
-    }
-  }, [currentUser]);
 
   return (
     <>
@@ -100,17 +77,22 @@ export const DashboardPage = () => {
               {isAdmin ? (
                 <>
                   <Stack direction="row" spacing={2}>
-                    <CreatePostButton
-                      variant="contained"
-                      size="small"
-                      LinkComponent={"a"}
-                      href="/dashboard/create"
-                    >
-                      New post
+                    <CreatePostButton variant="contained" size="small">
+                      <Link
+                        to="/dashboard/news/create"
+                        style={{ textDecoration: "none", color: "white" }}
+                      >
+                        New post
+                      </Link>
                     </CreatePostButton>
 
                     <GalleryButton variant="contained" size="small">
-                      Upload to gallery
+                      <Link
+                        to="/dashboard/collections/create"
+                        style={{ textDecoration: "none", color: "white" }}
+                      >
+                        Upload to gallery
+                      </Link>
                     </GalleryButton>
                   </Stack>
                 </>
@@ -118,8 +100,7 @@ export const DashboardPage = () => {
             </Box>
           </Stack>
 
-          {currentUser.isLoading && <CircularProgress />}
-          {currentUser.data && <UpdateProfileForm currentUser={currentUser} />}
+          {user ? <UpdateProfileForm currentUser={user} /> : <>please login</>}
         </Container>
       </HomeSectionWrapper>
     </>

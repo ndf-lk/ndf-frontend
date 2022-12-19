@@ -1,11 +1,16 @@
-import httpConfig from "../../utils/request";
+import { request } from "../../utils/request";
 import { useQuery } from "@tanstack/react-query";
-
-const fetchData = (id: string) =>
-  httpConfig
-    .get(`meta/gallery/details/${id}`)
-    .then((response) => response.data);
+import API from "./constraints";
 
 export default function useGalleryCollection(id: string) {
-  return useQuery(["gallery", id], () => fetchData(id));
+  return useQuery(["gallery", id], () =>
+    request(
+      {
+        path: `${API.VIEW_GALLERY_COLLECTION.path}/${id}`,
+        method: API.VIEW_GALLERY_COLLECTION.method,
+      },
+      null,
+      true
+    )
+  );
 }
