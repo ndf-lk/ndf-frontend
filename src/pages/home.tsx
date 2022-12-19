@@ -23,6 +23,8 @@ import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
 import { JoinNDF } from "../components/Join";
 import { Timeline } from "react-twitter-widgets";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
+import { Carousel } from "react-responsive-carousel";
 
 declare global {
   namespace JSX {
@@ -50,15 +52,23 @@ const HomePage = () => {
             <Grid item xs={12} md={8}>
               <Box display="flex" alignItems="flex-start" gap={4} mb={5}>
                 <Box>
-                  <Box
-                    component="img"
-                    alt="test"
-                    src="/header.png"
-                    maxWidth="100%"
-                    sx={{
-                      borderRadius: 1,
-                    }}
-                  />
+                  <Carousel
+                    showThumbs={false}
+                    transitionTime={500}
+                    interval={2000}
+                    swipeScrollTolerance={5}
+                    showStatus={false}
+                  >
+                    <div>
+                      <img src="/header.png" />
+                    </div>
+                    <div>
+                      <img src="/header.png" />
+                    </div>
+                    <div>
+                      <img src="/header.png" />
+                    </div>
+                  </Carousel>
                   <Typography variant={"h2"} textAlign="left" sx={{ mt: 5 }}>
                     {content.seconary.title}
                   </Typography>
