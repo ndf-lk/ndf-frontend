@@ -68,8 +68,8 @@ const refreshToken = async () => {
     `${ENVIRONMENT.BACKEND_API}/auth/refresh-token`,
     {
       body: JSON.stringify({
-        token: getRefreshToken(),
-        email: (jwt_decode(getAuthToken() as string) as any).username,
+        refreshToken: getRefreshToken(),
+        name: (jwt_decode(getAuthToken() as string) as any).email,
       }),
       method: "POST",
       mode: "cors",

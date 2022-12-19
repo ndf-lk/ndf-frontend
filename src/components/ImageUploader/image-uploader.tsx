@@ -1,13 +1,12 @@
 import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react";
-import { LinearProgress } from "@mui/material";
-import { DashboardMainButton } from "../Buttons/DashboardMainButton";
 import "./style.css";
 import useFileUpload from "../../hooks/use-file-upload";
 import { UploadScenarios } from "../../enum/file-uploader";
+import LoadingButton from "@mui/lab/LoadingButton";
 
 export const ImageUploader = ({
   setImage,
-  uploadType
+  uploadType,
 }: {
   setImage: Dispatch<SetStateAction<string | null | undefined>>;
   uploadType: UploadScenarios;
@@ -24,11 +23,7 @@ export const ImageUploader = ({
 
   const handleChange = async (event: any) => {
     setUploading(true);
-    const res = await handleContentDataUpload(
-      event,
-      imageUrl,
-      uploadType
-    );
+    const res = await handleContentDataUpload(event, imageUrl, uploadType);
     setTimeout(() => {
       setImageUrl(res!.url);
       setImage(res!.url);
@@ -53,9 +48,14 @@ export const ImageUploader = ({
         onChange={handleChange}
       />
 
-      <DashboardMainButton loading={uploading} onClick={handleClick}>
-        Upload Banner
-      </DashboardMainButton>
+      <LoadingButton
+        loading={uploading}
+        onClick={handleClick}
+        size="small"
+        variant="outlined"
+      >
+        Select Image
+      </LoadingButton>
 
       <div style={{ marginTop: 10 }}>
         {!uploading && (

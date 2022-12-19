@@ -138,7 +138,10 @@ export const EditPage = () => {
             />
 
             <Box sx={{ mt: 5, mb: 5 }}>
-              <ImageUploader setImage={setBannerImage} uploadType={UploadScenarios.articleCover} />
+              <ImageUploader
+                setImage={setBannerImage}
+                uploadType={UploadScenarios.articleCover}
+              />
             </Box>
 
             <Box
