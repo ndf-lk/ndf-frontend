@@ -62,13 +62,6 @@ const GalleryPage = () => {
     };
   }
 
-  const handleOpen = (id: string) => {
-    setSelectedAlbum(id);
-    setCollectionId(id);
-    a11yProps(1);
-    // setOpen(true);
-  };
-
   const handleClose = () => setOpen(false);
 
   const gallery = useGallery();
@@ -77,8 +70,17 @@ const GalleryPage = () => {
 
   const [value, setValue] = React.useState(0);
 
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
+  const handleChange = (
+    _event: React.SyntheticEvent | null,
+    newValue: number
+  ) => {
     setValue(newValue);
+  };
+
+  const handleOpen = (id: string) => {
+    setSelectedAlbum(id);
+    setCollectionId(id);
+    handleChange(null, 1);
   };
 
   return (

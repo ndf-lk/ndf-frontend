@@ -1,4 +1,11 @@
-import { Container, Typography, Box, TextField } from "@mui/material";
+import {
+  Container,
+  Typography,
+  Box,
+  TextField,
+  Stack,
+  Button,
+} from "@mui/material";
 import HomeSectionWrapper from "../../../components/HomeSectionWrapper";
 import { InputLabel } from "../../../components/InuptLabel";
 import { DashboardMainButton } from "../../../components/Buttons/DashboardMainButton";
@@ -13,6 +20,8 @@ import { queryClient } from "../../../utils/query_client";
 import { useMutation } from "@tanstack/react-query";
 import { IRestApiResponse } from "../../../interfaces/api-response";
 import { UploadScenarios } from "../../../enum/file-uploader";
+import DeleteIcon from "@mui/icons-material/Delete";
+import { useNavigate } from "react-router-dom";
 
 export const NewsEditor = ({
   newsBody,
@@ -34,6 +43,7 @@ export const NewsEditor = ({
   );
   const { enqueueSnackbar } = useSnackbar();
   const { language }: { language: string } = useContext(LanguageContext);
+  const navigate = useNavigate();
 
   const createNewsMutation = useMutation(
     (newsData: {
@@ -63,6 +73,24 @@ export const NewsEditor = ({
       },
     }
   );
+  const deleteNewsMutation = useMutation(
+    (newsId: string) =>
+      request(
+        {
+          path: `news/${newsId}`,
+          method: "DELETE",
+        },
+        {},
+        true
+      ),
+    {
+      onSuccess: (response: IRestApiResponse) => {
+        console.log(response);
+        enqueueSnackbar("Post deleted successfully", { variant: "success" });
+        queryClient.invalidateQueries(["news"]);
+      },
+    }
+  );
 
   const postNews = () => {
     createNewsMutation.mutate({
@@ -71,6 +99,11 @@ export const NewsEditor = ({
       lang: language,
       body: body,
     });
+  };
+
+  const deleteNews = async () => {
+    await deleteNewsMutation.mutateAsync(id!);
+    navigate("/dashboard/news");
   };
 
   return (
@@ -99,18 +132,42 @@ export const NewsEditor = ({
             </>
           )}
 
-          <Typography
-            variant={"h2"}
-            style={{
-              fontSize: "28px",
-              fontFamily: "Open Sans",
-              fontStyle: "normal",
-              fontWeight: 600,
-              color: "#333333",
-            }}
+          <Stack
+            direction="row"
+            justifyContent="space-between"
+            alignItems="center"
+            spacing={2}
+            sx={{ mb: 10 }}
           >
-            {isUpdate ? `Update news ${newsTitle}` : "Create new post"}
-          </Typography>
+            <Typography
+              variant={"h2"}
+              style={{
+                fontSize: "28px",
+                fontFamily: "Open Sans",
+                fontStyle: "normal",
+                fontWeight: 600,
+                color: "#333333",
+              }}
+            >
+              {isUpdate ? `Update news ${newsTitle}` : "Create new post"}
+            </Typography>
+
+            <Box>
+              <Stack direction="row" spacing={2}>
+                {isUpdate ? (
+                  <Button
+                    variant="text"
+                    size="small"
+                    startIcon={<DeleteIcon />}
+                    color="error"
+                    onClick={() => deleteNews()}
+                  >
+                    Delete News
+                  </Button>
+                ) : null}
+              </Stack>
+            </Box>
+          </Stack>
 
           <Typography
             variant={"body1"}
