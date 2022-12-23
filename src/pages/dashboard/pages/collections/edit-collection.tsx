@@ -2,7 +2,6 @@ import {
   Container,
   Box,
   Stack,
-  Button,
   Typography,
   CircularProgress,
 } from "@mui/material";
@@ -10,6 +9,7 @@ import { useParams } from "react-router";
 import HomeSectionWrapper from "../../../../components/HomeSectionWrapper";
 import useGalleryCollection from "../../../../hooks/gallery/useGalleryCollection";
 import { GalleryUploader } from "../../components/gallery-uploader";
+import { LoadingButton } from "@mui/lab";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
@@ -25,7 +25,7 @@ export const EditCollectionsPage = () => {
   const { enqueueSnackbar } = useSnackbar();
   const navigate = useNavigate();
 
-  const deleteNewsMutation = useMutation(
+  const deleteCollectionMutation = useMutation(
     (collectionId: string) =>
       request(
         {
@@ -47,7 +47,7 @@ export const EditCollectionsPage = () => {
   );
 
   const deleteCollection = async (id: string) => {
-    await deleteNewsMutation.mutateAsync(id);
+    await deleteCollectionMutation.mutateAsync(id);
     navigate("/dashboard/collections");
   };
 
@@ -86,15 +86,16 @@ export const EditCollectionsPage = () => {
 
             <Box>
               <Stack direction="row" spacing={2}>
-                <Button
+                <LoadingButton
                   variant="text"
                   size="small"
                   startIcon={<DeleteIcon />}
                   color="error"
                   onClick={() => deleteCollection(collection?.data?.data?._id)}
+                  loading={deleteCollectionMutation.isLoading}
                 >
                   Delete Collection
-                </Button>
+                </LoadingButton>
               </Stack>
             </Box>
           </Stack>
