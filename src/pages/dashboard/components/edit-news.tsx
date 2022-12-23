@@ -1,11 +1,4 @@
-import {
-  Container,
-  Typography,
-  Box,
-  TextField,
-  Stack,
-  Button,
-} from "@mui/material";
+import { Container, Typography, Box, TextField, Stack } from "@mui/material";
 import HomeSectionWrapper from "../../../components/HomeSectionWrapper";
 import { InputLabel } from "../../../components/InuptLabel";
 import { DashboardMainButton } from "../../../components/Buttons/DashboardMainButton";
@@ -22,6 +15,7 @@ import { IRestApiResponse } from "../../../interfaces/api-response";
 import { UploadScenarios } from "../../../enum/file-uploader";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { useNavigate } from "react-router-dom";
+import { LoadingButton } from "@mui/lab";
 
 export const NewsEditor = ({
   newsBody,
@@ -88,6 +82,7 @@ export const NewsEditor = ({
         console.log(response);
         enqueueSnackbar("Post deleted successfully", { variant: "success" });
         queryClient.invalidateQueries(["news"]);
+        navigate("/dashboard/news");
       },
     }
   );
@@ -155,15 +150,16 @@ export const NewsEditor = ({
             <Box>
               <Stack direction="row" spacing={2}>
                 {isUpdate ? (
-                  <Button
+                  <LoadingButton
                     variant="text"
                     size="small"
                     startIcon={<DeleteIcon />}
                     color="error"
                     onClick={() => deleteNews()}
+                    loading={deleteNewsMutation.isLoading}
                   >
                     Delete News
-                  </Button>
+                  </LoadingButton>
                 ) : null}
               </Stack>
             </Box>

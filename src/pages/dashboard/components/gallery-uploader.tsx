@@ -18,6 +18,7 @@ import { request } from "../../../utils/request";
 import { queryClient } from "../../../utils/query_client";
 import { IRestApiResponse } from "../../../interfaces/api-response";
 import { useSnackbar } from "notistack";
+import { useNavigate } from "react-router-dom";
 
 interface IGalleryImage {
   img: string;
@@ -41,6 +42,8 @@ export const GalleryUploader = ({
   const [title, setTitle] = useState<string>(collectionTitle);
   const [description, setDescription] = useState<string>(collectionDescription);
   const { enqueueSnackbar } = useSnackbar();
+
+  const navigate = useNavigate();
 
   const addNewImage = (img: string) => {
     setImages((images) => [...images, { img: img }]);
@@ -76,6 +79,7 @@ export const GalleryUploader = ({
           variant: "success",
         });
         queryClient.invalidateQueries(["gallery"]);
+        navigate("/dashboard/collections");
       },
     }
   );
