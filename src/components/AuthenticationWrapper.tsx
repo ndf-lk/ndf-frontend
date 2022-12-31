@@ -18,37 +18,43 @@ export const AuthSectionWrapper = React.forwardRef(
             height={{ xs: 200, sm: 200, md: "100vh" }}
             sx={{
               width: "100%",
-              background:
-                "linear-gradient(90deg, #821824 -4.86%, #D8532E 104.34%)",
             }}
           >
-            <Stack
-              direction="column"
-              justifyContent="center"
-              alignItems="center"
-              style={{ height: "95%" }}
+            <Box
+              sx={{
+                background:
+                  "linear-gradient(90deg, #821824 -4.86%, #D8532E 104.34%)",
+                height: "100%",
+              }}
             >
-              <Box component="a" display="block">
-                <Box
-                  component="img"
-                  alt="test"
-                  src="/logo.png"
-                  height={{ xs: 45, sm: 50, md: 100, display: "block" }}
-                  width="auto"
-                />
-              </Box>
+              <Stack
+                direction="column"
+                justifyContent="center"
+                alignItems="center"
+                style={{ height: "95%" }}
+              >
+                <Box component="a" display="block">
+                  <Box
+                    component="img"
+                    alt="test"
+                    src="/logo.png"
+                    height={{ xs: 45, sm: 50, md: 100, display: "block" }}
+                    width="auto"
+                  />
+                </Box>
 
-              <Box component="a" display="block">
-                <Box
-                  component="img"
-                  alt="test"
-                  src="/logo-desc.png"
-                  height={{ xs: 50, sm: 50, md: 100, display: "block" }}
-                  sx={{ mt: 5 }}
-                  width="auto"
-                />
-              </Box>
-            </Stack>
+                <Box component="a" display="block">
+                  <Box
+                    component="img"
+                    alt="test"
+                    src="/logo-desc.png"
+                    height={{ xs: 50, sm: 50, md: 100, display: "block" }}
+                    sx={{ mt: 5 }}
+                    width="auto"
+                  />
+                </Box>
+              </Stack>
+            </Box>
           </Box>
         </Grid>
 

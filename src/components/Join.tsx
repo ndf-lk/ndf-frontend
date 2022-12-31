@@ -108,25 +108,14 @@ export const JoinNDF = () => {
                     Welcome Back {user.firstName}
                   </Typography>
 
-                  <CssTextField
-                    label="first Name"
-                    value={user.firstName}
-                    fullWidth
-                    sx={{ mt: 5 }}
-                  />
-
-                  <CssTextField
-                    label="last Name"
-                    value={user.lastName}
-                    fullWidth
-                    sx={{ mt: 5 }}
-                  />
-
-                  <CssTextField
-                    label="Address"
-                    value={user.lastName}
-                    fullWidth
-                    sx={{ mt: 5 }}
+                  <img
+                    src="https://d344fx8ol6gzj3.cloudfront.net/uploads/3e201b20-47e2-47ac-9182-16a441db02fd.jpg"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      marginTop: "10%",
+                      borderRadius: 3,
+                    }}
                   />
 
                   <LoadingButton
@@ -135,7 +124,7 @@ export const JoinNDF = () => {
                     variant="contained"
                     onClick={() => navigate("/dashboard")}
                   >
-                    Edit details
+                    Edit Profile
                   </LoadingButton>
                 </>
               )}

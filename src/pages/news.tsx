@@ -37,7 +37,7 @@ const NewsPage = () => {
                   padding: "20px 10px",
                   height: "400px",
                 }}
-                className="header overlay"
+                className="header overlay shadow_overlay"
               >
                 <Container>
                   {isSmall ? (
