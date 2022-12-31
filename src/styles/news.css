@@ -1,7 +1,6 @@
 .header {
   padding: 20px 10px;
   height: 400px;
-  box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 49%);
   background-size: cover !important;
   background-repeat: no-repeat;
 }
@@ -17,4 +16,8 @@
     text-align: left;
     height: 200px;
   }
+}
+
+.shadow_overlay {
+  box-shadow: inset 0 0 0 2000px rgb(0 0 0 / 49%);
 }

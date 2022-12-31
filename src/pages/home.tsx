@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { HeroPage } from "../components/Hero";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { LanguageContext } from "../context/userLangctx";
 import { getData } from "../data/content";
 import { NewsCard } from "../components/NewsCard";
@@ -22,9 +22,9 @@ import { useNews } from "../hooks/news/useNews";
 import { INews } from "../types/news";
 import { JoinNDF } from "../components/Join";
 import { Timeline } from "react-twitter-widgets";
-import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from "react-responsive-carousel";
 import { useHomeBanner } from "../hooks/banner/useHomeBanner";
+import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 
 declare global {
   namespace JSX {
@@ -38,10 +38,34 @@ declare global {
 }
 
 const HomePage = () => {
+  const [ytVideo, setYtVideo] = useState("");
   const { language } = useContext(LanguageContext);
   const content = getData(language);
   const news = useNews(language, 6);
   const bannerImages = useHomeBanner();
+
+  useEffect(() => {
+    const channelId = "UCPT8ds2Qu7LyETEoLBzoaNg";
+
+    fetch(
+      "https://api.rss2json.com/v1/api.json?rss_url=" +
+        encodeURIComponent(
+          `https://www.youtube.com/feeds/videos.xml?channel_id=${channelId}`
+        )
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const guid = data.items[0].guid;
+        const embedURL = `https://youtube.com/embed/${guid.replace(
+          "yt:video:",
+          ""
+        )}`;
+
+        console.log(data);
+        setYtVideo(embedURL);
+      })
+      .catch(console.error);
+  }, []);
 
   return (
     <>
@@ -58,9 +82,12 @@ const HomePage = () => {
                     <>
                       <Carousel
                         showThumbs={false}
-                        transitionTime={500}
+                        transitionTime={1000}
                         interval={2000}
                         swipeScrollTolerance={5}
+                        infiniteLoop={true}
+                        autoPlay={true}
+                        swipeable={true}
                         showStatus={false}
                       >
                         {bannerImages.data.data.banners.map((image: string) => {
@@ -93,7 +120,7 @@ const HomePage = () => {
                   <iframe
                     width="100%"
                     height="200c"
-                    src="https://www.youtube.com/embed/w40uOSkebxc"
+                    src={ytVideo}
                     title="YouTube video player"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
@@ -208,12 +235,7 @@ const HomePage = () => {
             }}
           />
 
-          <iframe
-            src="https://www.instagram.com/nationaldemocraticfront.lk"
-            width="100%"
-            height={400}
-            frameBorder={0}
-          />
+          <iframe src={ytVideo} width="100%" height={400} frameBorder={0} />
         </Stack>
       </Container>
     </>
