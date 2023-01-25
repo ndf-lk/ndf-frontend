@@ -109,7 +109,7 @@ export const JoinNDF = () => {
                   </Typography>
 
                   <img
-                    src="https://d344fx8ol6gzj3.cloudfront.net/uploads/3e201b20-47e2-47ac-9182-16a441db02fd.jpg"
+                    src="/other/lamp.jpg"
                     style={{
                       width: "100%",
                       height: "100%",
